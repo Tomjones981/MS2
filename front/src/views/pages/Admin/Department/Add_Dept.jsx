@@ -1,16 +1,22 @@
 import React, { useState, forwardRef, useEffect } from "react";
 import axiosClient from "../../../../api/axiosClient";
+import {  message } from 'antd';
+import { Modal } from "flowbite-react";
 import { Slide } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import { BeatLoader } from 'react-spinners' 
 import { AiOutlineEye, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
+import { AiOutlineCloseCircle  } from 'react-icons/ai';
+import { AiOutlineCheckCircle } from 'react-icons/ai';
+
 const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 const Add_Dept = () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false); 
+    const [openModalDisabled, setOpenModalDisabled] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const [snackbarSeverity, setSnackbarSeverity] = useState("success");
     const [departments, setDepartments] = useState([]);
@@ -49,23 +55,23 @@ const Add_Dept = () => {
                     department_name: departmentName, 
                 });
 
-                setSnackbarMessage(response.data.message);
+                message.success(response.data.message);
             } else {
                 const response = await axiosClient.post('/create_department', {
                     department_name: departmentName, 
                 });
-                setSnackbarMessage(response.data.message);
+                message.success(response.data.message);
             }
-            setSnackbarSeverity("success");
+            // setSnackbarSeverity("success");
             fetchDepartments();
             resetForm();
         } catch (error) {
             if (error.response && error.response.status === 409) {
-                setSnackbarMessage("This department name already exists!");
-                setSnackbarSeverity("error");
+                message.error("This department name already exists!");
+                // setSnackbarSeverity("error");
             } else {
-                setSnackbarMessage("An error occurred. Please try again.");
-                setSnackbarSeverity("error");
+                message.error("An error occurred. Please try again.");
+                // setSnackbarSeverity("error");
             }
         } finally {
             setLoading(false);
@@ -73,23 +79,62 @@ const Add_Dept = () => {
         }
     };
 
-    const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this department?")) {
+    // const handleDelete = async (id) => {
+    //     if (window.confirm("Are you sure you want to delete this department?")) {
+    //         try {
+    //             const response = await axiosClient.delete(`/delete_department/${id}`);
+    //             setSnackbarMessage(response.data.message);
+    //             setSnackbarSeverity("success");
+    //             fetchDepartments();
+    //         } catch (error) {
+    //             console.error("Error deleting department:", error.response?.data || error.message);
+    //             setSnackbarMessage("An error occurred while deleting the department.");
+    //             setSnackbarSeverity("error");
+    //         } finally {
+    //             setOpen(true);
+    //         }
+    //     }
+    // };
+
+    const handleDisable = async(id) => {
+        if (window.confirm("Are you sure you want to disable this department?")) {
             try {
-                const response = await axiosClient.delete(`/delete_department/${id}`);
-                setSnackbarMessage(response.data.message);
-                setSnackbarSeverity("success");
-                fetchDepartments();
+                setLoading(true);
+                const response = await axiosClient.put(`/disable_department/${id}`);
+                message.success(response.data.message);
+                // setSnackbarSeverity("success");
+                fetchDepartments();  
             } catch (error) {
-                console.error("Error deleting department:", error.response?.data || error.message);
-                setSnackbarMessage("An error occurred while deleting the department.");
-                setSnackbarSeverity("error");
+                console.error("Error disabling department:", error.response?.data || error.message);
+                message.error("An error occurred while disabling the department.");
+                // setSnackbarSeverity("error");
             } finally {
                 setOpen(true);
+                setLoading(false);
             }
         }
-    };
+    }
 
+    const handleEnable = async(id) => {
+        if (window.confirm("Are you sure you want to enable this department?")) {
+            try {
+                setLoading(true);
+                const response = await axiosClient.put(`/enable_department/${id}`);
+                message.success(response.data.message);
+                // setSnackbarSeverity("success");
+                fetchDepartments();  
+            } catch (error) {
+                console.error("Error enabling department:", error.response?.data || error.message);
+                message.error("An error occurred while enabling the department.");
+                // setSnackbarSeverity("error");
+            } finally {
+                setOpen(true);
+                setLoading(false);
+            }
+        }
+    }
+    
+    
     const resetForm = () => {
         setDepartmentName('');
         setHeadName('');
@@ -109,7 +154,11 @@ const Add_Dept = () => {
         setOpen(false);
     };
     const filteredDepartments = departments.filter(department => 
-        department.department_name.toLowerCase().includes(searchQuery.toLowerCase())
+        department.department_name.toLowerCase().includes(searchQuery.toLowerCase()) && department.condition === 'enable'
+    );
+
+    const filteredDepartmentsDisabled = departments.filter(department => 
+        department.department_name.toLowerCase().includes(searchQuery.toLowerCase()) && department.condition === 'disable'
     );
     function TransitionLeft(props) {
         return <Slide {...props} direction="left" />;
@@ -146,17 +195,24 @@ const Add_Dept = () => {
                     </div>
                 </form>
 
-                <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical, horizontal }} TransitionComponent={TransitionLeft}>
+                {/* <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical, horizontal }} TransitionComponent={TransitionLeft}>
                     <Alert onClose={handleClose} severity={snackbarSeverity} sx={{ width: "100%" }}>
                         {snackbarMessage}
                     </Alert>
-                </Snackbar>
+                </Snackbar> */}
             </div>
 
             <div className="col-span-7 mt-4 w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <h1 className="uppercase mb-5 font-semibold text-xl dark:text-white">Manage Department</h1>
-                <hr className="-ml-6 -mt-2 my-2 mb-5 border-t border-gray-300 dark:border-gray-600" style={{ width: "107%" }} />
+                
 
+               <div className="flex flex-col items-start -mt-4 ">
+                    <div className="flex w-full justify-between items-center">
+                        <h1 className="uppercase   font-semibold text-xl dark:text-white mt-2">Manage Department</h1>
+                        <button onClick={() => setOpenModalDisabled(true)} type="button" className="mt-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" > <AiOutlineCloseCircle   size={24} /> </button>
+                    </div>
+                    <hr className="-ml-6   my-2 mb-5 border-t border-gray-300 dark:border-gray-600" style={{ width: "107%" }} />
+                </div>
+                
                 <div className="flex justify-center items-center">
                     <div className="m-3 w-full">
                         <div className="flex items-center justify-between mb-4 ">
@@ -205,9 +261,15 @@ const Add_Dept = () => {
                                                         <button onClick={() => handleEdit(department)} className="bg-gradient-to-br from-gray-600 to-blue-900 hover:bg-gradient-to-bl text-white font-bold py-1 px-2 rounded">
                                                             <AiOutlineEdit size={24} />
                                                         </button>
-                                                        <button onClick={() => handleDelete(department.id)} className="bg-gradient-to-br from-gray-600 to-red-400 hover:bg-gradient-to-bl text-white font-bold py-1 px-2 rounded ml-2">
+                                                        {/* <button onClick={() => handleDelete(department.id)} className="bg-gradient-to-br from-gray-600 to-red-400 hover:bg-gradient-to-bl text-white font-bold py-1 px-2 rounded ml-2">
                                                             <AiOutlineDelete size={24} />
-                                                        </button>
+                                                        </button> */}
+                                                        {department.condition === 'enable' && (
+                                                            <button onClick={() => handleDisable(department.id)} className="bg-gradient-to-br from-gray-600 to-red-400 hover:bg-gradient-to-bl text-white font-bold py-1 px-2 rounded ml-2">
+                                                                <AiOutlineCloseCircle   size={24} />
+                                                            </button>
+                                                        )}
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -223,6 +285,63 @@ const Add_Dept = () => {
                     </div>
                 </div> 
             </div>
+            <Modal show={openModalDisabled} size="xl" onClose={() => setOpenModalDisabled(false)} popup>
+                <Modal.Header>
+                <div className="m-5">
+                    <h1 className="uppercase mb-5 font-semibold text-xl dark:text-white">Disabled Departments</h1>
+                    {/* <hr className="-ml-5 -mt-2 my-2 mb-5 border-t border-gray-300 dark:border-gray-600" style={{ width: "128%" }} /> */}
+                </div>
+                </Modal.Header>
+                
+                
+                <Modal.Body>
+                <div className="overflow-x-auto shadow-md sm:rounded-lg">
+                            <div className="max-h-[20rem] overflow-y-auto">  
+                            <table className=" table-auto w-full text-left text-sm text-gray-500 dark:text-gray-400">
+                                    <thead className="sticky top-0 text-xs text-gray-200 uppercase bg-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                                        <tr>
+                                            <th scope="col" className="px-6 py-3">ID</th>
+                                            <th scope="col" className="flex justify-center items-center px-6 py-3">Department Name</th> 
+                                            <th scope="col" className="px-6 py-3">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="">
+                                    {loading ? (
+                                        <tr>
+                                            <td colSpan="7" className="text-center p-4">
+                                            <div className="flex justify-center items-center">
+                                                <BeatLoader loading={loading} color="#0000FF" />
+                                            </div>
+                                            </td>
+                                        </tr>
+                                        ) : (
+                                            filteredDepartmentsDisabled.map((department) => (
+                                            <tr key={department.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <td className="px-6 py-4">{department.id}</td>
+                                                <td className="flex justify-center items-center px-6 py-4">{department.department_name}</td> 
+                                                <td className="px-6 py-4">
+                                                    <div className="flex space-x-2">  
+                                                        {department.condition === 'disable' && (
+                                                            <button onClick={() => handleEnable(department.id)} className="bg-gradient-to-br from-green-600 to-green-400 hover:bg-gradient-to-bl text-white font-bold py-1 px-2 rounded ml-2">
+                                                                <AiOutlineCheckCircle   size={24} />
+                                                            </button>
+                                                        )}
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                         ))
+                                        )}
+                                    </tbody>
+                                </table>
+                                {filteredDepartmentsDisabled.length === 0 && (
+                            <p className="mt-4 text-center text-gray-500 dark:text-gray-300">No departments found.</p>
+                            )}
+                            </div>
+                        </div>
+                </Modal.Body>
+            </Modal>
+             
 
         </div>
     );

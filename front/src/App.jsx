@@ -48,6 +48,15 @@ import Gagu from "./views/pages/Payroll/History_Info/History_Payroll/Gagu";
 import History_Part_Time from "./views/pages/Payroll/History_Info/History_Payroll/History_Part_Time";
 import History_Program_Heads from "./views/pages/Payroll/History_Info/History_Payroll/History_Program_Heads";
 import History_PT_Regular from "./views/pages/Payroll/History_Info/History_Payroll/History_PT_Regular";
+import Full_Time_Adjustment from "./views/pages/Admin/Adjustment/Full_Time_Adjustment";
+import Part_Time_Adjustment from "./views/pages/Admin/Adjustment/Part_Time_Adjustment";
+import PT_Regular_Adjustment from "./views/pages/Admin/Adjustment/PT_Regular_Adjustment";
+import Program_Heads_Adjustments from "./views/pages/Admin/Adjustment/Program_Heads_Adjustments";
+import Full_Time_History from "./views/pages/Admin/History/Full_Time_History";
+import Try from "./views/pages/Admin/History/Try";
+import Part_Time_History from "./views/pages/Admin/History/Part_Time_History";
+import PT_Regular_History from "./views/pages/Admin/History/PT_Regular_History";
+import Program_Heads_History from "./views/pages/Admin/History/Program_Heads_History";
 function App() {
   const { user, token } = useStateContext();
 
@@ -104,6 +113,22 @@ function App() {
                 <Route path="/admin/part/time/regular" element={<PT_Regular_Calculations />} />
                 <Route path="/admin/program/heads" element={<Program_Heads_Calculations />} />
                 <Route path="/admin/extra/load" element={<Extra_Load_Computations />} />
+
+                {/* payroll infoooooooo */} 
+                <Route path='/admin/adjustment/full/time' element={<Full_Time_Adjustment />} />
+                <Route path='/admin/adjustment/part/time' element={<Part_Time_Adjustment />} />
+                <Route path='/admin/adjustment/parttime/regular' element={<PT_Regular_Adjustment />} />
+                <Route path='/admin/adjustment/program/heads' element={<Program_Heads_Adjustments />} />
+
+                {/* history ni info */}
+                <Route path='/admin/history/full/time' element={<Full_Time_History />} />
+                <Route path='/admin/history/part/time' element={<Part_Time_History />} />
+                <Route path='/admin/history/part/time/regular' element={<PT_Regular_History />} />
+                <Route path='/admin/history/program/heads' element={<Program_Heads_History />} />
+
+
+                {/* try rani oi */}
+                <Route path='/admin/try' element={<Try />} />
               </>
             )}
             {user.user_type === 'payroll' && (

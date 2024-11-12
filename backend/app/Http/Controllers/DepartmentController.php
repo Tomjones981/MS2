@@ -11,6 +11,7 @@ class DepartmentController extends Controller
     {
         $request->validate([
             'department_name' => 'required|string|max:255',
+            'condition' => 'enable',
         ]);
 
         $existingDepartment = Department::where('department_name', $request->input('department_name'))->first();
@@ -35,9 +36,37 @@ class DepartmentController extends Controller
         $departments = Department::all();
         return response()->json($departments, 200);
     }
+    public function disableDepartment($id){
+        try{
+            $department = Department::findOrFail($id);
+            if($department->condition === 'disable'){
+                return response()->json(['message'=>'Department is already disabled'], 400);
+            }
+            $department->condition = 'disable';
+            $department->save();
+
+            return response()->json(['message'=>'Department disabled successfully'], 200);
+        } catch(\Exception $e) {
+            return response()->json(['message' =>'Department not found'], 404);
+        }
+    }
+    public function enableDepartment($id){
+        try{
+            $department = Department::findOrFail($id);
+            if($department->condition === 'enable'){
+                return response()->json(['message'=>'Department is already enabled'], 400);
+            }
+            $department->condition = 'enable';
+            $department->save();
+
+            return response()->json(['message'=>'Department enabled successfully'], 200);
+        } catch(\Exception $e) {
+            return response()->json(['message' =>'Department not found'], 404);
+        }
+    }
     public function getDepartments()
     {
-        $departments = Department::all();
+        $departments = Department::where('condition', 'enable')->get();
         return response()->json($departments);
     }
     public function update(Request $request, $id)
@@ -100,6 +129,7 @@ class DepartmentController extends Controller
                     ->where('department_head.faculty_type', '=', 'department_head');
             })
             ->leftJoin('faculty', 'department.id', '=', 'faculty.department_id')
+            ->where('department.condition', 'enable')
             ->select(
                 'department.id',
                 'department.department_name',

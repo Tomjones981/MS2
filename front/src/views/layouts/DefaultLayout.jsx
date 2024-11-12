@@ -14,6 +14,7 @@ import axiosClient from "../../api/axiosClient";
 import { BeatLoader } from "react-spinners";
 import Swal from 'sweetalert2' 
 import { CalculateOutlined } from "@mui/icons-material";
+import LockIcon from '@mui/icons-material/Lock';
  
 
 const DefaultLayout = () => {
@@ -116,7 +117,7 @@ const DefaultLayout = () => {
     <>  
       <div className="mb-8 -mt-3 text-white flex items-center ml-2">
         <img src={Logo} alt="occ_logo" className="w-12 h-12" />
-        {isOpen && <span className="text-1xl font-extrabold ml-2">ATTENDANCE</span>}
+        {isOpen && <span className="text-1xl font-extrabold ml-2">OCC PAYROLL</span>}
       </div>
       <nav>
         <NavLink to="/" onClick={() => handleItemClick("dashboard")} className={`flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 ${activeItem === "dashboard" ? "bg-white text-black" : "" }`} > <HiChartPie size={23} className="mr-3" /> {isOpen && "Dashboard"} </NavLink> 
@@ -128,6 +129,7 @@ const DefaultLayout = () => {
         <NavLink to="/employment/list" onClick={() => handleItemClick("/employment/list")} className={`mt-1 flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 ${ activeItem === "/employment/list" ? "bg-gradient-to-br from-gray-300 to-gray-500 text-gray-800" : "" }`} > <AssignmentIndIcon size={23} className="mr-3" /> {isOpen && "Employment"} </NavLink> 
         {renderSidebarSection("Work Load", FaProjectDiagram  , null, null, "workloadOpen", [  { label: "workload", path: "/workload/part_time" }, ])} 
         {renderSidebarSection("Calculations", CalculateOutlined  , null, null, "calculationsOpen", [  { label: "Part Time", path: "/admin/part/time" },  { label: "Full Time", path: "/admin/full/time" },  { label: "Extra Load", path: "/admin/extra/load" },  { label: "PT-Regular", path: "/admin/part/time/regular" }, { label: "Program Heads", path: "/admin/program/heads" },])} 
+        {renderSidebarSection("Payroll Info", FaHandHoldingUsd, null, null, "payrollOpen", [  { label: "Adjustment", path: "/admin/adjustment/full/time" }, { label: "History  ", path: "/admin/history/full/time" },  ])}
       </nav>
     </>
   );
@@ -174,16 +176,16 @@ const DefaultLayout = () => {
               </div>
             </div>
 
-            <div className={`flex flex-col flex-1 transition-all duration-300 ${isOpen ? "ml-72" : "ml-16"} bg-gray-100 dark:bg-gray-900`}>
+            <div className={`flex flex-col flex-1 transition-all duration-300 ${isOpen ? "ml-[18.1rem]" : "ml-16"} bg-gray-100 dark:bg-gray-900`}>
               <header className="bg-white shadow-md py-4 px-4 border border-gray-200 flex items-center justify-start fixed w-full dark:border-gray-700 dark:bg-gray-800 z-10">
                 <button onClick={toggleSidebar} className="flex p-1 hover:bg-gray-100 rounded-md dark:text-white dark:hover:bg-gray-700" > <HiOutlineMenuAlt2 className="text-3xl text-gray-700 dark:text-white" /> </button>
                 <div className={`ml-[48rem] flex items-center transition-all duration-300 ${isOpen ? 'ml-0' : 'ml-[62rem]'}`} >
                   <div className="relative"> 
-                    <button onClick={toggleProfileMenu} className="border border-gray-200 shadow rounded-full hover:bg-gray-100 flex items-center px-2" >
-                      <Avatar rounded className="text-white mr-2" />
+                    <button onClick={toggleProfileMenu} className="border border-gray-300 shadow-xl rounded-full hover:bg-gray-100 flex items-center " >
+                      <Avatar rounded className="text-white  " />
                       <div className="hidden sm:block text-left">
-                        <p className="text-gray-700 dark:text-white font-medium">Administrator</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">A & P</p>
+                        {/* <p className="text-gray-700 dark:text-white font-medium">Administrator</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">A & P</p> */}
                       </div>
                     </button> 
                     {isProfileOpen && (
@@ -191,14 +193,17 @@ const DefaultLayout = () => {
                         <div className="p-4 border-b dark:border-gray-700"> 
                         </div>
                         <ul>
-                          <li>
+                          {/* <li>
                             <button  onClick={handleProfileClick} className="w-full text-left px-4 py-2 flex items-center text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"> <FiUser className="mr-2" /> My Profile </button>
-                          </li>
-                          <li>
+                          </li> */}
+                          {/* <li>
                             <button className="w-full text-left px-4 py-2 flex items-center text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"> <FiBook className="mr-2" /> My Contacts </button>
-                          </li>
-                          <li>
+                          </li> */}
+                          {/* <li>
                             <button className="w-full text-left px-4 py-2 flex items-center text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"> <FiSettings className="mr-2" /> Account Settings </button>
+                          </li> */}
+                          <li>
+                            <button onClick={handleProfileClick} className="w-full text-left px-4 py-2 flex items-center text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 -ml-1"> <LockIcon className="mr-2" /> Change Password </button>
                           </li>
                           <li>
                             <button onClick={onLogout} className="w-full text-left px-4 py-2 flex items-center text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 border-t dark:border-gray-700" disabled={loadingLogout} > {loadingLogout ? ( <span className="mr-2"><BeatLoader/></span> ) : ( <> <FiLogOut className="mr-2" /> Log Out </> )} </button>

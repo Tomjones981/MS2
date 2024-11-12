@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RateController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\PayrollController;
@@ -31,6 +32,8 @@ Route::middleware('auth:sanctum')->group(function() {
     //department
     Route::post('/create_department', [DepartmentController::class, 'createDepartment']);
     Route::get('/get_department', [DepartmentController::class, 'fetchDepartment']);
+    Route::put('/disable_department/{id}',[DepartmentController::class,'disableDepartment']);
+    Route::put('/enable_department/{id}',[DepartmentController::class,'enableDepartment']);
     Route::get('/get_faculty_department', [DepartmentController::class, 'fetchFacultyByDepartment']);
     Route::get('/get_faculty_by_department/{departmentId}', [DepartmentController::class, 'ViewFacultyByDepartment']);
     Route::get('/departments', [DepartmentController::class, 'getDepartments']);
@@ -110,10 +113,20 @@ Route::middleware('auth:sanctum')->group(function() {
     //Upload Payroll Computations to DB.
     Route::post('/save-generated-payroll', [GeneratedPayrollController::class, 'saveGeneratedFullTimePayroll']);
     Route::get('/check-existing-payroll', [GeneratedPayrollController::class, 'checkExistingPayroll']);
-    Route::get('/get-payroll-history/full/time', [GeneratedPayrollController::class, 'getPayrollFullTimeHistory']);
-    Route::get('/get-payroll-history/part/time', [GeneratedPayrollController::class, 'getPayrollPartTimeHistory']);
-    Route::get('/get-payroll-history/part/time/regular', [GeneratedPayrollController::class, 'getPayrollPartTimeRegularHistory']);
-    Route::get('/get-payroll-history/program/heads', [GeneratedPayrollController::class, 'getPayrollProgramHeadsHistory']);
+    Route::get('/get-payroll-adjustment/full/time', [GeneratedPayrollController::class, 'getPayrollFullTimeHistory']);
+    Route::get('/get-payroll-adjustment/part/time', [GeneratedPayrollController::class, 'getPayrollPartTimeHistory']);
+    Route::get('/get-payroll-adjustment/part/time/regular', [GeneratedPayrollController::class, 'getPayrollPartTimeRegularHistory']);
+    Route::get('/get-payroll-adjustment/program/heads', [GeneratedPayrollController::class, 'getPayrollProgramHeadsHistory']); 
+    Route::post('/update-payroll-adjustment', [GeneratedPayrollController::class, 'updatePayrollAdjustment']);
+
+    //try
+     
+    Route::get('/get-payroll-history/full/time', [HistoryController::class, 'getPayrollFullTimeHistory']);
+    Route::post('/get-payroll-history/part/time', [HistoryController::class, 'getPayrollPartTimeHistory']);
+    Route::get('/get-payroll-history/program/heads', [HistoryController::class, 'getPayrollProgramHeadsHistory']);
+    Route::post('/get-payroll-history/part/time/regular', [HistoryController::class, 'getPayrollPartTimeRegularHistory']); 
+    Route::post('/getDateRangesForMonth', [HistoryController::class, 'getDateRangesForMonth']);
+
 
 
 

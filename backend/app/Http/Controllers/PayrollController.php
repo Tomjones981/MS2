@@ -252,94 +252,7 @@ class PayrollController extends Controller
         return response()->json($formattedAttendance);
     }
 
-
-    // public function getFullTimeFacultyPayroll(Request $request)
-    // {
-    //     $request->validate([
-    //         'start_date' => 'required|date',
-    //         'end_date' => 'required|date',
-    //     ]);
-
-    //     $startDate = $request->input('start_date');
-    //     $endDate = $request->input('end_date');
-
-    //     $attendanceData = DB::select("
-    //             WITH AttendanceData AS (
-    //                 SELECT 
-    //                     a.faculty_id,
-    //                     CONCAT(f.first_name,  ' ',
-    //                            f.last_name) AS full_name,
-    //                     COUNT(CASE 
-    //                         WHEN CAST(a.absent AS UNSIGNED) = 0 THEN 1 
-    //                     END) - COUNT(CASE 
-    //                         WHEN a.remarks = 'RESTDAY' THEN 1 
-    //                     END) AS total_present,
-    //                     COUNT(CASE 
-    //                         WHEN CAST(a.absent AS UNSIGNED) = 1 THEN 1 
-    //                     END) AS total_absent,
-    //                     COUNT(CASE 
-    //                         WHEN a.remarks = 'RESTDAY' THEN 1 
-    //                     END) AS total_restdays,
-    //                     TIME_FORMAT(SEC_TO_TIME(SUM(
-    //                     CASE 
-    //                         WHEN TIME_TO_SEC(TIMEDIFF(a.time_in, s.time_start)) > 0 THEN 
-    //                             TIME_TO_SEC(TIMEDIFF(a.time_in, s.time_start))
-    //                         ELSE 0
-    //                     END
-    //                     )), '%H:%i:%s') AS total_late_time
-    //                 FROM 
-    //                     attendance AS a
-    //                 JOIN 
-    //                     faculty AS f ON a.faculty_id = f.id
-    //                 LEFT JOIN 
-    //                     schedule AS s ON a.faculty_id = s.faculty_id 
-    //                     AND STR_TO_DATE(a.date, '%m/%d/%Y') >= s.date_from
-    //                     AND STR_TO_DATE(a.date, '%m/%d/%Y') <= s.date_to
-    //                 WHERE 
-    //                     STR_TO_DATE(a.date, '%m/%d/%Y') BETWEEN :start_date AND :end_date
-    //                 GROUP BY 
-    //                     a.faculty_id, f.first_name, f.last_name
-    //             )
-    //             SELECT 
-    //                 ad.faculty_id,
-    //                 ad.full_name,
-    //                 e.employment_type,
-    //                 f.faculty_type,
-    //                 e.status,
-    //                 fr.rate_value,
-    //                 fr.rate_type,
-    //                 CASE 
-    //                     WHEN fr.rate_type = 'baccalaureate' THEN 15000
-    //                     WHEN fr.rate_type = 'master' THEN 20000
-    //                     WHEN fr.rate_type = 'doctor' THEN 25000
-    //                     ELSE 0
-    //                 END AS monthly_rate,
-    //                 ad.total_present,
-    //                 ad.total_absent,
-    //                 ad.total_restdays,
-    //                 ad.total_late_time
-    //             FROM 
-    //                 AttendanceData AS ad
-    //             JOIN 
-    //                 employment AS e ON ad.faculty_id = e.faculty_id
-    //             JOIN 
-    //                 faculty_rates AS fr ON ad.faculty_id = fr.faculty_id
-    //             JOIN 
-    //                 faculty AS f ON ad.faculty_id = f.id  -- Add this join back 
-    //             WHERE 
-    //                 e.employment_type = 'full_time'  
-    //                 AND f.faculty_type = 'faculty'
-    //                 AND e.status = 'active'
-    //                 AND fr.rate_type IN ('baccalaureate', 'master', 'doctor')
-    //     ", [
-    //         'start_date' => $startDate,
-    //         'end_date' => $endDate
-    //     ]);
-
-    //     return response()->json($attendanceData);
-    // }
-
-   
+ 
     public function getProgramHeadsPayroll(Request $request)
     {
         $request->validate([
@@ -397,6 +310,8 @@ class PayrollController extends Controller
                     fr.rate_value,
                     fr.rate_type,
                     CASE 
+                        WHEN f.faculty_type = 'department_head' AND fr.rate_type = 'doctor' THEN 30000
+                        WHEN f.faculty_type = 'department_head' AND fr.rate_value = '275' THEN 30000
                         WHEN fr.rate_type = 'baccalaureate' THEN 15000
                         WHEN fr.rate_type = 'master' THEN 20000
                         WHEN fr.rate_type = 'doctor' THEN 25000
@@ -426,6 +341,9 @@ class PayrollController extends Controller
 
         return response()->json($attendanceData);
     }
+
+
+
 
     public function getFullTimeFacultyPayroll(Request $request)
     {

@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  
 import axiosClient from '../../../../api/axiosClient';
 import { BeatLoader } from 'react-spinners'; 
-import { DatePicker, Space } from 'antd'; 
+import { DatePicker, Space, message } from 'antd';  
 
 const { RangePicker } = DatePicker;
  
 const Part_time_Calculations = () => {
     const [loading, setLoading] = useState(false);
+    const [loadingSave, setLoadingSave] = useState(false);
     const [data, setData] = useState([]);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -54,7 +55,7 @@ const Part_time_Calculations = () => {
         if (selectedDates.length === 2) {
             fetchData();
         } else {
-            alert('Please select both start and end dates.');
+            message.error('Please select both start and end dates.');
         }
     };
 
@@ -86,11 +87,11 @@ const Part_time_Calculations = () => {
 
     
     const handleSavePayroll = async () => {
-        try { 
-          // Use selectedDates directly for date_from and date_to
+        setLoadingSave(true);
+        try {  
           const { data: existingPayrolls } = await axiosClient.get('/check-existing-payroll', {
             params: {
-              date_from: selectedDates[0],  // Use the selected dates directly
+              date_from: selectedDates[0],  
               date_to: selectedDates[1],
               payroll_type: 'pt_payroll'
             }
@@ -138,13 +139,15 @@ const Part_time_Calculations = () => {
           if (payrollDataArray.length > 0) {
             await axiosClient.post('/save-generated-payroll', { payroll_data: payrollDataArray });
             console.log('Payroll Data Saved');
-            alert('Payroll data saved successfully.');
+            message.success('Payroll data saved successfully.');
           } else {
-            alert('Already Exist Date range Data.');
+            message.error('Already Exist Date range Data.');
           }
         } catch (error) {
             console.error('Error saving payroll data:', error.response || error);
-            alert('Failed to save payroll data.');
+            message.error('Failed to save payroll data.');
+        }finally {
+            setLoadingSave(false);
         }
     };
 
@@ -155,7 +158,18 @@ const Part_time_Calculations = () => {
                 <div className="flex flex-col items-start mb-5">
                     <div className="flex w-full justify-between items-center">
                         <h1 className="font-semibold text-xl dark:text-white uppercase">Part Time Faculties</h1>
-                        <button type="button" onClick={handleSavePayroll} className="flex items-center justify-between py-2 px-4 text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"  >Save   </button>
+                        <button type="button" onClick={handleSavePayroll} className="flex items-center justify-between py-2 px-4 text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"  >
+                            {loadingSave ? (
+                                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 100 8v4a8 8 0 01-8-8z"></path>
+                                </svg>
+                                ) : (
+                                <> 
+                                    Save
+                                </>
+                            )}  
+                        </button>
                     </div>
                     <hr className="my-2 border-t border-gray-300 dark:border-gray-700" style={{ width: '100%' }} /> 
                 </div>
@@ -167,12 +181,23 @@ const Part_time_Calculations = () => {
                             <Space direction="vertical" size={12} className='text-gray-700 dark:text-gray-200'>
                                 <RangePicker onChange={handleDateChange} className='h-11 mt-1 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200'/> 
                             </Space>
-                            <button type="submit" onClick={handleSubmit} className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"> Generate </button>
+                            <button type="submit"  onClick={handleSubmit} disabled={loading} className={`hover:scale-110 flex justify-center items-center gap-2 text-white bg-gradient-to-br from-gray-600 to-blue-900 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-11 py-3 mb-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800 -mt-[2.7rem] ml-[20rem] ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
+                                {loading ? (
+                                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 100 8v4a8 8 0 01-8-8z"></path>
+                                    </svg>
+                                    ) : (
+                                    <> 
+                                        Generate
+                                    </>
+                                )}  
+                            </button>
                         </div> 
                         <div className="relative col-span-3 flex items-end">
                             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                 <svg className="mt-6 w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" /></svg>
-                            </div>
+                            </div>              
                             <input type="search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search name" />
                         </div>
                     </div>
@@ -187,13 +212,13 @@ const Part_time_Calculations = () => {
                                 <table className="table-auto w-full text-sm text-left rtl:text-right text-gray-500  dark:text-gray-400 border-collapse border border-slate-200">
                                     <thead className="sticky -top-1 text-xs text-gray-100 bg-gray-600 dark:bg-gray-700 dark:text-gray-200 border-collapse border border-slate-200"> 
                                         <tr>
-                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Faculty Name</th>
-                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Rate</th>
-                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Hours</th>
-                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Gross</th> 
-                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Late</th>
-                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Tax</th>
-                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Net Pay</th> 
+                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Faculty Name</th>
+                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Rate</th>
+                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Hours</th>
+                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Gross</th> 
+                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Late</th>
+                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Tax</th>
+                                            <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Net Pay</th> 
                                         </tr>
                                     </thead>
                                     <tbody>

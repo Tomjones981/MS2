@@ -75,7 +75,7 @@ class FacultyController extends Controller
     {
         $facultyList = Faculty::select(
             'faculty.id',
-            \DB::raw("CONCAT(faculty.last_name, ' ', COALESCE(faculty.middle_name, ''), ' ', faculty.first_name) AS full_name"),
+            \DB::raw("CONCAT(faculty.last_name, ' ', faculty.first_name, ' ', COALESCE(faculty.middle_name, '')) AS full_name"),
             'faculty.first_name',
             'faculty.middle_name',
             'faculty.last_name', 
@@ -90,6 +90,7 @@ class FacultyController extends Controller
             ->leftJoin('employment', 'faculty.id', '=', 'employment.faculty_id')
             ->leftJoin('contact_details', 'faculty.id', '=', 'contact_details.faculty_id')
             ->orderBy('faculty.last_name', 'ASC')
+            ->where('employment.status', 'active')
             ->get();
 
         return response()->json($facultyList);

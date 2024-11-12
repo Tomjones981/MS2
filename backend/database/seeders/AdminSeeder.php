@@ -34,6 +34,7 @@ class AdminSeeder extends Seeder
         Department::create([ 
             'id' => "1",
             'department_name' => 'test', 
+            'condition' => 'enable', 
         ]);
         Faculty::create([ 
             'department_id' => '1', 

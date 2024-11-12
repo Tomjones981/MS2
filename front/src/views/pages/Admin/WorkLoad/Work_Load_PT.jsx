@@ -1,5 +1,5 @@
 import React, {  useEffect, useState } from 'react';
-import { DatePicker } from 'antd'; 
+import { DatePicker, message } from 'antd'; 
 import axiosClient from '../../../../api/axiosClient';
 
 const Work_Load_PT = () => {
@@ -82,7 +82,7 @@ const Work_Load_PT = () => {
     
     const handleSave = async () => {
         if (!selectMonth) {
-            alert('Please select a month.');
+            message.error('Please select a month.');
             return;
         }
     
@@ -94,7 +94,7 @@ const Work_Load_PT = () => {
             });
     
             if (response.data.length > 0) {
-                alert('Total units for this month and year are already saved.');
+                message.error('Total units for this month and year are already saved.');
                 return;  
             }
         } catch (err) {
@@ -131,10 +131,10 @@ const Work_Load_PT = () => {
         setIsSaving(true);
         try { 
             await axiosClient.post('/save/faculties/total_units', { data: totalData });
-            alert('Total units saved successfully!');
+            message.success('Total units saved successfully!');
         } catch (err) {
             console.error(err);
-            alert('Failed to save total units: ' + (err.response?.data?.message || 'Unexpected error occurred.'));
+            message.error('Failed to save total units: ' + (err.response?.data?.message || 'Unexpected error occurred.'));
         } finally {
             setIsSaving(false);
         }
@@ -245,16 +245,16 @@ const Work_Load_PT = () => {
                             <table className="table-auto w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-200 rounded-lg mt-2">
                                 <thead className="sticky -top-1 text-xs text-gray-100 bg-gray-600 dark:bg-gray-700 dark:text-gray-200 border-collapse border border-slate-200">
                                     <tr>
-                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Faculty Name</th>
-                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Subjects</th>
-                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Units</th>
-                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Mon</th>
-                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Tue</th>
-                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Wed</th>
-                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Thu</th>
-                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Fri</th>
-                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Sat</th>
-                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600">Total</th>  
+                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Faculty Name</th>
+                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Subjects</th>
+                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Units</th>
+                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Mon</th>
+                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Tue</th>
+                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Wed</th>
+                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Thu</th>
+                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Fri</th>
+                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Sat</th>
+                                        <th scope="col" className="px-6 py-3 border border-slate-300 dark:border-slate-600 text-center">Total</th>  
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -279,15 +279,15 @@ const Work_Load_PT = () => {
 
                                     return (
                                         <tr key={faculty.faculty_id}>
-                                            <td className="px-6 py-3">{faculty.full_name} </td>
-                                            <td className="px-6 py-3">{faculty.subjects}</td> 
-                                            <td className="px-6 py-3  ">{faculty.teaching_units}</td>
-                                            <td className="px-6 py-3 bg-gray-200 font-bold dark:text-gray-700 dark:bg-gray-300">{mondayValue}</td>
-                                            <td className="px-6 py-3 bg-gray-200 font-bold dark:text-gray-700 dark:bg-gray-300">{tuesdayValue}</td>
-                                            <td className="px-6 py-3 bg-gray-200 font-bold dark:text-gray-700 dark:bg-gray-300">{wednesdayValue}</td>
-                                            <td className="px-6 py-3 bg-gray-200 font-bold dark:text-gray-700 dark:bg-gray-300">{thursdayValue}</td>
-                                            <td className="px-6 py-3 bg-gray-200 font-bold dark:text-gray-700 dark:bg-gray-300">{fridayValue}</td>
-                                            <td className="px-6 py-3 bg-gray-200 font-bold dark:text-gray-700 dark:bg-gray-300">{saturdayValue}</td>
+                                            <td className="px-6 py-3 text-center">{faculty.full_name} </td>
+                                            <td className="px-6 py-3 text-center ">{faculty.subjects}</td> 
+                                            <td className="px-6 py-3 text-center ">{faculty.teaching_units}</td>
+                                            <td className="px-6 py-3 bg-gray-200 font-bold dark:text-gray-700 dark:bg-gray-300 text-center">{mondayValue}</td>
+                                            <td className="px-6 py-3 bg-gray-200 font-bold dark:text-gray-700 dark:bg-gray-300 text-center">{tuesdayValue}</td>
+                                            <td className="px-6 py-3 bg-gray-200 font-bold dark:text-gray-700 dark:bg-gray-300 text-center">{wednesdayValue}</td>
+                                            <td className="px-6 py-3 bg-gray-200 font-bold dark:text-gray-700 dark:bg-gray-300 text-center">{thursdayValue}</td>
+                                            <td className="px-6 py-3 bg-gray-200 font-bold dark:text-gray-700 dark:bg-gray-300 text-center">{fridayValue}</td>
+                                            <td className="px-6 py-3 bg-gray-200 font-bold dark:text-gray-700 dark:bg-gray-300 text-center">{saturdayValue}</td>
                                             <td className="px-6 py-3">{Total}</td>  
                                         </tr> 
                                     );
