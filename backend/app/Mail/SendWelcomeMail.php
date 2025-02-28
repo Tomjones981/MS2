@@ -12,15 +12,14 @@ use Illuminate\Queue\SerializesModels;
 class SendWelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $welcomeMessage;
-
+    public $mailData;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($welcomeMessage)
+    public function __construct($mailData)
     {
-        $this->welcomeMessage = $welcomeMessage;
+        $this->mailData = $mailData;
     }
 
     /**
@@ -29,7 +28,7 @@ class SendWelcomeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Send Welcome Mail in',
+            subject: 'Send Welcome Mail',
         );
     }
 
@@ -39,7 +38,7 @@ class SendWelcomeMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'WelcomeEmail',
+            view: 'try',
         );
     }
 

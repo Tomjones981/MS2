@@ -1,22 +1,17 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\RateController;
-use App\Http\Controllers\UnitController;
-use App\Http\Controllers\HistoryController;
-use App\Http\Controllers\ImportController;
-use App\Http\Controllers\ExportController;
-use App\Http\Controllers\PayrollController;
-use App\Http\Controllers\FacultyController;
-use App\Http\Controllers\ScheduleController;
-use App\Http\Controllers\PasswordController;
-use App\Http\Controllers\EmploymentController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\ComputationController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\GeneratedPayrollController;
+use App\Http\Controllers\AuthController; 
+use App\Http\Controllers\OpolCDCController;
+use App\Http\Controllers\SubCategoryController; 
+use App\Http\Controllers\UserController;         
+use App\Http\Controllers\PasswordController;   
+use App\Http\Controllers\OTPController;
+use App\Http\Controllers\LogBookController;
+use App\Http\Controllers\YearController;
+use App\Http\Controllers\BrgySectorController;
+use App\Http\Controllers\PersonalInfoController;
+use App\Http\Controllers\PWD\PWDController;
+use App\Http\Controllers\PWD\PwdExportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
  
@@ -28,104 +23,64 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/user-profile', [UserController::class,'getUserProfile']);
 });
     Route::post('/login', [AuthController::class,'login']);
-
-    //department
-    Route::post('/create_department', [DepartmentController::class, 'createDepartment']);
-    Route::get('/get_department', [DepartmentController::class, 'fetchDepartment']);
-    Route::put('/disable_department/{id}',[DepartmentController::class,'disableDepartment']);
-    Route::put('/enable_department/{id}',[DepartmentController::class,'enableDepartment']);
-    Route::get('/get_faculty_department', [DepartmentController::class, 'fetchFacultyByDepartment']);
-    Route::get('/get_faculty_by_department/{departmentId}', [DepartmentController::class, 'ViewFacultyByDepartment']);
-    Route::get('/departments', [DepartmentController::class, 'getDepartments']);
-    Route::put('/update_department/{id}', [DepartmentController::class, 'update']);
-    Route::delete('/delete_department/{id}', [DepartmentController::class, 'destroy']);
-
-
-    //faculty 
-    Route::get('/faculty', [FacultyController::class, 'fetchFacultyInfo']);
-    Route::post('/create-faculty', [FacultyController::class, 'createFacultyInfo']);
-    Route::get('/faculty/{id}', [FacultyController::class, 'showFacByID']);
-    Route::get('/faculties/{id}', [FacultyController::class, 'editFac']);
-    Route::post('/faculties/{id}', [FacultyController::class, 'updateFaculty']);
-    Route::get('/faculty_list', [FacultyController::class, 'getFacultyList']);
-
-
-    //import Faculty
-    Route::post('/faculty/import', [ImportController::class, 'importFac']);
-    //export faculty
-    Route::get('/export/faculty/data', [ExportController::class, 'exportFacultyData']);
-
-    //rates
-    Route::get('/faculty-with-rate-type', [RateController::class, 'getFacultyWithRateType']);
+    Route::post('/send-otp', [OTPController::class,'sendOtp']);
+    Route::post('/verify-otp', [OTPController::class,'verifyOtp']);
+    Route::post('/validate-credentials', [OTPController::class,'validateCredentials']);
  
-    //employment
-    Route::get('/fetch/employment', [EmploymentController::class, 'fetchFacultyEmployment']);
 
-    //schedyle
-    Route::post('/schedule/import', [ScheduleController::class, 'import']);
-    Route::post('/create_schedule', [ScheduleController::class, 'createSchedule']);
-    Route::post('/schedule_update/{id}', [ScheduleController::class, 'updateSched']); 
-    Route::get('/getFacultySched', [ScheduleController::class, 'getFacultySchedule']);
-    Route::get('/schedule/{id}', [ScheduleController::class, 'showByFaculty']);
-    Route::get('/schedule_edit/{id}', [ScheduleController::class, 'edit']);
-    Route::delete('/schedule/{id}', [ScheduleController::class, 'destroy']);
+    Route::post('/log-book-create', [LogBookController::class,'createLogBook']);
+    Route::get('/log-book-fetching', [LogBookController::class,'fetchLogBookData']);
+    Route::put('/log-book-update/{id}', [LogBookController::class, 'updateLogBook']);
+    Route::get('/logbook-export', [LogBookController::class, 'export']);
+    Route::post('/logbook-import', [LogBookController::class, 'import']);
+    Route::post('/year-create', [YearController::class,'createYear']);
+    Route::get('/year-fetching', [YearController::class,'getAllYears']);
+    Route::get('/brgy-sectors/{yearId}', [BrgySectorController::class,'getSectorsByYear']);
+    Route::post('/brgy-sectors-create', [BrgySectorController::class,'createSector']);
+    Route::get('/brgy-sectors/years/{id}', [YearController::class, 'getYearDate']);
+    // Route::get('/brgy-sectors/{year_id}', [BrgySectorController::class,'getSectorsByYear']);
 
-    // attendance
-    Route::get('/attendance', [AttendanceController::class, 'getFacultyAttendance']);
-    Route::post('/get-attendance', [AttendanceController::class, 'getAttendance']);
-    Route::post('/import/attendance', [ImportController::class, 'importAttendance']);
-
-
-    //payroll
-    Route::get('/attendance-salary', [PayrollController::class, 'getFullTimeFacultyPayroll']);
-    Route::get('/attendance-salary/program/heads', [PayrollController::class, 'getProgramHeadsPayroll']);
-    // Route::get('/part-time-faculty-data', [PayrollController::class, 'getPartTimeFacultyPayroll']);
-    Route::get('/full_time/extraload', [PayrollController::class, 'getFacultyExtraLoad']);
-    //parttime payroll attendance
-    Route::get('/faculty-attendance/{facultyId}', [PayrollController::class, 'getFacultyAttendanceDetails']);
-
-    //attendance import 
-    Route::post('/import/faculty/attendance', [AttendanceController::class, 'importFacultyAttendance']);
+    Route::post('/sub-category-create', [SubCategoryController::class, 'createSubCategory']);
+    Route::get('/brgy-sectors/sub-category/{id}', [SubCategoryController::class, 'getSectorsSubCategory']);
+    Route::get('/sub-category/{subCatId}', [SubCategoryController::class,'getSubCategoryBySectors']);
 
 
-
-    //admin dashboard 
-    Route::get('/get_total/faculties', [AdminDashboardController::class, 'getTotalFaculties']);
-    Route::get('/get_total/faculties/active', [AdminDashboardController::class, 'getTotalActiveFaculties']);
-    Route::get('/get_total/faculties/inactive', [AdminDashboardController::class, 'getTotalInActiveFaculties']);
-    Route::get('/get_total/faculties/full_time', [AdminDashboardController::class, 'getTotalFullTimeFaculties']);
-    Route::get('/get_total/faculties/part_time', [AdminDashboardController::class, 'getTotalPartTimeFaculties']);
-    Route::get('/get_total/faculties/part_time_regular', [AdminDashboardController::class, 'getTotalPartTimeRegularFaculties']);
-
-
-    //unit
     
-    Route::post('/save/faculties/total_units', [UnitController::class, 'storeUnit']);
-    Route::get('/get/faculties/total_units', [UnitController::class, 'getTotalUnits']);
-    Route::get('/get/faculties/units', [UnitController::class, 'getFacultiesAndUnits']);
+    Route::get('/brgy-sectors/sub-category/sub-cat-name/{id}', [PersonalInfoController::class, 'getSubCategoryName']);
+    Route::get('/sub-category/personal-info/{subCatId}', [PersonalInfoController::class,'getPersonalInfoBySubCategory']);
 
 
-    //computation 
-    Route::get('/attendance/report', [ComputationController::class, 'getAttendanceByMonth']); 
-    Route::get('/part-time-regular-data', [ComputationController::class, 'getPTRegularPayroll']);
-    Route::get('/part-time-faculty-data', [ComputationController::class, 'getPartTimeFacultyPayroll']);
+    
+    Route::post('/personal-info-create', [PersonalInfoController::class,'createPersonalInfo']);
+    Route::put('/personal-info-update/{id}', [PersonalInfoController::class, 'updatePersonalInfo']);
 
-    //Upload Payroll Computations to DB.
-    Route::post('/save-generated-payroll', [GeneratedPayrollController::class, 'saveGeneratedFullTimePayroll']);
-    Route::get('/check-existing-payroll', [GeneratedPayrollController::class, 'checkExistingPayroll']);
-    Route::get('/get-payroll-adjustment/full/time', [GeneratedPayrollController::class, 'getPayrollFullTimeHistory']);
-    Route::get('/get-payroll-adjustment/part/time', [GeneratedPayrollController::class, 'getPayrollPartTimeHistory']);
-    Route::get('/get-payroll-adjustment/part/time/regular', [GeneratedPayrollController::class, 'getPayrollPartTimeRegularHistory']);
-    Route::get('/get-payroll-adjustment/program/heads', [GeneratedPayrollController::class, 'getPayrollProgramHeadsHistory']); 
-    Route::post('/update-payroll-adjustment', [GeneratedPayrollController::class, 'updatePayrollAdjustment']);
 
-    //try
-     
-    Route::get('/get-payroll-history/full/time', [HistoryController::class, 'getPayrollFullTimeHistory']);
-    Route::post('/get-payroll-history/part/time', [HistoryController::class, 'getPayrollPartTimeHistory']);
-    Route::get('/get-payroll-history/program/heads', [HistoryController::class, 'getPayrollProgramHeadsHistory']);
-    Route::post('/get-payroll-history/part/time/regular', [HistoryController::class, 'getPayrollPartTimeRegularHistory']); 
-    Route::post('/getDateRangesForMonth', [HistoryController::class, 'getDateRangesForMonth']);
+    
+    Route::post('/pwd-import', [PWDController::class, 'importPWDPersonalInfo']);
+    Route::get('/pwd-brgy-report-counts', [PWDController::class, 'getPWDBarangayCounts']);
+    Route::get('/pwd-brgy-report-view-age-by-gender/{barangay}', [PWDController::class, 'getBarangayDetails']);
+
+
+
+ 
+    Route::get('/pwd-export-excel-personal-info/{subCatId}', [PwdExportController::class, 'exportBarangayPWDPersonalInfo']);
+ 
+
+ 
+
+    Route::get('/opol-cdc', [OpolCDCController::class, 'index']);
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+
+ 
+
 
 
 

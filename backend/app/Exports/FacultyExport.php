@@ -39,7 +39,6 @@ class FacultyExport implements FromCollection, WithHeadings, WithMapping
             $faculty->contact_details->first()->email ?? '', 
             $faculty->faculty_rates->first()->rate_type ?? '',  
             $faculty->faculty_rates->first()->rate_value ?? '',
-            $faculty->unit->first()->subjects ?? '', 
             $faculty->unit->first()->teaching_units ?? '', 
         ];
     }
@@ -65,7 +64,6 @@ class FacultyExport implements FromCollection, WithHeadings, WithMapping
             'Email',
             'Rate Type',
             'Rate Value',
-            'Subjects',
             'Teaching Units',
         ];
     }

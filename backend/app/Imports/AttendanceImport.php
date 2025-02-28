@@ -11,7 +11,7 @@ class AttendanceImport implements ToModel, WithStartRow
     // Start importing data from row 7
     public function startRow(): int
     {
-        return 7;
+        return 8;
     }
 
     public function model(array $row)

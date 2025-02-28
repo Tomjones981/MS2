@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Department;
-use App\Models\Faculty;
+use App\Models\User;  
+use App\Models\Year;
+use App\Models\Brgy_Sectors;
+use App\Models\Sub_Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,44 +20,70 @@ class AdminSeeder extends Seeder
 
         User::create([
             'id' => "1",
-            'email' => 'payroll@gmail.com',
+            'email' => 'occ.vacalares.tomjoseph111@gmail.com',
             'user_type' => 'payroll',
             'password' => 'password123',
         ]);
         User::create([
             'id' => "2",
-            'email' => 'admin@gmail.com',
+            'email' => 'vacalares.tomjoseph@occ.edu.ph',
             'user_type' => 'admin',
             'password' => bcrypt('password123'),
 
         ]);
 
-        Department::create([ 
+
+
+        Year::create([
             'id' => "1",
-            'department_name' => 'test', 
-            'condition' => 'enable', 
+            'year_date' => "2024",
         ]);
-        Faculty::create([ 
-            'department_id' => '1', 
-            'first_name' => 'test', 
-            'middle_name' => 'test', 
-            'last_name' => 'test', 
-            'faculty_type' => 'faculty', 
-        ]); 
-        Faculty::create([ 
-            'department_id' => '1', 
-            'first_name' => 'test', 
-            'middle_name' => 'test', 
-            'last_name' => 'test', 
-            'faculty_type' => 'faculty', 
-        ]); 
-        Faculty::create([ 
-            'department_id' => '1', 
-            'first_name' => 'test', 
-            'middle_name' => 'test', 
-            'last_name' => 'test', 
-            'faculty_type' => 'faculty', 
-        ]);  
+
+
+        Brgy_Sectors::create([
+            'id' => "1",
+            'year_id' => "1",
+            'sector_name' => "CHILDREN",
+        ]);Brgy_Sectors::create([
+            'id' => "2",
+            'year_id' => "1",
+            'sector_name' => "YOUTH",
+        ]);
+        Brgy_Sectors::create([
+            'id' => "3",
+            'year_id' => "1",
+            'sector_name' => "PWD",
+        ]);Brgy_Sectors::create([
+            'id' => "4",
+            'year_id' => "1",
+            'sector_name' => "SOLO PARENT",
+        ]);Brgy_Sectors::create([
+            'id' => "5",
+            'year_id' => "1",
+            'sector_name' => "CBRP GRADUATES",
+        ]);Brgy_Sectors::create([
+            'id' => "6",
+            'year_id' => "1",
+            'sector_name' => "EXITED 4Ps",
+        ]);Brgy_Sectors::create([
+            'id' => "7",
+            'year_id' => "1",
+            'sector_name' => "SENIOR CITIZEN",
+        ]);
+
+        Sub_Category::create([
+            'id' => "1",
+            'brgy_sector_id' => "1",
+            'sub_cat_name' => "PWD",
+            'age_range' => "0-17 years Old",
+        ]);
+        Sub_Category::create([
+            'id' => "2",
+            'brgy_sector_id' => "1",
+            'sub_cat_name' => "CDC",
+            'age_range' => "3-4 Years Old",
+        ]);
+
 
         
     }

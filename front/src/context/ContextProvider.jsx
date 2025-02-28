@@ -2,6 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import axiosClient from "../api/axiosClient"; 
 import Swal from 'sweetalert2'
 const stateContext = createContext({});
+import { useNavigate } from 'react-router-dom';
+
 
 export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
@@ -41,46 +43,68 @@ export const ContextProvider = ({ children }) => {
   }, [token]);
 
   const login = async ({ email, password }) => {
-    setBtnLoading(true);
     try {
       const response = await axiosClient.post('/login', { email, password });
-       
+  
       if (response.data && response.status === 200) {
         const { message, token, user_type } = response.data;
-   
+  
         Swal.fire({
           title: "Login Successful", 
           icon: "success",
           showConfirmButton: true,
           confirmButtonText: "Continue",
           customClass: {
-            popup: "bg-gray-800 dark:bg-gray-200 shadow-xl rounded-lg p-2",  
-            title: "text-lg font-bold text-gray-200 dark:text-white",   
+            popup: "bg-gray-800 dark:bg-gray-200 shadow-xl rounded-lg p-2",
+            title: "text-lg font-bold text-gray-200 dark:text-white",
             confirmButton:
-              "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded",  
-            icon: "text-green-500",  
+              "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded",
+            icon: "text-green-500",
           },
         });
-   
+  
         updateToken(token);
-   
+  
         await getUser();
+        return { success: true }; // Return success for OTP step
       }
     } catch (error) {
       console.error("Login failed:", error);
       Swal.fire({
         title: "Login failed",
         text: "Invalid credentials or some other error",
-        icon: "error"
+        icon: "error",
       });
-    } finally {
-      setBtnLoading(false);
+      return { success: false }; // Return failure for OTP step
     }
   };
-  
+
+  const sendOtp = async (email, password) => {
+    try {
+      const response = await axiosClient.post('/send-otp', { email, password });  
+      alert(response.data.message);   
+    } catch (error) {
+      alert(error.response?.data?.message || 'Failed to send OTP.');
+    }
+  };
+   
+
+  const verifyOtp = async (email, otp, navigate) => {
+    try {
+      const response = await axiosClient.post('/verify-otp', { email, otp });
+      updateToken(response.data.token);
+      await getUser();
+      alert(response.data.message);
+      navigate('/'); // Redirect to dashboard after successful verification
+    } catch (error) {
+      alert(error.response?.data?.message || 'Failed to verify OTP.');
+    }
+  };
+
+ 
  
   return (
-    <stateContext.Provider value={{ user, setUser, setToken, token, loading, btnLoading, login  }}>
+    <stateContext.Provider value={{ user, setUser, setToken, token, loading, btnLoading, login, sendOtp, verifyOtp  }}>
       {children}
     </stateContext.Provider>
   );
