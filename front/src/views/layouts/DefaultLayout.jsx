@@ -9,6 +9,7 @@ import Logo2 from "../../assets/images/opol_mswd_logo.png";
 import AdminLogo from '../../assets/images/adminMalyn.jpg'
 import AdminLogo2 from '../../assets/images/admin2.png'
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import {  HiChartPie  } from "react-icons/hi"; 
 import { useStateContext } from "../../context/ContextProvider";
 import { NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
 import { Menu, Logout as LogoutIcon, PieChartOutlined, Assignment, ExpandLess, ExpandMore, ShoppingBagOutlined, DashboardOutlined, GroupOutlined, ChevronRight, VerifiedUserRounded } from "@mui/icons-material";
@@ -16,6 +17,7 @@ import { Avatar, DarkThemeToggle, Flowbite, } from "flowbite-react"; import Load
 import { FaUsers, FaRegCalendarCheck, FaChalkboardTeacher, FaHandHoldingUsd, FaProjectDiagram } from "react-icons/fa";
 import { Card, Typography, List, ListItem, ListItemPrefix, ListItemSuffix, Chip, Accordion, AccordionHeader, AccordionBody, Alert } from "@material-tailwind/react";
 import {  FileText, Accessibility, AccessibilityIcon} from "lucide-react";
+import { NotebookPen } from "lucide-react";
 const DefaultLayout = () => {
     const { user, token, setUser, setToken, loading } = useStateContext();
       const [loadingLogout, setLoadingLogout] = useState(false);
@@ -83,7 +85,7 @@ const DefaultLayout = () => {
           </button>
         </div> 
           <List className="overflow-y-auto max-h-[550px]">
-            <hr className="my-2 border-blue-gray-50 mt-[-9px] shadow-lg" />
+            <hr className="my-2 border-blue-gray-50 mt-[-9px] shadow-lg " />
             <Typography className="ml-4 font-serif  text-md">Menu</Typography>
             {/* <div className="m-3 bg-red-900 text-gray-200 border border-gray-200 rounded-md dark:text-gray-800 dark:bg-red-200">
               <Accordion open={open === 1} icon={ <ExpandMore className={`mx-auto h-4 w-4 transition-transform ${ open === 1 ? "rotate-180" : "" }`} /> } >
@@ -177,7 +179,7 @@ const DefaultLayout = () => {
               </Accordion> 
             </div>  */}
 
-            <hr className=" my-2 border-blue-gray-500 mt-[5px] shadow-lg" /> 
+            <hr className=" my-2 border-blue-gray-500 mt-[5px] shadow-lg " /> 
 {/*             
             <ListItem>
               <NavLink to="/admin/dashboard" className={({ isActive }) => `font-serif flex items-center w-full ${isActive ? "text-blue-500" : "text-gray-700"}` } >
@@ -195,8 +197,8 @@ const DefaultLayout = () => {
                 <ListItem className="p-0" selected={open === 5}>
                   <AccordionHeader onClick={() => handleOpen(5)} className="border-b-0 p-3">
                     <ListItemPrefix>
-                      <div className="text-2xl">
-                        <DashboardIcon className="-mr-2"/>
+                      <div className="text-2xl text-gray-600">
+                        <HiChartPie className="mr-2"/>
                       </div>
                     </ListItemPrefix>
                     <Typography color="blue-gray" className="ml-[-3rem] font-serif text-gray-600 dark:text-gray-300 ">
@@ -223,7 +225,7 @@ const DefaultLayout = () => {
 
               </Accordion>
  
-            <ListItem>
+            {/* <ListItem>
               <NavLink to="/admin/records" className={({ isActive }) => `font-serif flex items-center w-full ${isActive ? "text-blue-500" : "text-gray-700 dark:text-gray-300"}` } >
                 <ListItemPrefix>
                   <FileText className="mr-2"/>
@@ -235,7 +237,7 @@ const DefaultLayout = () => {
                    size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
                 </ListItemSuffix>
               </NavLink> 
-            </ListItem> 
+            </ListItem>  */}
 
             <Accordion open={open === 4} icon={ <ExpandMore className={`mx-auto h-4 w-4 transition-transform ${ open === 4 ? "rotate-180" : "" }`} /> } >
                 <ListItem className="p-0" selected={open === 4}>
@@ -247,7 +249,7 @@ const DefaultLayout = () => {
                     </ListItemPrefix>
                     <Typography color="blue-gray" className="ml-[-3rem] font-serif text-gray-600 dark:text-gray-300 ">
                       PWD List
-                    </Typography>
+                    </Typography> 
                   </AccordionHeader>
                 </ListItem>
                 <AccordionBody className="-py-1">
@@ -270,7 +272,7 @@ const DefaultLayout = () => {
                   <List className="p-0  list-disc list-inside">  
                     <ListItem>
                       <NavLink 
-                        to="/admin/yearlist" 
+                        to="/brgy-sectors/sub-category/opol-cdc/2" 
                         className={({ isActive }) => `ml-2 font-serif flex items-center w-full ${isActive ? "text-blue-500" : "text-gray-600 dark:text-gray-300"}`}
                       > 
                         <span className="mr-7 text-xl">•</span> CDC
@@ -280,49 +282,57 @@ const DefaultLayout = () => {
                       </NavLink> 
                     </ListItem>
                   </List>
+                </AccordionBody> 
+
+            </Accordion> 
+
+            <Accordion open={open === 6} icon={ <ExpandMore className={`mx-auto h-4 w-4 transition-transform ${ open === 6 ? "rotate-180" : "" }`} /> } >
+                <ListItem className="p-0" selected={open === 6}>
+                  <AccordionHeader onClick={() => handleOpen(6)} className="border-b-0 p-3">
+                    <ListItemPrefix>
+                      <div className="text-2xl">
+                        <NotebookPen className="-mr-2"/>
+                      </div>
+                    </ListItemPrefix>
+                    <Typography color="blue-gray" className="ml-[-3rem] font-serif text-gray-600 dark:text-gray-300 ">
+                      Log Book
+                    </Typography>
+                  </AccordionHeader>
+                </ListItem>
+                <AccordionBody className="-py-1">
+                  <List className="p-0  list-disc list-inside">  
+                    <ListItem>
+                      <NavLink 
+                        to="/admin/records" 
+                        className={({ isActive }) => `ml-2 font-serif flex items-center w-full ${isActive ? "text-blue-500" : "text-gray-600 dark:text-gray-300"}`}
+                      > 
+                        <span className="mr-7 text-xl">•</span> Endorsement
+                        <ListItemSuffix>
+                          <Chip size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+                        </ListItemSuffix>
+                      </NavLink> 
+                    </ListItem>
+                  </List>
                 </AccordionBody>
-                {/* <AccordionBody className="-py-1">
+
+                <AccordionBody className="-py-1">
                   <List className="p-0  list-disc list-inside">  
                     <ListItem>
                       <NavLink 
-                        to="/brgy-sectors/sub-category/personal-info/1" 
+                        to="/admin/hospital_bill_info" 
                         className={({ isActive }) => `ml-2 font-serif flex items-center w-full ${isActive ? "text-blue-500" : "text-gray-600 dark:text-gray-300"}`}
                       > 
-                        <span className="mr-7 text-xl">•</span> PWD Children
+                        <span className="mr-7 text-xl">•</span> Hospital Bill
                         <ListItemSuffix>
                           <Chip size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
                         </ListItemSuffix>
                       </NavLink> 
                     </ListItem>
                   </List>
-                </AccordionBody> */}
-                
-                {/* <AccordionBody className="-py-2">
-                  <List className="p-0  list-disc list-inside">  
-                    <ListItem>
-                      <NavLink 
-                        to="/admin/barangay-sectors" 
-                        className={({ isActive }) => `ml-2 font-serif flex items-center w-full ${isActive ? "text-blue-500" : "text-gray-600 dark:text-gray-300"}`}
-                      > 
-                        <span className="mr-7 text-xl">•</span> Barangay Sectors
-                        <ListItemSuffix>
-                          <Chip size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
-                        </ListItemSuffix>
-                      </NavLink> 
-                    </ListItem>
-                  </List>
-                </AccordionBody> */}
+                </AccordionBody> 
 
-              </Accordion>
-
-            {/* <ListItem>
-              <NavLink to="/admin" className={({ isActiveProf }) => `font-serif flex items-center w-full dark:text-gray-200 ${isActiveProf ? "text-blue-500" : "text-gray-700"}` } >
-                <ListItemPrefix>
-                  <Avatar />
-                </ListItemPrefix>
-                  Profile 
-              </NavLink> 
-            </ListItem> */}
+            </Accordion> 
+            <hr className=" my-2 border-blue-gray-500 mt-[5px] shadow-lg " /> 
 
             <ListItem>
               <NavLink to="/admin/settings" className={({ isActiveSett }) => `font-serif flex items-center w-full dark:text-gray-200 ${isActiveSett ? "text-blue-500" : "text-gray-700"}` } >

@@ -58,6 +58,7 @@
     "recharts": "^2.15.1",
     "sass": "^1.69.7",
     "sweetalert2": "^11.14.1",
+    "tailwindcss-animate": "^1.0.7",
     "yup": "^1.4.0"
   },
   "devDependencies": {

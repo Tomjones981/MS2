@@ -44,11 +44,7 @@ const PWD_Total_List = () => {
     };
 
     return (
-        <div className='p-5'>
-            {/* <div className="mt-1 w-full p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"> */}
-                {/* <h1 className="text-2xl font-bold mb-5 text-center text-gray-600 dark:text-gray-200 font-serif">
-                    PWD Barangay Counts
-                </h1> */}
+        <div className='p-5'> 
                 {loading ? (
                     <p>Loading...</p>
                 ) : error ? (

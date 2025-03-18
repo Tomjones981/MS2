@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaUserFriends, FaHome, FaChild } from 'react-icons/fa';
 import PWD_BarGraph from './Graphs/PWD_BarGraph'; 
+import Financial_Assistance from '../Reports/Endorsement/Financial_Assistance';
 const AdminDashboard = () => {
   return (
     
@@ -36,14 +37,16 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <div className='grid grid-cols-1 sm:grid-cols-1   gap-6'>
+      <div className='grid grid-cols-2 sm:grid-cols-1   gap-6'>
         <div>
             <PWD_BarGraph />
         </div>
-        <div>
-          
-        </div>
       </div>
+
+      
+        <div>
+          <Financial_Assistance />
+        </div>
     </div>
   );
 };

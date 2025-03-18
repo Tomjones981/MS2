@@ -9,8 +9,9 @@ import { Button, Modal } from 'flowbite-react';
 import { DatePicker, message, Pagination } from 'antd';
 import { IoArrowBackOutline } from "react-icons/io5";
 import ReplyAllIcon from '@mui/icons-material/ReplyAll';
+import Enrollees_Report from '../Reports/CDC/Enrollees_Report';
 
-const Opol_Cdc = () => {
+const Enrollees_CDC = () => {
     const { SubCatId } = useParams();
     const navigate = useNavigate();
     
@@ -27,7 +28,6 @@ const Opol_Cdc = () => {
     const [openCreateModal, setOpenCreateModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);  
     const [openImportModal, setOpenImportModal] = useState(false);
-    const [openViewReportModal, setOpenViewReportModal] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
     
     const [formData, setFormData] = useState({
@@ -91,12 +91,12 @@ const Opol_Cdc = () => {
             barangay: '',
             M: '',  
             F: '//',  
-            months_old: '0',
-            "1_11_yrs_old": '1',
-            "2_11_yrs_old": '2',
-            "3_11_yrs_old": '3',
-            "4_11_yrs_old": '4',
-            "5_yrs_old": '5',
+            months_old: '',
+            "1_11_yrs_old": '',
+            "2_11_yrs_old": '',
+            "3_11_yrs_old": '',
+            "4_11_yrs_old": '',
+            "5_yrs_old": '',
             pwd: '',
         });
         setOpenCreateModal(true);
@@ -211,7 +211,7 @@ const Opol_Cdc = () => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'OPOL_CDC.xlsx');
+            link.setAttribute('download', 'OPOL_CDC_ENROLLEES.xlsx');
             document.body.appendChild(link);
             link.click();
             link.remove();
@@ -247,6 +247,12 @@ const Opol_Cdc = () => {
     const handleViewClick = (cdcInfo) => {
         setSelectedCdcInfo(cdcInfo);
         setOpenViewModal(true);
+    } 
+
+    
+    const [openViewReportModal, setOpenViewReportModal] = useState(false);
+    const handleCliCkReportView = (state) => {
+        setOpenViewReportModal(state);
     }
 
     return (
@@ -254,7 +260,7 @@ const Opol_Cdc = () => {
             <div className='mt-2 w-full p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
                  
                 <div className='flex justify-between items-center p-2 mb-2 -mt-3 dark:bg-gray-800'>
-                    <button onClick={() => navigate(-1)} className='shadow-xl -ml-[3rem] -mr-[42rem] border border-gray-200 bg-gray-600 flex items-center gap-2 p-2 text-gray-200 rounded-md font-bold text-xl transition-all hover:bg-gray-500 dark:text-gray-200 dark:hover:bg-gray-700'>
+                    <button onClick={() => navigate(-1)} className='shadow-xl -ml-[3rem] -mr-[38rem] border border-gray-200 bg-gray-600 flex items-center gap-2 p-2 text-gray-200 rounded-md font-bold text-xl transition-all hover:bg-gray-500 dark:text-gray-200 dark:hover:bg-gray-700'>
                         <ReplyAllIcon className='text-2xl  ' /> 
                     </button>
                     <h1 className="text-lg font-semibold text-gray-900 font-serif dark:text-gray-200">
@@ -262,7 +268,7 @@ const Opol_Cdc = () => {
                             {/* {subCatInfo.id || "Loading..."}{" "}  */}
                             {subCatInfo.sub_cat_name || "Loading..."}{" "} 
                             {subCatInfo.age_range || "Loading..."}{" "}
-                            {subCatInfo.description || ""}  
+                            {/* {subCatInfo.description || ""}   */}
                         </span> Category
                     </h1>
                     <div className="flex space-x-2 -mt-1"> 
@@ -273,7 +279,7 @@ const Opol_Cdc = () => {
                         {openMenu && (
                             <div className=' '>
                                 <div className='absolute right-[5rem] mt-10  flex gap-5 w-[30rem] bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 z-10'>
-                                    <button  type='button'   className="font-serif flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+                                    <button  type='button'  onClick={() => handleCliCkReportView(true)}  className="font-serif flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
                                         Reports
                                     </button>
                                     <button  onClick={handleExport} className="font-serif flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
@@ -446,27 +452,28 @@ const Opol_Cdc = () => {
                                 {/* <div className="border border-gray-300 rounded-lg mt-4">
                                     <div className="grid grid-cols-3 md:grid-cols-3"> 
                                         <div className="flex items-center justify-center border-b border-r border-gray-300 p-2">
-                                            <input id="months_old" type="radio" name="months_old" value="/" checked={formData.months_old === "/"} onChange={() => setFormData({ ...formData, months_old: "/", ["1_11_yrs_old"]: "", ["2_11_yrs_old"]: "", ["3_11_yrs_old"]: "", ["4_11_yrs_old"]: "", ["5_yrs_old"]: "" })}  className="w-4 h-4" />
+                                            <input id="months_old" type="radio" value={formData.months_old} onChange={handleChange} name="months_old"  className="w-4 h-4" />
                                             <label htmlFor="months_old" className="ms-2 text-sm font-medium text-gray-900"> Months Old </label>
                                         </div>
                                         <div className="flex items-center justify-center border-b border-r border-gray-300 p-2">
-                                            <input id="1_11_yrs_old" type="radio" name="1_11_yrs_old" value="/" checked={formData["1_11_yrs_old"] === "/"} onChange={() => setFormData({ ...formData, ["1_11_yrs_old"]: "", ["1_11_yrs_old"]: "/", ["2_11_yrs_old"]: "", ["3_11_yrs_old"]: "", ["4_11_yrs_old"]: "", ["5_yrs_old"]: "" })} className="w-4 h-4" />
+                                            <input id="1_11_yrs_old" type="radio" value={formData["1_11_yrs_old"]} onChange={handleChange} name="1_11_yrs_old" className="w-4 h-4" />
                                             <label htmlFor="1_11_yrs_old" className="ms-2 text-sm font-medium text-gray-900"> 1.11 Y/ Old </label>
                                         </div>
                                         <div className="flex items-center justify-center border-b border-gray-300 p-2">
-                                            <input id="2_11_yrs_old" type="radio" name="2_11_yrs_old" value="/" checked={formData["2_11_yrs_old"] === "/"} onChange={() => setFormData({ ...formData, ["2_11_yrs_old"]: "", ["1_11_yrs_old"]: "", ["2_11_yrs_old"]: "/", ["3_11_yrs_old"]: "", ["4_11_yrs_old"]: "", ["5_yrs_old"]: "" })} className="w-4 h-4" />
+                                            <input id="2_11_yrs_old" type="radio" value={formData["2_11_yrs_old"]} onChange={handleChange} name="2_11_yrs_old" className="w-4 h-4" />
                                             <label htmlFor="2_11_yrs_old" className="ms-2 text-sm font-medium text-gray-900"> 2.11 Y/ Old </label>
-                                        </div> 
+                                        </div>
+ 
                                         <div className="flex items-center justify-center border-b border-r border-gray-300 p-2">
-                                            <input id="3_11_yrs_old" type="radio" name="3_11_yrs_old" checked={formData["3_11_yrs_old"] === "/"} onChange={() => setFormData({ ...formData, ["3_11_yrs_old"]: "", ["1_11_yrs_old"]: "", ["2_11_yrs_old"]: "", ["3_11_yrs_old"]: "/", ["4_11_yrs_old"]: "", ["5_yrs_old"]: "" })} className="w-4 h-4" />
+                                            <input id="3_11_yrs_old" type="radio" value={formData["3_11_yrs_old"]} onChange={handleChange} name="3_11_yrs_old" className="w-4 h-4" />
                                             <label htmlFor="3_11_yrs_old" className="ms-2 text-sm font-medium text-gray-900"> 3.11 Y/ Old </label>
                                         </div>
                                         <div className="flex items-center justify-center border-b border-r border-gray-300 p-2">
-                                            <input id="4_11_yrs_old" type="radio" name="4_11_yrs_old"  checked={formData["4_11_yrs_old"] === "/"} onChange={() => setFormData({ ...formData, ["4_11_yrs_old"]: "", ["1_11_yrs_old"]: "", ["2_11_yrs_old"]: "", ["3_11_yrs_old"]: "", ["4_11_yrs_old"]: "/", ["5_yrs_old"]: "" })} className="w-4 h-4" />
+                                            <input id="4_11_yrs_old" type="radio" value={formData["4_11_yrs_old"]} onChange={handleChange} name="4_11_yrs_old" className="w-4 h-4" />
                                             <label htmlFor="4_11_yrs_old" className="ms-2 text-sm font-medium text-gray-900"> 4.11 Y/ Old </label>
                                         </div>
                                         <div className="flex items-center justify-center border-b border-gray-300 p-2">
-                                            <input id="5_yrs_old" type="radio" name="5_yrs_old" checked={formData["5_yrs_old"] === "/"} onChange={() => setFormData({ ...formData, ["5_yrs_old"]: "", ["1_11_yrs_old"]: "", ["2_11_yrs_old"]: "", ["3_11_yrs_old"]: "", ["4_11_yrs_old"]: "", ["5_yrs_old"]: "/" })} className="w-4 h-4" />
+                                            <input id="5_yrs_old" type="radio" value={formData["5_yrs_old"]} onChange={handleChange} name="5_yrs_old" className="w-4 h-4" />
                                             <label htmlFor="5_yrs_old" className="ms-2 text-sm font-medium text-gray-900"> 5 Y/ Old </label>
                                         </div>
  
@@ -476,6 +483,61 @@ const Opol_Cdc = () => {
                                         </div>
                                     </div>
                                 </div> */}
+                                <div className="border border-gray-300 rounded-lg mt-4">
+                                    <div className="grid grid-cols-3 md:grid-cols-3"> 
+                                        <div className="flex items-center justify-center border-b border-r border-gray-300 p-2">
+                                            <input 
+                                                id="months_old" 
+                                                type="radio" 
+                                                name="age" 
+                                                value="/" 
+                                                checked={formData.months_old === "/"} 
+                                                onChange={() => setFormData({ ...formData, months_old: "/", "1_11_yrs_old": "", "2_11_yrs_old": "", "3_11_yrs_old": "", "4_11_yrs_old": "", "5_yrs_old": "" })}  
+                                                className="w-4 h-4" 
+                                            />
+                                            <label htmlFor="months_old" className="ms-2 text-sm font-medium text-gray-900"> Months Old </label>
+                                        </div>
+                                        
+                                        {[
+                                            { id: "1_11_yrs_old", label: "1.11 Y/ Old" },
+                                            { id: "2_11_yrs_old", label: "2.11 Y/ Old" },
+                                            { id: "3_11_yrs_old", label: "3.11 Y/ Old" },
+                                            { id: "4_11_yrs_old", label: "4.11 Y/ Old" },
+                                            { id: "5_yrs_old", label: "5 Y/ Old" }
+                                        ].map(({ id, label }) => (
+                                            <div key={id} className="flex items-center justify-center border-b border-r border-gray-300 p-2">
+                                                <input 
+                                                    id={id} 
+                                                    type="radio" 
+                                                    name="age" 
+                                                    value="/" 
+                                                    checked={formData[id] === "/"} 
+                                                    onChange={() => setFormData({ 
+                                                        ...formData, 
+                                                        months_old: "", "1_11_yrs_old": "", "2_11_yrs_old": "", "3_11_yrs_old": "", "4_11_yrs_old": "", "5_yrs_old": "", 
+                                                        [id]: "/" 
+                                                    })}  
+                                                    className="w-4 h-4" 
+                                                />
+                                                <label htmlFor={id} className="ms-2 text-sm font-medium text-gray-900">{label}</label>
+                                            </div>
+                                        ))}
+
+                                        <div className="flex items-center justify-center p-2 col-span-3">
+                                            <input 
+                                                id="pwd" 
+                                                type="radio" 
+                                                name="pwd" 
+                                                value="/" 
+                                                checked={formData.pwd === "/"} 
+                                                onChange={() => setFormData({ ...formData, pwd: "/" })}  
+                                                className="w-4 h-4" 
+                                            />
+                                            <label htmlFor="pwd" className="ms-2 text-sm font-medium text-gray-900">PWD</label>
+                                        </div>
+                                    </div>
+                                </div>
+
 
 
                                <div className='mt-3 flex justify-end'>
@@ -583,10 +645,19 @@ const Opol_Cdc = () => {
                     </Modal.Footer>
                 </Modal>
 
+                <Modal show={openViewReportModal} size='5xl' onClose={() => setOpenViewReportModal(false)}>
+                    <Modal.Header>
+                        <h1>Report</h1>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Enrollees_Report />
+                    </Modal.Body>
+                </Modal>
+
                
             </div> 
         </div>
     );
 };
 
-export default Opol_Cdc;
+export default Enrollees_CDC;

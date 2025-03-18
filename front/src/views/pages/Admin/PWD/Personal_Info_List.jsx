@@ -393,8 +393,7 @@ const Personal_Info_List = () => {
                                 onShowSizeChange={handlePageSizeChange}   
                                 pageSizeOptions={['5', '10', '20', '50' , '100', '1000']}  
                                 // showQuickJumper
-                            />
-
+                            /> 
                         </div>
                 </div> 
 
@@ -495,40 +494,102 @@ const Personal_Info_List = () => {
                     <Modal.Body>
                         <div className="flex flex-col space-y-4">
                             <input type="file" accept=".xlsx, .csv" onChange={handleFileChange} className="border p-2 rounded dark:border-gray-500" />
-                            <button 
+                            {/* <button 
                                 onClick={handleImportSubmit} 
                                 className="bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition"
                             >
                                 Import File
-                            </button>
+                            </button> */}
+                            <div className='flex justify-center'>
+                                <button onClick={handleImportSubmit}  disabled={loading}  className={`font-serif text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4 ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
+                        
+                                    {loading ? (
+                                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 100 8v4a8 8 0 01-8-8z"></path>
+                                    </svg>
+                                    ) : (
+                                    <> 
+                                        Import File
+                                    </>
+                                    )}
+                                </button>
+                            </div>
                         </div>
                     </Modal.Body>
                 </Modal>
 
-                <Modal show={openViewModal} size='md' onClose={() => setOpenViewModal(false)}>
+                <Modal show={openViewModal} size="lg" onClose={() => setOpenViewModal(false)}>
                     <Modal.Header>
-                        <h1 className='font-serif'>Peronal Info Details</h1>
+                        <h1 className="font-serif text-lg font-bold text-gray-800 dark:text-gray-200">
+                            Personal Info Details
+                        </h1>
                     </Modal.Header>
                     <Modal.Body>
                         {selectedPersonalInfo && (
-                            <div>
-                                <p className='font-serif'><strong className='font-serif'>ID Number: </strong> {selectedPersonalInfo.id_number}</p>
-                                <p className='font-serif'><strong className='font-serif'>Full Name: </strong> {selectedPersonalInfo.name}</p>
-                                <p className='font-serif'><strong className='font-serif'>Barangay: </strong> {selectedPersonalInfo.barangay}</p>
-                                <p className='font-serif'><strong className='font-serif'>Disability: </strong> {selectedPersonalInfo.disability}</p>
-                                <p className='font-serif'><strong className='font-serif'>Birthday: </strong> {selectedPersonalInfo.birthday}</p>
-                                <p className='font-serif'><strong className='font-serif'>Sex: </strong> {selectedPersonalInfo.sex}</p>
-                                <p className='font-serif'><strong className='font-serif'>Blood Type: </strong> {selectedPersonalInfo.blood_type}</p>
-                                <p className='font-serif'><strong className='font-serif'>Age: </strong> {selectedPersonalInfo.age}</p>
+                            <div className="bg-gray-100 rounded-lg p-6 shadow-md dark:bg-gray-700 border border-gray-300 dark:border-gray-500">
+                                <div className="flex flex-col gap-4">
+                                    
+                                    <div className="border-b pb-2 dark:border-gray-500">
+                                        <p className="font-serif text-sm text-gray-600 dark:text-gray-200">ID Number</p>
+                                        <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedPersonalInfo.id_number}</p>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 gap-4 border-b pb-2 dark:border-gray-500">
+                                        <div>
+                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Full Name</p>
+                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedPersonalInfo.name}</p>
+                                        </div>
+                                        <div>
+                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Disability</p>
+                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedPersonalInfo.disability || "None"}</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500">
+                                        
+                                        <div>
+                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Birthday</p>
+                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedPersonalInfo.birthday}</p>
+                                        </div>
+                                        <div>
+                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Barangay</p>
+                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedPersonalInfo.barangay}</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-3 gap-4">
+                                        <div>
+                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Sex</p>
+                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedPersonalInfo.sex}</p>
+                                        </div>
+                                        <div>
+                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Blood Type</p>
+                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedPersonalInfo.blood_type}</p>
+                                        </div>
+                                        <div>
+                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Age</p>
+                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedPersonalInfo.age}</p>
+                                   
+                                        </div>
+                                    </div> 
+
+                                </div>
                             </div>
                         )}
                     </Modal.Body>
-                        <Modal.Footer>
-                            <Button onClick={() => setOpenViewModal(false)} className="font-serif ">
-                                Close
-                            </Button>
-                        </Modal.Footer>
+                    <Modal.Footer className="flex justify-end">
+                        <Button 
+                            onClick={() => setOpenViewModal(false)} 
+                            className="font-serif bg-red-600 text-white rounded-md hover:bg-red-700 transition-all dark:bg-red-500">
+                            Close
+                        </Button>
+                        <Button  onClick={() => handleEditClick(selectedPersonalInfo)} className="font-serif   text-white rounded-md   transition-all ">
+                            Edit
+                        </Button>
+                    </Modal.Footer>
                 </Modal>
+
 
                 <Modal show={openEditModal} size='xl' onClose={() => setOpenEditModal(false)}>
                     <Modal.Header>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\OpolCdc;
 use App\Models\Sub_Category;
+use App\Models\OpolECCD;
 use App\Models\Personal_Info;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -38,9 +39,11 @@ class PersonalInfoController extends Controller
             return response()->json(['message' => 'Sub-category not found'], 404);
         }
 
-        if ($subCategory->sub_cat_name === 'CDC') {
+        if ($subCategory->sub_cat_name === 'ENROLLEES') {
             $data = OpolCdc::where('sub_cat_id', $personInfoId)->get();
-        } else {
+        }elseif ($subCategory->sub_cat_name === 'ECCD') {
+            $data = OpolECCD::where('sub_cat_id', $personInfoId)->get();
+        }else {
             $data = Personal_Info::where('sub_cat_id', $personInfoId)->get();
         }
 
@@ -92,7 +95,5 @@ class PersonalInfoController extends Controller
             'message' => 'Personal info updated successfully',
             'data' => $personalInfo
         ]);
-    }
-
-
+    } 
 }

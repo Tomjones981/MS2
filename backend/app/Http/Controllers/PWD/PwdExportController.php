@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class PwdExportController extends Controller
 {
-    public function exportBarangayPWDPersonalInfo($subCatId){
+    public function exportBarangayPWDPersonalInfo($subCatId)
+    {
         return Excel::download(new PWD_BarangayWise_Export($subCatId), 'PWD_Personal_Info.xlsx');
     }
 }

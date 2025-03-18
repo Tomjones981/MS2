@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('sub_cat_id');
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('birthday')->nullable();
             $table->string('barangay')->nullable();
@@ -27,11 +27,9 @@ return new class extends Migration
             $table->string('3_11_yrs_old')->nullable();
             $table->string('4_11_yrs_old')->nullable();
             $table->string('5_yrs_old')->nullable();
-            $table->string(column: 'pwd')->nullable();
+            $table->string('pwd')->nullable();
             $table->timestamps();
-
-            
-            
+ 
             $table->foreign('sub_cat_id')
             ->references('id')
             ->on('sub_category')

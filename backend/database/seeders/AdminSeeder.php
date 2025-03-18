@@ -80,8 +80,16 @@ class AdminSeeder extends Seeder
         Sub_Category::create([
             'id' => "2",
             'brgy_sector_id' => "1",
-            'sub_cat_name' => "CDC",
+            'sub_cat_name' => "ENROLLEES",
             'age_range' => "3-4 Years Old",
+            'description' => "Children Development Center",
+        ]);
+        Sub_Category::create([
+            'id' => "3",
+            'brgy_sector_id' => "1",
+            'sub_cat_name' => "ECCD",
+            'age_range' => "3-4 Years Old",
+            'description' => "Children Development Center",
         ]);
 
 

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+ 
+import React, { useState, useEffect, Children } from 'react'
 import { BeatLoader } from 'react-spinners'  
 import { DatePicker, Space } from 'antd';
 import { AiOutlineEye, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
@@ -7,13 +8,13 @@ import {  message, Pagination } from 'antd';
 import { FaEye, FaRegEdit } from "react-icons/fa";
 import { FiUpload, FiDownload, FiPlus } from "react-icons/fi";
 import axiosClient from '../../../../api/axiosClient'
-import Financial_Assistance from '../Reports/Endorsement/Financial_Assistance'
+import Hospital_Bill_Report from '../Reports/Endorsement/Hospital_Bill_Report';
  
 const formatNumber = (number) => {
     return new Intl.NumberFormat().format(number);
 };
 
-const Record_List = () => {
+const Hospital_Bill_Info = () => {
     const [loading, setLoading] = useState(true);
     const [logBooks, setLogBooks] = useState([]);
     const [selectedMonth, setSelectedMonth] = useState(null);
@@ -35,15 +36,12 @@ const Record_List = () => {
     
     const [formData, setFormData] = useState({
         date: "",
-        client_name: "",
+        name: "",
         age: "",
-        gender: "",
-        address: "",
-        purpose: "",
-        beneficiary: "",
-        hospital_or_institutional: "",
-        contact_number: "",
-        amount: ""
+        address: "", 
+        beneficiary_name: "", 
+        hospital_name: "", 
+        amount: "", 
     });
 
     const handleChange = (e) => {
@@ -54,15 +52,12 @@ const Record_List = () => {
     const handleOpenCreateModal = () => {
         setFormData({  
             date: "",
-            client_name: "",
+            name: "",
             age: "",
-            gender: "",
-            address: "",
-            purpose: "",
-            beneficiary: "",
-            hospital_or_institutional: "",
-            contact_number: "",
-            amount: ""
+            address: "", 
+            beneficiary_name: "", 
+            hospital_name: "", 
+            amount: "", 
         });  
         setOpenCreateModal(true);
     };
@@ -72,7 +67,7 @@ const Record_List = () => {
         setLoading(true);
 
         try {
-            const response = await axiosClient.post("/log-book-create", formData, {
+            const response = await axiosClient.post("/logbook-hospital-bill-create", formData, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`
@@ -84,15 +79,12 @@ const Record_List = () => {
             setOpenCreateModal(false);  
             setFormData({  
                 date: "",
-                client_name: "",
+                name: "",
                 age: "",
-                gender: "",
-                address: "",
-                purpose: "",
-                beneficiary: "",
-                hospital_or_institutional: "",
-                contact_number: "",
-                amount: ""
+                address: "", 
+                beneficiary_name: "", 
+                hospital_name: "", 
+                amount: "", 
             });
             fetchLogBooks();
         } catch (error) {
@@ -113,7 +105,7 @@ const Record_List = () => {
     
         const fetchLogBooks = async () => {
             try {
-                const response = await axiosClient.get("/log-book-fetching");
+                const response = await axiosClient.get("/logbook-hospital-bill-fetch");
                 setLogBooks(response.data);
             } catch (error) {
                 console.error("Error fetching logbook data:", error);
@@ -134,8 +126,8 @@ const Record_List = () => {
     
         const filteredLogBooks = logBooks.filter((log) => {
             return (
-                (selectedPurpose === '' || log.purpose === selectedPurpose) &&
-                log.client_name.toLowerCase().includes(searchTerm.toLowerCase())
+                (selectedPurpose === '' || log.hospital_name === selectedPurpose) &&
+                log.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
         });
 
@@ -152,16 +144,13 @@ const Record_List = () => {
         const handleEditClick = (record) => {
             setSelectedLog(record);
             setFormData({
-                date: record.date,
-                client_name: record.client_name,
+                date: record.date, 
+                name: record.name,
                 age: record.age,
-                gender: record.gender,
-                address: record.address,
-                purpose: record.purpose,
-                beneficiary: record.beneficiary,
-                hospital_or_institutional: record.hospital_or_institutional,
-                contact_number: record.contact_number,
-                amount: record.amount
+                address: record.address, 
+                beneficiary_name: record.beneficiary_name, 
+                hospital_name: record.hospital_name, 
+                amount: record.amount, 
             });
             setOpenEditModal(true);
         };
@@ -172,7 +161,7 @@ const Record_List = () => {
             setLoading(true);
         
             try {
-                const response = await axiosClient.put(`/log-book-update/${selectedLog.id}`, formData, {
+                const response = await axiosClient.put(`/logbook-hospital-bill-update/${selectedLog.id}`, formData, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${localStorage.getItem("access_token")}`
@@ -192,7 +181,7 @@ const Record_List = () => {
 
         const handleExport = async () => {
             try {
-                const response = await axiosClient.get("/logbook-export", {
+                const response = await axiosClient.get("/logbook-hospital-bill-export", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                     },
@@ -202,7 +191,7 @@ const Record_List = () => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement("a");
                 link.href = url;
-                link.setAttribute("download", "logbook_records.xlsx");  
+                link.setAttribute("download", "logbook_hospital_bill.xlsx");  
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -231,7 +220,7 @@ const Record_List = () => {
     
         try {
             setLoading(true);
-            const response = await axiosClient.post("/logbook-import", formData, {
+            const response = await axiosClient.post("/logbook-hospital-bill-import", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`
@@ -269,7 +258,7 @@ const Record_List = () => {
                 
                 <div className="flex justify-between items-center p-2 mb-2 -mt-3       dark:bg-gray-800">
                     <h1 className="text-lg font-semibold text-gray-900 font-serif dark:text-gray-200">
-                        Financial Assistance
+                        Hospital Bill Assistance
                     </h1>
                     <div className="flex space-x-2 -mt-1">
                         <button  type='button' onClick={() => setOpenReportModal(true)}  className="font-serif flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
@@ -295,10 +284,7 @@ const Record_List = () => {
                 <div className='grid grid-cols-10 mt-6 mb-2 gap-4 '> 
                     <div className='col-span-7'> 
                         <select name="purpose" value={selectedPurpose}  onChange={handlePurposeChange}   className='h-9 font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                            <option value="" className='font-serif'>All</option>
-                            <option value="cash_assistance" className='font-serif '>Cash Assistance</option>
-                            <option value="medical_assistance" className='font-serif '>Medical Assistance</option>
-                            <option value="burial_assistance" className='font-serif '>Burial Assistance</option>
+                            <option value="" className='font-serif'>All</option> 
                         </select>
                     </div>
                     <div className="relative col-span-3 flex items-end">
@@ -318,11 +304,10 @@ const Record_List = () => {
                                 <tr>
                                     <th className="font-serif w-20 p-3 text-sm font-semibold tracking-wide text-left">Date</th>
                                     <th className="font-serif p-3 text-sm font-semibold tracking-wide text-left">Clients Name</th>
-                                    <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Gender</th>
-                                    <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Address</th> 
-                                    <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Purpose</th>
-                                    <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Beneficiary</th>
-                                    {/* <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Institution</th> */}
+                                    <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Age</th>
+                                    <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Address</th>  
+                                    {/* <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Beneficiary Name</th>  */}
+                                    <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Hospital Name</th> 
                                     <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Amount</th> 
                                     <th className="font-serif w-32 p-3 text-sm font-semibold tracking-wide text-left">Actions</th>
                                 </tr>
@@ -346,16 +331,11 @@ const Record_List = () => {
                                             <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
                                                 <a href="#" className="font-serif font-bold text-blue-500 hover:underline ">{log.date}</a>
                                             </td>
-                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200">{log.client_name}</td>
-                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap">
-                                                <span className="font-serif p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50 dark:text-gray-200 dark:bg-green-600">
-                                                    {log.gender}
-                                                </span>
-                                            </td>
-                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200 ">{log.address}</td>
-                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200">{log.purpose === "educational" ? "Educational Assist.." :log.purpose === "cash_assistance" ? "Cash Assist.." : log.purpose === "medical_assistance" ? "Medical Assist.." : log.purpose === "burial_assistance" ? "Burial Assist.."     : "Unknown"}</td>
-                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200">{log.beneficiary === "himself" ? "Himself" : log.beneficiary === "herself" ? "Herself" : log.beneficiary === "parent" ? "Parent"     : "Unknown"}</td>
-                                            {/* <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200">{log.hospital_or_institutional === "cash_assistance" ? "Cash Assist..": log.hospital_or_institutional === "dswd" ? "DSWD"  : log.hospital_or_institutional === "polimedic" ? "Polimedic" : log.hospital_or_institutional === "ace" ? "Ace Hospital" : log.hospital_or_institutional === "sabal" ? "Sabal Hospital" : log.hospital_or_institutional === "maria_reyna" ? "Maria Reyna" : "Unknown"}</td> */}
+                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200">{log.name}</td> 
+                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200">{log.age}</td> 
+                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200 ">{log.address}</td> 
+                                            {/* <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200 ">{log.beneficiary_name}</td>  */}
+                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200 ">{log.hospital_name}</td> 
                                             <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200">₱{formatNumber(Number(log.amount).toFixed(2))}</td>
                                             <td className="p-3 text-sm text-gray-700 whitespace-nowrap flex space-x-2">
                                                 <button onClick={() => handleViewClick(log)} className="bg-white px-3 py-1 border rounded-md text-blue-500 hover:text-blue-700 dark:bg-gray-800 transform scale-100 hover:scale-110 transition-all duration-300"><FaEye /></button>
@@ -380,7 +360,7 @@ const Record_List = () => {
                         </div>
                 </div>
  
-                <Modal show={openCreateModal}   onClose={() => setOpenCreateModal(false)} popup>
+                <Modal show={openCreateModal}  size='md' onClose={() => setOpenCreateModal(false)} popup>
                     <Modal.Header className='m-3'> <h1 className='font-serif'>Add New Record</h1> </Modal.Header>
                     <hr className="  -mt-2 my-2 mb-5 border-t border-gray-300 dark:border-gray-600" style={{ width: '100%' }} />
                     <Modal.Body>
@@ -396,84 +376,31 @@ const Record_List = () => {
                             </div>
                         </div>
 
-                        <div className='grid grid-cols-2 gap-5'>
+                        <div className='grid grid-cols-1 gap-5'>
                             <div>
-                                <label htmlFor="client_name" className="font-serif mt-4 block mb-1  text-md font-medium text-gray-900 dark:text-white">Clients Name</label>
-                                <input type="text" name="client_name" value={formData.client_name}  onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......" required />
-                            </div>
-                            <div>
-                                <label htmlFor="gender" className="font-serif mt-4 block mb-1  text-md font-medium text-gray-900 dark:text-white">Gender</label>
-                                <select name="gender" value={formData.gender} onChange={handleChange} className='font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' required>
-                                    <option value="">Select Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
+                                <label htmlFor="name" className="font-serif mt-4 block mb-1  text-md font-medium text-gray-900 dark:text-white">Client Name</label>
+                                <input type="text" name="name" value={formData.name}  onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......" required />
+                            </div> 
                         </div>
 
-                        <div className='grid grid-cols-1 gap-5'> 
+                        <div className='grid grid-cols-1 gap-2'> 
                             <div>
                                 <label htmlFor="address" className="font-serif mt-4 block mb-1 text-md font-medium text-gray-900 dark:text-white">Address</label>
                                 <input type="text" name="address" value={formData.address} onChange={handleChange}  className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
                             </div>
-                        </div>
-                        <div className='grid grid-cols-2 gap-5'> 
                             <div>
-                                <label htmlFor="purpose" className="font-serif mt-2 block mb-2 text-md font-medium text-gray-900 dark:text-white">Purpose</label>
-                                <select name="purpose" value={formData.purpose} onChange={handleChange} className='font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' required>
-                                    <option value="" className='font-serif '>Select Purpose</option>
-                                    <option value="educational" className='font-serif '>Educational Assistance</option>
-                                    <option value="cash_assistance" className='font-serif '>Cash Assistance</option>
-                                    <option value="medical_assistance" className='font-serif '>Medical Assistance</option>
-                                    <option value="burial_assistance" className='font-serif '>Burial Assistance</option>
-                                </select>
+                                <label htmlFor="beneficiary_name" className="font-serif mt-4 block mb-1 text-md font-medium text-gray-900 dark:text-white">Beneficiary Name</label>
+                                <input type="text" name="beneficiary_name" value={formData.beneficiary_name} onChange={handleChange}  className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
                             </div>
                             <div>
-                                <label htmlFor="beneficiary" className="font-serif mt-2 block mb-2 text-md font-medium text-gray-900 dark:text-white">Beneficiary</label>
-                                <select name="beneficiary" value={formData.beneficiary} onChange={handleChange}  className='font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' required>
-                                    <option value="" className='font-serif '>Select Beneficiary</option>
-                                    <option value="himself" className='font-serif '>Himself</option>
-                                    <option value="herself" className='font-serif '>Herself</option>
-                                    <option value="parent" className='font-serif '>Parent</option> 
-                                </select>
+                                <label htmlFor="hospital_name" className="font-serif mt-4 block mb-1 text-md font-medium text-gray-900 dark:text-white">Hospital Name</label>
+                                <input type="text" name="hospital_name" value={formData.hospital_name} onChange={handleChange}  className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
                             </div>
                             <div>
-                                <label htmlFor="hospital_or_institution" className="font-serif mt-2 block mb-2 text-md font-medium text-gray-900 dark:text-white">Hospital/Institutional</label>
-                                <select name="hospital_or_institutional" value={formData.hospital_or_institutional} onChange={handleChange} className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' required>
-                                    <option value="" >Select Hospital/Institution</option>
-                                    <option value="cash_assistance" >Cash Assitance</option>
-                                    <option value="dswd" >DSWD</option>
-                                    <option value="ace" >Ace</option>
-                                    <option value="sabal" >Sabal</option> 
-                                    <option value="polimedic" >Polimedic</option>
-                                    <option value="maria_reyna" >Maria Reyna</option> 
-                                </select>
+                                <label htmlFor="amount" className="font-serif mt-4 block mb-1 text-md font-medium text-gray-900 dark:text-white">Amount</label>
+                                <input type="text" name="amount" value={formData.amount} onChange={handleChange}  className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
                             </div>
-                            <div>
-                                <label htmlFor="contact_number" className="font-serif mt-2 block mb-2 text-md font-medium text-gray-900 dark:text-white">Contact #</label>
-                                <input type="tel" name="contact_number" value={formData.contact_number} onChange={handleChange}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
-                            </div>
-                            <div>
-                                <label htmlFor="amount" className="font-serif mt-2 block mb-2 text-md font-medium text-gray-900 dark:text-white">Amount</label>
-                                <input type="number" name="amount" value={formData.amount} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
-                            </div>
-                            {/* <div className="flex flex-col items-center gap-3 p-4 border rounded-lg shadow-md">
-                                {preview && (
-                                    <img
-                                    src={preview}
-                                    alt="Preview"
-                                    className="w-32 h-32 object-cover rounded-md border"
-                                    />
-                                )}
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageChange}
-                                    className="file:border file:py-2 file:px-4 file:rounded-lg file:bg-blue-500 file:text-white file:cursor-pointer"
-                                />
-                            </div> */}
-                        </div>
+                        </div> 
                         <div className='flex justify-center'>
                             {/* <button type="submit" className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4'  >  Create </button> */}
                             <button type="submit" disabled={loading}  className={`font-serif text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4 ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
@@ -503,86 +430,53 @@ const Record_List = () => {
                             <div className="bg-gray-100 rounded-lg p-6 shadow-md dark:bg-gray-700 border border-gray-300 dark:border-gray-500">
                                 <div className="flex flex-col gap-4">
                                      
-                                    <div className="border-b pb-2 dark:border-gray-500">
-                                        <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Date</p>
-                                        <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedResident.date}</p>
-                                    </div>
-
-                                     
-                                    <div className="grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500">
-                                        <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Name</p>
-                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedResident.client_name}</p>
+                                    <div className='grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500'>
+                                        <div className="">
+                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Date</p>
+                                            <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">{selectedResident.date}</p>
                                         </div>
                                         <div>
                                             <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Age</p>
-                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedResident.age}</p>
+                                            <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">{selectedResident.age}</p>
                                         </div>
                                     </div>
 
                                      
-                                    <div className="grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500">
+                                    <div className="grid grid-cols-1 gap-4 border-b pb-2 dark:border-gray-500">
                                         <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Gender</p>
-                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">
-                                            {selectedResident.gender === "male" ? "Male" :
-                                                selectedResident.gender === "female" ? "Female" : 
-                                                "Unknown"}
-                                            </p>
+                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Name</p>
+                                            <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">{selectedResident.name}</p>
                                         </div>
+                                    </div>
+
+                                     
+                                    <div className="grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500"> 
                                         <div>
                                             <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Address</p>
-                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedResident.address}</p>
+                                            <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">{selectedResident.address}</p>
                                         </div>
                                     </div>
 
-                                     
-                                    <div className="grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500">
+                                    <div className="grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500"> 
                                         <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Purpose</p>
-                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">
-                                                {selectedResident.purpose === "educational" ? "Educational Assistance" :
-                                                selectedResident.purpose === "cash_assistance" ? "Cash Assistance" :
-                                                selectedResident.purpose === "medical_assistance" ? "Medical Assistance" :
-                                                selectedResident.purpose === "burial_assistance" ? "Burial Assistance" :
-                                                "Unknown"}
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Beneficiary</p>
-                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">
-                                                {selectedResident.beneficiary === "himself" ? "Himself" :
-                                                selectedResident.beneficiary === "herself" ? "Herself" :
-                                                selectedResident.beneficiary === "parent" ? "Parent" :
-                                                "Unknown"}
-                                            </p>
+                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Beneficiary Name</p>
+                                            <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">{selectedResident.beneficiary_name}</p>
                                         </div>
                                     </div>
-
                                     
-                                    <div className="grid grid-cols-2 gap-4">
+                                    <div className="grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500"> 
                                         <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Institution</p>
-                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">
-                                                {selectedResident.hospital_or_institutional === "cash_assistance" ? "Cash Assistance" :
-                                                selectedResident.hospital_or_institutional === "dswd" ? "DSWD" :
-                                                selectedResident.hospital_or_institutional === "polimedic" ? "Polimedic" :
-                                                selectedResident.hospital_or_institutional === "ace" ? "Ace Hospital" :
-                                                selectedResident.hospital_or_institutional === "sabal" ? "Sabal Hospital" :
-                                                selectedResident.hospital_or_institutional === "maria_reyna" ? "Maria Reyna" :
-                                                "Unknown"}
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Contact Number</p>
-                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedResident.contact_number}</p>
+                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Hospital Name</p>
+                                            <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">{selectedResident.hospital_name}</p>
                                         </div>
                                     </div>
+ 
+ 
 
                                      
-                                    <div className="border-t pt-2 dark:border-gray-500 ">
+                                    <div className="border-b pt-2 dark:border-gray-500 ">
                                         <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Amount</p>
-                                        <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">₱{selectedResident.amount}</p>
+                                        <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">₱{selectedResident.amount}</p>
                                     </div>
                                 </div>
                             </div>
@@ -601,60 +495,29 @@ const Record_List = () => {
 
 
                 <Modal show={openEditModal} onClose={() => setOpenEditModal(false)}>
-                    <Modal.Header><h1 className='font-serif'>Edit Logbook Entry</h1></Modal.Header>
+                    <Modal.Header><h1 className='font-serif'>Edit HB Entry</h1></Modal.Header>
                     <Modal.Body>
                         <form onSubmit={handleUpdate}>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block font-serif">Client Name</label>
-                                    <input type="text" name="client_name" value={formData.client_name} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                    <input type="text" name="name" value={formData.name} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                 </div>
                                 <div>
                                     <label className="block font-serif">Age</label>
                                     <input type="number" name="age" value={formData.age} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                </div>
-                                <div>
-                                    <label className="block font-serif">Gender</label>
-                                    <select name="gender" value={formData.gender} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
-                                </div>
+                                </div> 
                                 <div>
                                     <label className="block font-serif">Address</label>
                                     <input type="text" name="address" value={formData.address} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
-                                </div>
+                                </div>    
                                 <div>
-                                    <label className="block font-serif">Purpose</label>
-                                    <select name="purpose" value={formData.purpose} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                        <option value="educational" className='font-serif '>Educational Assistance</option>
-                                        <option value="cash_assistance" className='font-serif '>Cash Assistance</option>
-                                        <option value="medical_assistance" className='font-serif '>Medical Assistance</option>
-                                        <option value="burial_assistance" className='font-serif '>Burial Assistance</option>
-                                    </select>
-                                </div>
+                                    <label className="block font-serif">Beneficiary Name</label>
+                                    <input type="text" name="beneficiary_name" value={formData.beneficiary_name} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                </div> 
                                 <div>
-                                    <label className="block font-serif">Beneficiary</label>
-                                    <select name="beneficiary" value={formData.beneficiary} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                        <option value="himself" className='font-serif '>Himself</option>
-                                        <option value="herself" className='font-serif '>Herlself</option>
-                                        <option value="parent" className='font-serif '>Parent</option> 
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="block font-serif">Institution</label>
-                                    <select name="hospital_or_institutional" value={formData.hospital_or_institutional} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                        <option value="cash_assistance" >Cash Assitance</option>
-                                        <option value="dswd" >DSWD</option>
-                                        <option value="ace" >Ace</option>
-                                        <option value="sabal" >Sabal</option> 
-                                        <option value="polimedic" >Polimedic</option>
-                                        <option value="maria_reyna" >Maria Reyna</option> 
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="block font-serif">Contact #</label>
-                                    <input type="text" name="contact_number" value={formData.contact_number} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                    <label className="block font-serif">Hospital Name</label>
+                                    <input type="text" name="hospital_name" value={formData.hospital_name} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                 </div>
                                 <div>
                                     <label className="block font-serif">Amount</label>
@@ -685,7 +548,7 @@ const Record_List = () => {
 
                 <Modal show={openImportModal} size='md'  onClose={() => setOpenImportModal(false)}>
                     <Modal.Header >
-                        <h1 className='font-serif'>Import Financian Assistance Datas</h1>
+                        <h1 className='font-serif'>Import Hospital File</h1>
                     </Modal.Header>
                     <Modal.Body>
                         <div className="flex flex-col space-y-4">
@@ -721,7 +584,7 @@ const Record_List = () => {
                         <h1 className='font-serif'>Reports</h1>
                     </Modal.Header>
                     <Modal.Body>
-                        <Financial_Assistance/>
+                        <Hospital_Bill_Report/>
                     </Modal.Body>
                 </Modal>
             </div>
@@ -730,4 +593,4 @@ const Record_List = () => {
   )
 }
 
-export default Record_List
+export default Hospital_Bill_Info

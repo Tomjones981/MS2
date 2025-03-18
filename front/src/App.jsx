@@ -20,7 +20,10 @@ import Profile_Info from  './views/pages/Admin/Profile/Profile_Info'
 import PWD_Total_List from "./views/pages/Admin/Dashboard/CHILDREN/PWD/PWD_Total_List";
 import Year_CDC from "./views/pages/Admin/YEAR/CDC/Year_CDC"; 
 import OPOL_CDCC from './views/pages/Admin/PWD/OPOL_CDCC'
-import Opol_Cdc from './views/pages/Admin/PWD/Opol_Cdc'
+import Opol_Cdc from './views/pages/Admin/PWD/Opol_Cdc' 
+import Enrollees_CDC from './views/pages/Admin/PWD/Enrollees_CDC'
+import Opol_ECCD from "./views/pages/Admin/PWD/Opol_ECCD";
+import Hospital_Bill_Info from "./views/pages/Admin/Records/Hospital_Bill_Info";
 function App() {
   const { user, token } = useStateContext();
 
@@ -44,17 +47,19 @@ function App() {
         {token ? (
           <Route path='/' element={<DefaultLayout />}>
             {user.user_type === 'admin' && (
-              <>
+              <> 
                 <Route path='/admin/profile' element={<Profile_Info />}/>   
                 <Route path='/admin/dashboard' element={<AdminDashboard />}/>    
-                <Route path='/admin/records' element={<Record_List />}/>     
+                <Route path='/admin/records' element={<Record_List />}/>        
+                <Route path='/admin/hospital_bill_info' element={<Hospital_Bill_Info />}/>  
                 <Route path='/admin/yearlist' element={<Year_CDC />}/>     
                 <Route path='/admin/report/pwd' element={<PWD_Total_List />}/>     
                 <Route path='/admin/pwd-list' element={<Yearly_List />}/>    
                 <Route path='/brgy-sectors/:yearId' element={<Brgy_Sectors />}/>   
                 <Route path='/brgy-sectors/sub-category/:sectorId' element={<Sub_Category />}/>   
                 <Route path='/brgy-sectors/sub-category/personal-info/:SubCatId' element={<Personal_Info_List />}/>   
-                <Route path='/brgy-sectors/sub-category/opol-cdc/:SubCatId' element={<Opol_Cdc />}/>   
+                <Route path='/brgy-sectors/sub-category/opol-cdc/:SubCatId' element={<Enrollees_CDC />}/>    
+                <Route path='/brgy-sectors/sub-category/opol-eccd/:SubCatId' element={<Opol_ECCD />}/>   
               </>
             )}
             {user.user_type === 'payroll' && (

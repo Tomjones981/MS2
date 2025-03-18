@@ -47,12 +47,15 @@ const Sub_Category = () => {
     // };
 
     const handleView = (subCatId, subCatName) => {
-        if (subCatName === "CDC") {
+        if (subCatName === "ENROLLEES") {
             navigate(`/brgy-sectors/sub-category/opol-cdc/${subCatId}`);
+        } else if (subCatName === "ECCD") {
+            navigate(`/brgy-sectors/sub-category/opol-eccd/${subCatId}`);
         } else {
             navigate(`/brgy-sectors/sub-category/personal-info/${subCatId}`);
         }
     };
+    
     
 
 
