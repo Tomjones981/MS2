@@ -375,7 +375,7 @@ const Record_List = () => {
                                 total={filteredLogBooks.length}
                                 onChange={handlePageChange}
                                 showSizeChanger
-                                pageSizeOptions={[ '5', '10', '20', '100', '150', '200']}
+                                pageSizeOptions={[ '5', '10', '20', '100', '150', '200', '250', '500']}
                             />
                         </div>
                 </div>
@@ -388,7 +388,7 @@ const Record_List = () => {
                         <div className='grid grid-cols-2 gap-5'>
                             <div>
                                 <label htmlFor="date" className="font-serif mt-2 block  text-md font-medium text-gray-900 dark:text-white">Date</label>
-                                <DatePicker onChange={handleDateChange} format="YYYY-MM-DD" className='font-serif bg-gray-50 h-9 mt-1 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200' required/>
+                                <DatePicker onChange={handleDateChange} format="YYYY-MM-DD" className='w-full font-serif bg-gray-50 h-9 mt-1 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200' required/>
                             </div>
                             <div>
                                 <label htmlFor="age" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Age</label>
@@ -454,26 +454,11 @@ const Record_List = () => {
                                 <label htmlFor="contact_number" className="font-serif mt-2 block mb-2 text-md font-medium text-gray-900 dark:text-white">Contact #</label>
                                 <input type="tel" name="contact_number" value={formData.contact_number} onChange={handleChange}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
                             </div>
+                        </div>
                             <div>
                                 <label htmlFor="amount" className="font-serif mt-2 block mb-2 text-md font-medium text-gray-900 dark:text-white">Amount</label>
                                 <input type="number" name="amount" value={formData.amount} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
-                            </div>
-                            {/* <div className="flex flex-col items-center gap-3 p-4 border rounded-lg shadow-md">
-                                {preview && (
-                                    <img
-                                    src={preview}
-                                    alt="Preview"
-                                    className="w-32 h-32 object-cover rounded-md border"
-                                    />
-                                )}
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageChange}
-                                    className="file:border file:py-2 file:px-4 file:rounded-lg file:bg-blue-500 file:text-white file:cursor-pointer"
-                                />
-                            </div> */}
-                        </div>
+                            </div>  
                         <div className='flex justify-center'>
                             {/* <button type="submit" className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4'  >  Create </button> */}
                             <button type="submit" disabled={loading}  className={`font-serif text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4 ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
@@ -600,7 +585,7 @@ const Record_List = () => {
                 </Modal>
 
 
-                <Modal show={openEditModal} onClose={() => setOpenEditModal(false)}>
+                <Modal show={openEditModal}  onClose={() => setOpenEditModal(false)}>
                     <Modal.Header><h1 className='font-serif'>Edit Logbook Entry</h1></Modal.Header>
                     <Modal.Body>
                         <form onSubmit={handleUpdate}>

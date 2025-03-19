@@ -201,7 +201,7 @@ const DefaultLayout = () => {
                         <HiChartPie className="mr-2"/>
                       </div>
                     </ListItemPrefix>
-                    <Typography color="blue-gray" className="ml-[-3rem] font-serif text-gray-600 dark:text-gray-300 ">
+                    <Typography color="blue-gray" className="ml-[-3rem]   text-gray-600 dark:text-gray-300 ">
                       Dashboard
                     </Typography>
                   </AccordionHeader>
