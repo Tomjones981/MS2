@@ -221,6 +221,21 @@ const DefaultLayout = () => {
                     </ListItem>
                   </List>
                 </AccordionBody>
+                <AccordionBody className="-py-1">
+                  <List className="p-0  list-disc list-inside">  
+                    <ListItem>
+                      <NavLink 
+                        to="/admin/cicl/report" 
+                        className={({ isActive }) => `ml-2 font-serif flex items-center w-full ${isActive ? "text-blue-500" : "text-gray-600 dark:text-gray-300"}`}
+                      > 
+                        <span className="mr-7 text-xl">•</span> CICL Report
+                        <ListItemSuffix>
+                          <Chip size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+                        </ListItemSuffix>
+                      </NavLink> 
+                    </ListItem>
+                  </List>
+                </AccordionBody>
                  
 
               </Accordion>
@@ -268,7 +283,7 @@ const DefaultLayout = () => {
                   </List>
                 </AccordionBody>
 
-                <AccordionBody className="-py-1">
+                {/* <AccordionBody className="-py-1">
                   <List className="p-0  list-disc list-inside">  
                     <ListItem>
                       <NavLink 
@@ -282,7 +297,7 @@ const DefaultLayout = () => {
                       </NavLink> 
                     </ListItem>
                   </List>
-                </AccordionBody> 
+                </AccordionBody>  */}
 
             </Accordion> 
 

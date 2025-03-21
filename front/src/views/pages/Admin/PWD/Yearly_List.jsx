@@ -186,8 +186,7 @@ const Yearly_List = () => {
                 </Modal>
 
             </div>
-        </div>
-
+        </div> 
     );
 };
 

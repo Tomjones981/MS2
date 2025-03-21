@@ -14,6 +14,7 @@ use App\Http\Controllers\BrgySectorController;
 use App\Http\Controllers\PersonalInfoController;
 use App\Http\Controllers\PWD\PWDController;
 use App\Http\Controllers\PWD\PwdExportController;
+use App\Http\Controllers\ChildrenCaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
  
@@ -87,6 +88,17 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('/logbook-hospital-bill-import', [HospitalBillController::class, 'importHospitalBillInfo']);
     Route::post('/logbook-hospital-bill-total-amount', [HospitalBillController::class, 'getTotalAmountHospitalBill']);
     Route::put('/logbook-hospital-bill-update/{id}', [HospitalBillController::class, 'updateHospitalBill']);
+
+
+    
+    // Route::post('/iccl-create', [ChildrenCaseController::class, 'createICCLInfo']);
+    Route::get('/cicl-data-fetch', [ChildrenCaseController::class, 'fetchCICLData']);
+    Route::get('/cicl-locations-fetch', [ChildrenCaseController::class, 'fetchCICLLocations']);
+    Route::get('/cicl-sex-fetch', [ChildrenCaseController::class, 'fetchCICLSex']);
+    Route::get('/cicl-age-fetch', [ChildrenCaseController::class, 'fetchCICLAge']);
+    Route::post('/cicl-create', [ChildrenCaseController::class, 'createCICL']);
+    Route::get('/children-cases/{year}', [ChildrenCaseController::class, 'getCasesByYear']);
+    Route::get('/children-cases-age/{year}', [ChildrenCaseController::class, 'getAgeDistribution']);
 
 
  

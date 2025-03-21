@@ -3,6 +3,7 @@
 namespace App\Models;
 use App\Models\Brgy_Sectors;
 use App\Models\Personal_Info;
+use App\Models\ChildrenCase;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,5 +29,9 @@ class Sub_Category extends Model
     }
     public function opol_cdc(){
         return $this->hasMany(OpolCdc::class);
+    }
+    public function children_case()
+    {
+        return $this->hasMany(ChildrenCase::class);
     }
 }

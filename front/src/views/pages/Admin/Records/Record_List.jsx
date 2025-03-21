@@ -317,7 +317,7 @@ const Record_List = () => {
                             <thead className="text-gray-800 sticky -top-1 bg-gray-50 dark:bg-gray-200 border-b-2 border-gray-200 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-200">
                                 <tr>
                                     <th className="font-serif w-20 p-3 text-sm font-semibold tracking-wide text-left">Date</th>
-                                    <th className="font-serif p-3 text-sm font-semibold tracking-wide text-left">Clients Name</th>
+                                    <th className="font-serif w-20 p-3 text-sm font-semibold tracking-wide text-left">Clients Name</th>
                                     <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Gender</th>
                                     <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Address</th> 
                                     <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Purpose</th>
@@ -358,8 +358,8 @@ const Record_List = () => {
                                             {/* <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200">{log.hospital_or_institutional === "cash_assistance" ? "Cash Assist..": log.hospital_or_institutional === "dswd" ? "DSWD"  : log.hospital_or_institutional === "polimedic" ? "Polimedic" : log.hospital_or_institutional === "ace" ? "Ace Hospital" : log.hospital_or_institutional === "sabal" ? "Sabal Hospital" : log.hospital_or_institutional === "maria_reyna" ? "Maria Reyna" : "Unknown"}</td> */}
                                             <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200">₱{formatNumber(Number(log.amount).toFixed(2))}</td>
                                             <td className="p-3 text-sm text-gray-700 whitespace-nowrap flex space-x-2">
-                                                <button onClick={() => handleViewClick(log)} className="bg-white px-3 py-1 border rounded-md text-blue-500 hover:text-blue-700 dark:bg-gray-800 transform scale-100 hover:scale-110 transition-all duration-300"><FaEye /></button>
-                                                <button onClick={() => handleEditClick(log)} className="bg-white px-3 py-1 border rounded-md text-green-500 hover:text-green-700 dark:bg-gray-800 transform scale-100 hover:scale-110 transition-all duration-300"><FaRegEdit /></button>
+                                                <button onClick={() => handleViewClick(log)} className="bg-white px-3 py-1 border rounded-md text-blue-500 hover:text-blue-700 dark:bg-gray-800   hover:scale-110 transition-all duration-300"><FaEye /></button>
+                                                <button onClick={() => handleEditClick(log)} className="bg-white px-3 py-1 border rounded-md text-green-500 hover:text-green-700 dark:bg-gray-800  hover:scale-110 transition-all duration-300"><FaRegEdit /></button>
                                             </td>   
                                         </tr>
                                     ))

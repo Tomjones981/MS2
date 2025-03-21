@@ -91,6 +91,13 @@ class AdminSeeder extends Seeder
             'age_range' => "3-4 Years Old",
             'description' => "Children Development Center",
         ]);
+        Sub_Category::create([
+            'id' => "4",
+            'brgy_sector_id' => "1",
+            'sub_cat_name' => "CICL",
+            'age_range' => "0-17 Years Old",
+            'description' => "Children in Conflict with the Law Cases",
+        ]);
 
 
         

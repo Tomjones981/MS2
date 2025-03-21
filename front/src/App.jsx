@@ -24,6 +24,9 @@ import Opol_Cdc from './views/pages/Admin/PWD/Opol_Cdc'
 import Enrollees_CDC from './views/pages/Admin/PWD/Enrollees_CDC'
 import Opol_ECCD from "./views/pages/Admin/PWD/Opol_ECCD";
 import Hospital_Bill_Info from "./views/pages/Admin/Records/Hospital_Bill_Info";
+import CICL_List from "./views/pages/Admin/PWD/CICL_List";
+import CICL_Graph from "./views/pages/Admin/Reports/CHILDREN_CASE/CICL/CICL_Graph";
+import Index from "./views/pages/Admin/Reports/CHILDREN_CASE/Index"; 
 function App() {
   const { user, token } = useStateContext();
 
@@ -50,7 +53,8 @@ function App() {
               <> 
                 <Route path='/admin/profile' element={<Profile_Info />}/>   
                 <Route path='/admin/dashboard' element={<AdminDashboard />}/>    
-                <Route path='/admin/records' element={<Record_List />}/>        
+                <Route path='/admin/records' element={<Record_List />}/>       
+                <Route path='/admin/cicl/report' element={<Index />}/>        
                 <Route path='/admin/hospital_bill_info' element={<Hospital_Bill_Info />}/>  
                 <Route path='/admin/yearlist' element={<Year_CDC />}/>     
                 <Route path='/admin/report/pwd' element={<PWD_Total_List />}/>     
@@ -59,7 +63,13 @@ function App() {
                 <Route path='/brgy-sectors/sub-category/:sectorId' element={<Sub_Category />}/>   
                 <Route path='/brgy-sectors/sub-category/personal-info/:SubCatId' element={<Personal_Info_List />}/>   
                 <Route path='/brgy-sectors/sub-category/opol-cdc/:SubCatId' element={<Enrollees_CDC />}/>    
-                <Route path='/brgy-sectors/sub-category/opol-eccd/:SubCatId' element={<Opol_ECCD />}/>   
+                {/* <Route path='/brgy-sectors/sub-category/opol-eccd/:SubCatId' element={<Opol_ECCD />}/>  */}
+                <Route path='/brgy-sectors/sub-category/cicl/:SubCatId' element={<CICL_List />}/>    
+
+
+
+                <Route path='/brgy-sectors/sub-category/cicl/:SubCatId' element={<Opol_Cdc />}/>   
+                
               </>
             )}
             {user.user_type === 'payroll' && (
