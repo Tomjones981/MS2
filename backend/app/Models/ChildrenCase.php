@@ -25,6 +25,7 @@ class ChildrenCase extends Model
         'case_status',
         'perpetrator',
         'interventions',
+        'children_case_type',
     ];
 
     public function sub_category()

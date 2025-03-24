@@ -4,6 +4,18 @@ import axiosClient from "../../../../../../api/axiosClient";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, LabelList } from "recharts";
 import moment from 'moment'
 import Age_Report_Graph from "./Age_Report_Graph";
+
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-2 border shadow-md rounded">
+        <p className="text-gray-800 font-semibold">{`Location: ${payload[0].payload.locations}`}</p>
+        <p className="text-red-700 font-bold">{`Total Cases: ${payload[0].value}`}</p>
+      </div>
+    );
+  }
+  return null;
+};
 const CICL_Graph = () => {
   const [year, setYear] = useState("2024"); 
   const [data, setData] = useState([]);
@@ -63,7 +75,7 @@ const CICL_Graph = () => {
               <XAxis dataKey="locations" tick={{ fill: "black", fontSize: 14 }} stroke="#b8120f" />
               <YAxis tick={{ fill: "black", fontSize: 14 }} allowDecimals={false} domain={[0, maxValue + 1]} stroke="#b8120f" />
 
-              <Tooltip stroke="#2328a8" />
+              <Tooltip stroke="#2328a8" content={<CustomTooltip />}/>
  
               <Bar dataKey="total_code_names" fill="#FFD700" stroke="white" strokeWidth={3} barSize={50}>
                 <LabelList dataKey="total_code_names" position="center" fill="black" fontWeight="bold" />
@@ -72,7 +84,7 @@ const CICL_Graph = () => {
           </ResponsiveContainer>
 
           <div className="p-20 -mt-[9rem]">
-            <div className="h-10 bg-gradient-to-r from-red-700 to-red-500 mt-4"></div>
+            <div className="h-10 bg-gradient-to-b from-red-900 via-red-600 to-red-900 hover:bg-gradient-to-bl mt-4"></div>
           </div>
         </div>
       )}

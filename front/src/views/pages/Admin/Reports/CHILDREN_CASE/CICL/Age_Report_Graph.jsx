@@ -72,7 +72,7 @@ const Age_Report_Graph = () => {
           </ResponsiveContainer>
 
           <div className="p-20 -mt-[9rem]">
-            <div className="h-10 bg-gradient-to-r from-red-700 to-red-500 mt-4"></div>
+            <div className="h-10 bg-gradient-to-b from-red-900 via-red-600 to-red-900 hover:bg-gradient-to-bl mt-4"></div>
           </div>
         </div>
       )} 

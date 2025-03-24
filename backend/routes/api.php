@@ -97,8 +97,12 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/cicl-sex-fetch', [ChildrenCaseController::class, 'fetchCICLSex']);
     Route::get('/cicl-age-fetch', [ChildrenCaseController::class, 'fetchCICLAge']);
     Route::post('/cicl-create', [ChildrenCaseController::class, 'createCICL']);
+    Route::put('/cicl-info-update/{id}', [ChildrenCaseController::class, 'updateCICLInfo']);
     Route::get('/children-cases/{year}', [ChildrenCaseController::class, 'getCasesByYear']);
     Route::get('/children-cases-age/{year}', [ChildrenCaseController::class, 'getAgeDistribution']);
+    Route::get('/children-cases-sex/{year}', [ChildrenCaseController::class, 'getGenderGraph']);
+    Route::get('/children-cases-export', [ChildrenCaseController::class, 'exportChildrenCase']); 
+    Route::post('/children-cases-import', [ChildrenCaseController::class, 'importChildrenCase']);
 
 
  

@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->string('case_status')->nullable();
             $table->string('perpetrator')->nullable();
             $table->string('interventions')->nullable();
+            $table->string('children_case_type')->nullable();
             $table->timestamps();
 
             $table->foreign('sub_cat_id')

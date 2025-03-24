@@ -24,9 +24,11 @@ import Opol_Cdc from './views/pages/Admin/PWD/Opol_Cdc'
 import Enrollees_CDC from './views/pages/Admin/PWD/Enrollees_CDC'
 import Opol_ECCD from "./views/pages/Admin/PWD/Opol_ECCD";
 import Hospital_Bill_Info from "./views/pages/Admin/Records/Hospital_Bill_Info";
-import CICL_List from "./views/pages/Admin/PWD/CICL_List";
+import CICL_Info from "./views/pages/Admin/YEAR/SECTOR/SECTOR_CATEGORY/CHILDREN_CASES/CICL_Info";
 import CICL_Graph from "./views/pages/Admin/Reports/CHILDREN_CASE/CICL/CICL_Graph";
 import Index from "./views/pages/Admin/Reports/CHILDREN_CASE/Index"; 
+import All from "./views/pages/Admin/YEAR/SECTOR/SECTOR_CATEGORY/CHILDREN_CASES/All";
+import MergedGraph from './views/pages/Admin/Reports/CHILDREN_CASE/CICL/MergedGraph'
 function App() {
   const { user, token } = useStateContext();
 
@@ -63,12 +65,14 @@ function App() {
                 <Route path='/brgy-sectors/sub-category/:sectorId' element={<Sub_Category />}/>   
                 <Route path='/brgy-sectors/sub-category/personal-info/:SubCatId' element={<Personal_Info_List />}/>   
                 <Route path='/brgy-sectors/sub-category/opol-cdc/:SubCatId' element={<Enrollees_CDC />}/>    
-                {/* <Route path='/brgy-sectors/sub-category/opol-eccd/:SubCatId' element={<Opol_ECCD />}/>  */}
-                <Route path='/brgy-sectors/sub-category/cicl/:SubCatId' element={<CICL_List />}/>    
+                <Route path='/brgy-sectors/sub-category/opol-eccd/:SubCatId' element={<Opol_ECCD />}/> 
+                {/* <Route path='/brgy-sectors/sub-category/cicl/:SubCatId' element={<CICL_Info />}/>     */}
+                <Route path='/brgy-sectors/sub-category/all/:SubCatId' element={<All />}/>    
+                <Route path='/brgy-sectors/sub-category/cicl/:SubCatId' element={<CICL_Info />}/>    
 
 
 
-                <Route path='/brgy-sectors/sub-category/cicl/:SubCatId' element={<Opol_Cdc />}/>   
+                {/* <Route path='/brgy-sectors/sub-category/cicl/:SubCatId' element={<Opol_Cdc />}/>    */}
                 
               </>
             )}

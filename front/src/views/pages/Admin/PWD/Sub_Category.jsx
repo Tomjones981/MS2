@@ -55,7 +55,7 @@ const Sub_Category = () => {
             navigate(`/brgy-sectors/sub-category/personal-info/${subCatId}`);
           }
          else {
-            navigate(`/brgy-sectors/sub-category/cicl/${subCatId}`);
+            navigate(`/brgy-sectors/sub-category/all/${subCatId}`);
         }
     };
     
