@@ -391,7 +391,7 @@ const CICL_Info = () => {
                         <div className="flex flex-col items-start mb-5">
                           <div className="flex w-full justify-between items-center">
                             <h1 className="font-bold text-2xl text-white uppercase tracking-wide">Children Cases - CICL</h1>  
-                            <div className="flex space-x-2 -mt-1"> 
+                            {/* <div className="flex space-x-2 -mt-1"> 
                                 <button onClick={() => setOpenMenu(!openMenu)} className="p-2 rounded-full bg-gray-600 text-white shadow-md hover:bg-gray-500 transition">
                                     <FiMoreVertical className="text-xl" />
                                 </button>
@@ -417,6 +417,12 @@ const CICL_Info = () => {
                                         </div>
                                     </div>
                                 )} 
+                            </div> */}
+                            <div className='flex space-x-2 -mt-1'> 
+                                <button type='button' onClick={() => handleOpenCreateModal(true)}  className="font-serif flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition">
+                                    <FiPlus className="text-lg" />
+                                    Add  
+                                </button>
                             </div>
                           </div>
                           <hr className="my-2 border-t border-gray-300 dark:border-gray-700" style={{ width: '100%' }} />
@@ -492,8 +498,8 @@ const CICL_Info = () => {
                                         {/* <th className=" p-3 text-sm font-semibold tracking-wide text-left uppercase">Ethnic Affiliation</th>   */}
                                         {/* <th className=" p-3 text-sm font-semibold tracking-wide text-left uppercase">4Ps Beneficiary</th>   */}
                                         <th className=" p-3 text-sm font-semibold tracking-wide text-left uppercase">Case</th>  
-                                        {/* <th className=" p-3 text-sm font-semibold tracking-wide text-left uppercase">Case Status</th>   */}
-                                        {/* <th className=" p-3 text-sm font-semibold tracking-wide text-left uppercase">Perpetrator</th>   */}
+                                        <th className=" p-3 text-sm font-semibold tracking-wide text-left uppercase">Case Status</th>  
+                                        <th className=" p-3 text-sm font-semibold tracking-wide text-left uppercase">Perpetrator</th>  
                                         <th className=" p-3 text-sm font-semibold tracking-wide text-left uppercase">Interventions</th>  
                                         <th className=" p-3 text-sm font-semibold tracking-wide text-left uppercase">Actions</th>
                                     </tr>
@@ -527,8 +533,8 @@ const CICL_Info = () => {
                                             {/* <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.ethnic_affiliation}</td>   */}
                                             {/* <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.four_ps_beneficiary}</td>   */}
                                             <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.case}</td>  
-                                            {/* <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.case_status}</td>   */}
-                                            {/* <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.perpetrator}</td>   */}
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">  {cicl.case_status === "on_going" ? "On Going" : cicl.case_status === "terminated" ? "Terminated"  : "Unknown"}</td>  
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.perpetrator}</td>  
                                             <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.interventions}</td>   
                                             <td className="p-3 text-sm text-gray-700 whitespace-nowrap flex space-x-2">
                                                 <button  onClick={() => handleViewClick(cicl)}   className="bg-white px-3 py-1 border rounded-md text-blue-500 hover:text-blue-700 dark:bg-gray-800 transform scale-100 hover:scale-110 transition-all duration-300"><FaEye /></button>

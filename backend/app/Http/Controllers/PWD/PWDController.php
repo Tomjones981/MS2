@@ -28,8 +28,7 @@ class PWDController extends Controller
     }
 
     public function getPWDBarangayCounts()
-    {
-        // List of barangays
+    { 
         $barangays = [
             'AWANG',
             'BAGOCBOC',

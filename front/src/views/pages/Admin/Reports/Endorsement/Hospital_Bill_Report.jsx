@@ -42,14 +42,14 @@ const Hospital_Bill_Report = () => {
 
   return (
     <Card className="max-w-lg mx-auto p-2 shadow-lg rounded-xl">
-      <Title level={3} className="text-center font-serif mb-4">
+      <Title level={3} className="text-center font-light mb-4">
         Hospital Assistance Report
       </Title>
       
       <Space direction="vertical" size={16} className="w-full">
         <div className="flex items-center gap-3">
           <RangePicker onChange={handleDateChange} className="flex-1" />
-          <Button type="primary" onClick={fetchTotalAmount} loading={loading} className="font-serif">
+          <Button type="primary" onClick={fetchTotalAmount} loading={loading} className="font-light">
             Generate
           </Button>
         </div>
@@ -61,8 +61,8 @@ const Hospital_Bill_Report = () => {
         ) : (
           totalAmount !== null && (
             <Card className="bg-gray-100 text-center shadow-md p-4 rounded-lg">
-              <Text className="text-lg font-semibold font-serif">Total Amount:</Text>
-              <Title level={2} className="text-green-600 ">
+              <Text className="text-lg font-normal">Total Amount:</Text>
+              <Title level={2} className="text-green-600 font-normal ">
                 ₱{formatNumber(Number(totalAmount).toFixed(2))}
               </Title>
             </Card>

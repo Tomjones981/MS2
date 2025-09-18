@@ -48,7 +48,7 @@ const Enrollees_Report = () => {
                 {data.map((barangay, index) => (
                     <div key={index} className="bg-white p-4 rounded-xl shadow-md flex justify-between items-center">
                         <div>
-                            <h3 className="font-bold text-gray-700">{barangay.barangay}</h3>
+                            <h3 className="font-light text-gray-700">{barangay.barangay}</h3>
                             <p className="text-sm text-green-700">Total Enrollees</p>
                         </div>
                         <p className="text-blue-600 font-bold text-xl">{barangay.total_records}</p> 
@@ -95,7 +95,7 @@ const Enrollees_Report = () => {
                                             <td className="p-2 border">{Number(row.male) + Number(row.female)}</td>
                                         </tr>
                                     ))}
-                                    <tr className="text-center font-bold bg-gray-300">
+                                    <tr className="text-center font-light bg-gray-300">
                                         <td className="p-2 border">Total</td>
                                         <td className="p-2 border">{selectedBarangay.male_count}</td>
                                         <td className="p-2 border">{selectedBarangay.female_count}</td>

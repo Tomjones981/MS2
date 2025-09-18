@@ -8,8 +8,8 @@ const Index = () => {
     <div className=' '>
         {/* <CICL_Graph />
         <Age_Report_Graph /> */}
-        {/* <MergedGraph /> */}
-        < Gender_Graph />
+        <MergedGraph />
+        {/* < Gender_Graph /> */}
     </div>
   )
 }

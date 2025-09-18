@@ -101,6 +101,8 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/children-cases/{year}', [ChildrenCaseController::class, 'getCasesByYear']);
     Route::get('/children-cases-age/{year}', [ChildrenCaseController::class, 'getAgeDistribution']);
     Route::get('/children-cases-sex/{year}', [ChildrenCaseController::class, 'getGenderGraph']);
+    Route::get('/children-cases-case-graph/{year}', [ChildrenCaseController::class, 'getCaseGraph']);
+    Route::get('/children-cases-educational-status-graph/{year}', [ChildrenCaseController::class, 'getEducationalStatusGraph']);
     Route::get('/children-cases-export', [ChildrenCaseController::class, 'exportChildrenCase']); 
     Route::post('/children-cases-import', [ChildrenCaseController::class, 'importChildrenCase']);
 

@@ -27,7 +27,7 @@ class ChildrenCaseImport implements ToModel, WithStartRow
             return null;
         }
         $existingRecord = ChildrenCase::where('code_name', $row[1])
-            ->orWhere('locations', $row[0])
+            // ->orWhere('locations', $row[0])
             ->exists();
 
         if ($existingRecord) {

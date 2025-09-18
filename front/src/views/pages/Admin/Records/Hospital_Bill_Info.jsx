@@ -254,25 +254,25 @@ const Hospital_Bill_Info = () => {
          
   return ( 
        <div className='p-5  '>
-            <div className='mt-1 w-full p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 '>
+            <div className='mt-1 w-full p-5 bg-white border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700 '>
                 
                 <div className="flex justify-between items-center p-2 mb-2 -mt-3       dark:bg-gray-800">
-                    <h1 className="text-lg font-semibold text-gray-900 font-serif dark:text-gray-200">
+                    <h1 className="text-lg font-light text-gray-900  dark:text-gray-200">
                         Hospital Bill Assistance
                     </h1>
-                    <div className="flex space-x-2 -mt-1">
-                        <button  type='button' onClick={() => setOpenReportModal(true)}  className="font-serif flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+                    <div className=" font-light flex space-x-2 -mt-1">
+                        <button  type='button' onClick={() => setOpenReportModal(true)}  className=" flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg -md hover:bg-blue-700 transition">
                             Reports
                         </button>
-                        <button onClick={handleExport} className="font-serif flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+                        <button onClick={handleExport} className=" flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg -md hover:bg-blue-700 transition">
                             <FiDownload className="text-lg" />
                             Export
                         </button>
-                        <button onClick={() => {   setOpenImportModal(true); }} className="font-serif flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition">
+                        <button onClick={() => {   setOpenImportModal(true); }} className=" flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg -md hover:bg-indigo-700 transition">
                             <FiUpload className="text-lg" />
                             Import
                         </button>
-                        <button onClick={() => handleOpenCreateModal(true)} type='button' className="font-serif flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition">
+                        <button onClick={() => handleOpenCreateModal(true)} type='button' className=" flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg -md hover:bg-green-700 transition">
                             <FiPlus className="text-lg" />
                             Add  
                         </button>
@@ -281,10 +281,10 @@ const Hospital_Bill_Info = () => {
                 <hr className="-ml-5 -mt-2 my-2 mb-5 border-t border-gray-300 dark:border-gray-600" style={{ width: '104%' }}/>
 
                 
-                <div className='grid grid-cols-10 mt-6 mb-2 gap-4 '> 
+                <div className=' font-light grid grid-cols-10 mt-6 mb-2 gap-4 '> 
                     <div className='col-span-7'> 
-                        <select name="purpose" value={selectedPurpose}  onChange={handlePurposeChange}   className='h-9 font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                            <option value="" className='font-serif'>All</option> 
+                        <select name="purpose" value={selectedPurpose}  onChange={handlePurposeChange}   className='h-9  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                            <option value="" className=''>All</option> 
                         </select>
                     </div>
                     <div className="relative col-span-3 flex items-end">
@@ -293,25 +293,43 @@ const Hospital_Bill_Info = () => {
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                         </div>
-                        <input type="search" value={searchTerm} onChange={handleSearchChange}   className="font-serif block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search name" />
+                        <input type="search" value={searchTerm} onChange={handleSearchChange}   className=" block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search name" />
                     </div>
                 </div>
 
-                <div className="h-[23rem] mt-5">  
-                    <div className="max-h-[20rem] overflow-y-auto rounded-lg shadow border border-gray-200 dark:border-gray-700 ">
+                <div className="h-[40rem] mt-5">  
+                    <div className="max-h-[37rem] overflow-y-auto rounded-lg  border border-gray-200 dark:border-gray-700 ">
                         <table className="w-full">
                             <thead className="text-gray-800 sticky -top-1 bg-gray-50 dark:bg-gray-200 border-b-2 border-gray-200 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-200">
                                 <tr>
-                                    <th className="font-serif w-20 p-3 text-sm font-semibold tracking-wide text-left">Date</th>
-                                    <th className="font-serif w-20 p-3 text-sm font-semibold tracking-wide text-left">Clients Name</th>
-                                    <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Age</th>
-                                    <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Address</th>  
-                                    {/* <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Beneficiary Name</th>  */}
-                                    <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Hospital Name</th> 
-                                    <th className="font-serif w-24 p-3 text-sm font-semibold tracking-wide text-left">Amount</th> 
-                                    <th className="font-serif w-32 p-3 text-sm font-semibold tracking-wide text-left">Actions</th>
+                                    {["Date", "Client's Name", "Age", "Address",    "Hospital Name", "Amount", "Actions"].map((header, index) => (
+                                        <th key={index} className="w-24 p-3 text-sm font-light tracking-wide text-left">
+                                            <div className="flex items-center">
+                                                <p>{header}</p>
+                                                {header !== "Actions" && (
+                                                    <a href="#" className="ml-1">
+                                                        <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                            <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                                                        </svg>
+                                                    </a>
+                                                )}
+                                            </div>
+                                        </th>
+                                    ))}
                                 </tr>
-                            </thead>
+                            </thead> 
+                            {/* <thead className="text-gray-800 sticky -top-1 bg-gray-50 dark:bg-gray-200 border-b-2 border-gray-200 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-200">
+                                <tr>
+                                    <th className=" w-20 p-3 text-sm font-light tracking-wide text-left">Date</th>
+                                    <th className=" w-20 p-3 text-sm font-light tracking-wide text-left">Clients Name</th>
+                                    <th className=" w-24 p-3 text-sm font-light tracking-wide text-left">Age</th>
+                                    <th className=" w-24 p-3 text-sm font-light tracking-wide text-left">Address</th>  
+                                    <th className=" w-24 p-3 text-sm font-light tracking-wide text-left">Beneficiary Name</th> 
+                                    <th className=" w-24 p-3 text-sm font-light tracking-wide text-left">Hospital Name</th> 
+                                    <th className=" w-24 p-3 text-sm font-light tracking-wide text-left">Amount</th> 
+                                    <th className=" w-32 p-3 text-sm font-light tracking-wide text-left">Actions</th>
+                                </tr>
+                            </thead> */}
                             <tbody className="divide-y divide-gray-100 dark:divide-gray-700 dark:bg-gray-800">
                                 {loading ? (
                                     <tr>
@@ -321,7 +339,7 @@ const Hospital_Bill_Info = () => {
                                     </tr>
                                 ) : paginatedLogBooks.length === 0 ? (
                                     <tr>
-                                        <td colSpan="9" className="font-serif text-center text-gray-500 dark:text-gray-400 py-4">
+                                        <td colSpan="9" className="font-light text-center text-gray-500 dark:text-gray-400 py-4">
                                             No data found
                                         </td>
                                     </tr>
@@ -329,15 +347,15 @@ const Hospital_Bill_Info = () => {
                                     paginatedLogBooks.map((log) => (
                                         <tr key={log.id} className="bg-white dark:bg-gray-800 ">
                                             <td className="p-3 text-sm text-gray-700 whitespace-nowrap ">
-                                                <a href="#" className="font-serif font-bold text-blue-500 hover:underline ">{log.date}</a>
+                                                <a href="#" className=" font-light text-blue-500 hover:underline ">{log.date}</a>
                                             </td>
-                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200">{log.name}</td> 
-                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200">{log.age}</td> 
-                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200 ">{log.address}</td> 
-                                            {/* <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200 ">{log.beneficiary_name}</td>  */}
-                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200 ">{log.hospital_name}</td> 
-                                            <td className="font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200">₱{formatNumber(Number(log.amount).toFixed(2))}</td>
-                                            <td className="p-3 text-sm text-gray-700 whitespace-nowrap flex space-x-2">
+                                            <td className=" p-3 text-sm font-light text-gray-700 whitespace-nowrap dark:text-gray-200">{log.name}</td> 
+                                            <td className=" p-3 text-sm font-light text-gray-700 whitespace-nowrap dark:text-gray-200">{log.age}</td> 
+                                            <td className=" p-3 text-sm font-light text-gray-700 whitespace-nowrap dark:text-gray-200 ">{log.address}</td> 
+                                            {/* <td className=" p-3 text-sm font-light text-gray-700 whitespace-nowrap dark:text-gray-200 ">{log.beneficiary_name}</td>  */}
+                                            <td className=" p-3 text-sm font-light text-gray-700 whitespace-nowrap dark:text-gray-200 ">{log.hospital_name}</td> 
+                                            <td className=" p-3 text-sm font-light text-gray-700 whitespace-nowrap dark:text-gray-200">₱{formatNumber(Number(log.amount).toFixed(2))}</td>
+                                            <td className="p-3 text-sm font-light text-gray-700 whitespace-nowrap flex space-x-2">
                                                 <button onClick={() => handleViewClick(log)} className="bg-white px-3 py-1 border rounded-md text-blue-500 hover:text-blue-700 dark:bg-gray-800  hover:scale-110 transition-all duration-300"><FaEye /></button>
                                                 <button onClick={() => handleEditClick(log)} className="bg-white px-3 py-1 border rounded-md text-green-500 hover:text-green-700 dark:bg-gray-800  hover:scale-110 transition-all duration-300"><FaRegEdit /></button>
                                             </td>   
@@ -360,50 +378,50 @@ const Hospital_Bill_Info = () => {
                         </div>
                 </div>
  
-                <Modal show={openCreateModal}  size='md' onClose={() => setOpenCreateModal(false)} popup>
-                    <Modal.Header className='m-3'> <h1 className='font-serif'>Add New Record</h1> </Modal.Header>
+                <Modal show={openCreateModal}  size='xl' onClose={() => setOpenCreateModal(false)} popup>
+                    <Modal.Header className='m-3 '> <h1 className=' font-light'>Add New Record</h1> </Modal.Header>
                     <hr className="  -mt-2 my-2 mb-5 border-t border-gray-300 dark:border-gray-600" style={{ width: '100%' }} />
                     <Modal.Body>
                     <form onSubmit={handleSubmit}>
                         <div className='grid grid-cols-2 gap-5'>
                             <div>
-                                <label htmlFor="date" className="font-serif mt-2 block  text-md font-medium text-gray-900 dark:text-white">Date</label>
-                                <DatePicker onChange={handleDateChange} format="YYYY-MM-DD" className='font-serif bg-gray-50 h-9 mt-1 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200' required/>
+                                <label htmlFor="date" className=" mt-2 block  text-md font-light text-gray-900 dark:text-white">Date</label>
+                                <DatePicker onChange={handleDateChange} format="YYYY-MM-DD" className='w-full bg-gray-50 h-9 mt-1 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200' required/>
                             </div>
                             <div>
-                                <label htmlFor="age" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Age</label>
-                                <input type="number" name="age" value={formData.age}  onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
+                                <label htmlFor="age" className=" mt-2 block mb-1  text-md font-light text-gray-900 dark:text-white">Age</label>
+                                <input type="number" name="age" value={formData.age}  onChange={handleChange} className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
                             </div>
                         </div>
 
                         <div className='grid grid-cols-1 gap-5'>
                             <div>
-                                <label htmlFor="name" className="font-serif mt-4 block mb-1  text-md font-medium text-gray-900 dark:text-white">Client Name</label>
-                                <input type="text" name="name" value={formData.name}  onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......" required />
+                                <label htmlFor="name" className=" mt-4 block mb-1  text-md font-light text-gray-900 dark:text-white">Client Name</label>
+                                <input type="text" name="name" value={formData.name}  onChange={handleChange} className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......" required />
                             </div> 
                         </div>
 
                         <div className='grid grid-cols-1 gap-2'> 
                             <div>
-                                <label htmlFor="address" className="font-serif mt-4 block mb-1 text-md font-medium text-gray-900 dark:text-white">Address</label>
-                                <input type="text" name="address" value={formData.address} onChange={handleChange}  className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
+                                <label htmlFor="address" className=" mt-4 block mb-1 text-md font-light text-gray-900 dark:text-white">Address</label>
+                                <input type="text" name="address" value={formData.address} onChange={handleChange}  className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
                             </div>
                             <div>
-                                <label htmlFor="beneficiary_name" className="font-serif mt-4 block mb-1 text-md font-medium text-gray-900 dark:text-white">Beneficiary Name</label>
-                                <input type="text" name="beneficiary_name" value={formData.beneficiary_name} onChange={handleChange}  className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
+                                <label htmlFor="beneficiary_name" className=" mt-4 block mb-1 text-md font-light text-gray-900 dark:text-white">Beneficiary Name</label>
+                                <input type="text" name="beneficiary_name" value={formData.beneficiary_name} onChange={handleChange}  className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
                             </div>
                             <div>
-                                <label htmlFor="hospital_name" className="font-serif mt-4 block mb-1 text-md font-medium text-gray-900 dark:text-white">Hospital Name</label>
-                                <input type="text" name="hospital_name" value={formData.hospital_name} onChange={handleChange}  className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
+                                <label htmlFor="hospital_name" className=" mt-4 block mb-1 text-md font-light text-gray-900 dark:text-white">Hospital Name</label>
+                                <input type="text" name="hospital_name" value={formData.hospital_name} onChange={handleChange}  className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
                             </div>
                             <div>
-                                <label htmlFor="amount" className="font-serif mt-4 block mb-1 text-md font-medium text-gray-900 dark:text-white">Amount</label>
-                                <input type="text" name="amount" value={formData.amount} onChange={handleChange}  className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
+                                <label htmlFor="amount" className=" mt-4 block mb-1 text-md font-light text-gray-900 dark:text-white">Amount</label>
+                                <input type="text" name="amount" value={formData.amount} onChange={handleChange}  className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="......" required />
                             </div>
                         </div> 
                         <div className='flex justify-center'>
-                            {/* <button type="submit" className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4'  >  Create </button> */}
-                            <button type="submit" disabled={loading}  className={`font-serif text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4 ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
+                            {/* <button type="submit" className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-light rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4'  >  Create </button> */}
+                            <button type="submit" disabled={loading}  className={` text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-light rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4 ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
                   
                             {loading ? (
                             <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -421,53 +439,53 @@ const Hospital_Bill_Info = () => {
                     </Modal.Body>
                 </Modal>
 
-                <Modal show={openViewModal} size='lg' onClose={() => setOpenViewModal(false)}>
+                <Modal show={openViewModal} size='xl' onClose={() => setOpenViewModal(false)}>
                     <Modal.Header>
-                        <h1 className='font-serif text-lg font-bold text-gray-800 dark:text-gray-200'>Resident Details</h1>
+                        <h1 className=' text-lg font-light text-gray-800 dark:text-gray-200'>Resident Details</h1>
                     </Modal.Header>
                     <Modal.Body>
                         {selectedResident && (
-                            <div className="bg-gray-100 rounded-lg p-6 shadow-md dark:bg-gray-700 border border-gray-300 dark:border-gray-500">
+                            <div className="bg-gray-100 rounded-lg p-6 -md dark:bg-gray-700 border border-gray-300 dark:border-gray-500">
                                 <div className="flex flex-col gap-4">
                                      
                                     <div className='grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500'>
                                         <div className="">
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Date</p>
-                                            <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">{selectedResident.date}</p>
+                                            <p className="font-light text-sm text-gray-600 dark:text-gray-200">Date</p>
+                                            <p className=" font-normal text-gray-500 dark:text-gray-200">{selectedResident.date}</p>
                                         </div>
                                         <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Age</p>
-                                            <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">{selectedResident.age}</p>
+                                            <p className="font-light text-sm text-gray-600 dark:text-gray-200">Age</p>
+                                            <p className=" font-normal text-gray-500 dark:text-gray-200">{selectedResident.age}</p>
                                         </div>
                                     </div>
 
                                      
                                     <div className="grid grid-cols-1 gap-4 border-b pb-2 dark:border-gray-500">
                                         <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Name</p>
-                                            <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">{selectedResident.name}</p>
+                                            <p className="font-light text-sm text-gray-600 dark:text-gray-200">Name</p>
+                                            <p className=" font-normal text-gray-500 dark:text-gray-200">{selectedResident.name}</p>
                                         </div>
                                     </div>
 
                                      
                                     <div className="grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500"> 
                                         <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Address</p>
-                                            <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">{selectedResident.address}</p>
+                                            <p className="font-light text-sm text-gray-600 dark:text-gray-200">Address</p>
+                                            <p className=" font-normal text-gray-500 dark:text-gray-200">{selectedResident.address}</p>
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500"> 
                                         <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Beneficiary Name</p>
-                                            <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">{selectedResident.beneficiary_name}</p>
+                                            <p className="font-light text-sm text-gray-600 dark:text-gray-200">Beneficiary Name</p>
+                                            <p className=" font-normal text-gray-500 dark:text-gray-200">{selectedResident.beneficiary_name}</p>
                                         </div>
                                     </div>
                                     
                                     <div className="grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500"> 
                                         <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Hospital Name</p>
-                                            <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">{selectedResident.hospital_name}</p>
+                                            <p className="font-light text-sm text-gray-600 dark:text-gray-200">Hospital Name</p>
+                                            <p className=" font-normal text-gray-500 dark:text-gray-200">{selectedResident.hospital_name}</p>
                                         </div>
                                     </div>
  
@@ -475,18 +493,18 @@ const Hospital_Bill_Info = () => {
 
                                      
                                     <div className="border-b pt-2 dark:border-gray-500 ">
-                                        <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Amount</p>
-                                        <p className="font-serif font-semibold text-gray-500 dark:text-gray-200">₱{selectedResident.amount}</p>
+                                        <p className="font-light text-sm text-gray-600 dark:text-gray-200">Amount</p>
+                                        <p className=" font-normal text-gray-500 dark:text-gray-200">₱{selectedResident.amount}</p>
                                     </div>
                                 </div>
                             </div>
                         )}
                     </Modal.Body>
                         <Modal.Footer className='flex justify-end'>
-                            <Button  onClick={() => setOpenViewModal(false)}  className="font-serif   bg-red-600 text-white rounded-md hover:bg-red-700 transition-all dark:bg-red-500" >
+                            <Button  onClick={() => setOpenViewModal(false)}  className="   bg-red-600 text-white rounded-md hover:bg-red-700 transition-all dark:bg-red-500" >
                                 Close
                             </Button>
-                            <Button onClick={() => handleEditClick(selectedResident)} className="font-serif     text-white rounded-md   transition-all  ">
+                            <Button onClick={() => handleEditClick(selectedResident)} className="     text-white rounded-md   transition-all  ">
                                 Edit
                             </Button>
                     </Modal.Footer>
@@ -495,40 +513,40 @@ const Hospital_Bill_Info = () => {
 
 
                 <Modal show={openEditModal} onClose={() => setOpenEditModal(false)}>
-                    <Modal.Header><h1 className='font-serif'>Edit HB Entry</h1></Modal.Header>
+                    <Modal.Header><h1 className='font-light'>Edit HB Entry</h1></Modal.Header>
                     <Modal.Body>
                         <form onSubmit={handleUpdate}>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block font-serif">Client Name</label>
-                                    <input type="text" name="name" value={formData.name} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                    <label className="block font-light">Client Name</label>
+                                    <input type="text" name="name" value={formData.name} onChange={handleChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                 </div>
                                 <div>
-                                    <label className="block font-serif">Age</label>
-                                    <input type="number" name="age" value={formData.age} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                    <label className="block font-light">Age</label>
+                                    <input type="number" name="age" value={formData.age} onChange={handleChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div> 
                                 <div>
-                                    <label className="block font-serif">Address</label>
-                                    <input type="text" name="address" value={formData.address} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                    <label className="block font-light">Address</label>
+                                    <input type="text" name="address" value={formData.address} onChange={handleChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                 </div>    
                                 <div>
-                                    <label className="block font-serif">Beneficiary Name</label>
-                                    <input type="text" name="beneficiary_name" value={formData.beneficiary_name} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                    <label className="block font-light">Beneficiary Name</label>
+                                    <input type="text" name="beneficiary_name" value={formData.beneficiary_name} onChange={handleChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                 </div> 
                                 <div>
-                                    <label className="block font-serif">Hospital Name</label>
-                                    <input type="text" name="hospital_name" value={formData.hospital_name} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                    <label className="block font-light">Hospital Name</label>
+                                    <input type="text" name="hospital_name" value={formData.hospital_name} onChange={handleChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                 </div>
                                 <div>
-                                    <label className="block font-serif">Amount</label>
-                                    <input type="number" name="amount" value={formData.amount} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                    <label className="block font-light">Amount</label>
+                                    <input type="number" name="amount" value={formData.amount} onChange={handleChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                 </div>
                             </div>
-                            <div className="mt-4 flex justify-end">
-                                <button type="button" onClick={() => setOpenEditModal(false)} className="font-serif text-white bg-gradient-to-br from-red-600 to-red-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4">
+                            <div className="mt-4 flex justify-end font-light">
+                                <button type="button" onClick={() => setOpenEditModal(false)} className="font-light text-white bg-gradient-to-br from-red-600 to-red-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-light rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4">
                                     Cancel
                                 </button> 
-                                <button type="submit" disabled={loading}  className={`font-serif text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4 ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
+                                <button type="submit" disabled={loading}  className={`font-light text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-light rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4 ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
                   
                                     {loading ? (
                                     <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -548,19 +566,19 @@ const Hospital_Bill_Info = () => {
 
                 <Modal show={openImportModal} size='md'  onClose={() => setOpenImportModal(false)}>
                     <Modal.Header >
-                        <h1 className='font-serif'>Import Hospital File</h1>
+                        <h1 className='font-light'>Import Hospital File</h1>
                     </Modal.Header>
                     <Modal.Body>
                         <div className="flex flex-col space-y-4">
-                            <input type="file" accept=".xlsx, .csv" onChange={handleFileChange} className="border p-2 rounded" />
+                            <input type="file" accept=".xlsx, .csv" onChange={handleFileChange} className="font-light border p-2 rounded" />
                             {/* <button 
                                 onClick={handleImport} 
-                                className="bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition"
+                                className="bg-indigo-600 text-white px-4 py-2 rounded-lg -md hover:bg-indigo-700 transition"
                             >
                                 Import File
                             </button> */}
                             <div className='flex justify-center'>
-                                <button onClick={handleImport}  disabled={loading}  className={`font-serif text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4 ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
+                                <button onClick={handleImport}  disabled={loading}  className={`font-light text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-light rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4 ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
                         
                                     {loading ? (
                                     <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -579,9 +597,9 @@ const Hospital_Bill_Info = () => {
 
                 </Modal>
 
-                <Modal show={openReportModal} size='lg'  onClose={() => setOpenReportModal(false)}>
+                <Modal show={openReportModal} size='xl'  onClose={() => setOpenReportModal(false)}>
                     <Modal.Header>
-                        <h1 className='font-serif'>Reports</h1>
+                        <h1 className='font-light'>Reports</h1>
                     </Modal.Header>
                     <Modal.Body>
                         <Hospital_Bill_Report/>

@@ -21,7 +21,7 @@ class AdminSeeder extends Seeder
         User::create([
             'id' => "1",
             'email' => 'occ.vacalares.tomjoseph111@gmail.com',
-            'user_type' => 'payroll',
+            'user_type' => 'admin',
             'password' => 'password123',
         ]);
         User::create([
@@ -30,7 +30,14 @@ class AdminSeeder extends Seeder
             'user_type' => 'admin',
             'password' => bcrypt('password123'),
 
-        ]);
+        ]); 
+        User::create([
+            'id' => "3",
+            'email' => 'mswdopol@gmail.com',
+            'user_type' => 'admin',
+            'password' => bcrypt('password123'),
+
+        ]); 
 
 
 

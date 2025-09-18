@@ -1,12 +1,13 @@
   
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DatePicker, Table } from "antd";
 import axiosClient from '../../../../../../api/axiosClient'
 import CICL_Graph from "./CICL_Graph";
+import dayjs from "dayjs";
 const { Column } = Table;
 
 const Age_Report = () => {
-  const [year, setYear] = useState(null);
+  const [year, setYear] = useState(2024);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -16,6 +17,11 @@ const Age_Report = () => {
       fetchData(dateString);
     }
   };
+
+  useEffect(() => {
+      fetchData(year); 
+    }, []);
+
 
   const fetchData = async (selectedYear) => {
     setLoading(true);
@@ -33,16 +39,16 @@ const Age_Report = () => {
   return (
     <div className="">
       <h2>Children AGE</h2>
-      <DatePicker onChange={onChange} picker="year" />
+      <DatePicker onChange={onChange} picker="year" defaultValue={dayjs("2024")}/>
       <Table dataSource={data} loading={loading} rowKey="age" style={{ marginTop: 20 }}>
         <Column title="Location" dataIndex="age" key="age" />
         <Column title="Total Code Names" dataIndex="total_ages" key="total_ages" />
       </Table>
-    <div className="grid grid-cols-10">
+    {/* <div className="grid grid-cols-10">
         <div className="col-span-10">
             <CICL_Graph />
         </div>
-    </div>
+    </div> */}
     </div>
   );
 };

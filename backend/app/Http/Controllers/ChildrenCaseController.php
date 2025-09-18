@@ -152,14 +152,14 @@ class ChildrenCaseController extends Controller
 
     public function getAgeDistribution($year, Request $request)
     {
-        $caseType = $request->input('children_case_type'); // Get the case type from request
+        $caseType = $request->input('children_case_type');  
 
         $cases = ChildrenCase::select('age', \DB::raw('COUNT(age) AS total_ages'))
             ->join('sub_category', 'children_case.sub_cat_id', '=', 'sub_category.id')
             ->join('brgy_sectors', 'sub_category.brgy_sector_id', '=', 'brgy_sectors.id')
             ->join('years', 'brgy_sectors.year_id', '=', 'years.id')
             ->whereNotNull('children_case.age')
-            ->where('children_case.age', '<>', '')
+            ->where('children_case.age', '<>', '') 
             ->where('years.year_date', $year);
 
         if (!empty($caseType)) {
@@ -197,6 +197,50 @@ class ChildrenCaseController extends Controller
         return response()->json($cases);
     }
 
+    public function getCaseGraph($year, Request $request)
+    {
+        $caseType = $request->input('children_case_type');
+
+        $cases = ChildrenCase::select('children_case.case', \DB::raw('COUNT(`children_case`.`case`) AS total_case'))
+            ->join('sub_category', 'children_case.sub_cat_id', '=', 'sub_category.id')
+            ->join('brgy_sectors', 'sub_category.brgy_sector_id', '=', 'brgy_sectors.id')
+            ->join('years', 'brgy_sectors.year_id', '=', 'years.id')
+            ->whereNotNull('children_case.case')
+            ->where('children_case.case', '<>', '')
+            ->where('years.year_date', $year);
+
+        if (!empty($caseType)) {
+            $cases->where('children_case.children_case_type', $caseType);
+        }
+
+        $cases = $cases->groupBy('children_case.case')
+            ->orderBy('children_case.case', 'asc')
+            ->get();
+
+        return response()->json($cases);
+    }
+    public function getEducationalStatusGraph($year, Request $request)
+    {
+        $caseType = $request->input('children_case_type');
+
+        $cases = ChildrenCase::select('children_case.educational_status', \DB::raw('COUNT(educational_status) AS total_educational_status'))
+            ->join('sub_category', 'children_case.sub_cat_id', '=', 'sub_category.id')
+            ->join('brgy_sectors', 'sub_category.brgy_sector_id', '=', 'brgy_sectors.id')
+            ->join('years', 'brgy_sectors.year_id', '=', 'years.id')
+            ->whereNotNull('children_case.educational_status')
+            ->where('children_case.educational_status', '<>', '')
+            ->where('years.year_date', $year);
+
+        if (!empty($caseType)) {
+            $cases->where('children_case.children_case_type', $caseType);
+        }
+
+        $cases = $cases->groupBy('children_case.educational_status')
+            ->orderBy('children_case.educational_status', 'asc')
+            ->get();
+
+        return response()->json($cases);
+    }
 
 
 

@@ -274,14 +274,14 @@ const Opol_ECCD = () => {
 
     return (
         <div className='p-5'>
-            <div className='mt-2 w-full p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
+            <div className='mt-2 w-full p-5 bg-white border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700'>
                  
                 <div className='flex justify-between items-center p-2 mb-2 -mt-3 dark:bg-gray-800'>
                     <button onClick={() => navigate(-1)} className='shadow-xl -ml-[3rem] -mr-[38rem] border border-gray-200 bg-gray-600 flex items-center gap-2 p-2 text-gray-200 rounded-md font-bold text-xl transition-all hover:bg-gray-500 dark:text-gray-200 dark:hover:bg-gray-700'>
                         <ReplyAllIcon className='text-2xl  ' /> 
                     </button>
-                    <h1 className="text-lg font-semibold text-gray-900 font-serif dark:text-gray-200">
-                        <span className="text-blue-600 font-serif underline">
+                    <h1 className="text-lg font-semibold text-gray-900 font-light dark:text-gray-200">
+                        <span className="text-blue-600 font-light underline">
                             {/* {subCatInfo.id || "Loading..."}{" "}  */}
                             {subCatInfo.sub_cat_name || "Loading..."}{" "} 
                             {subCatInfo.age_range || "Loading..."}{" "}
@@ -289,25 +289,25 @@ const Opol_ECCD = () => {
                         </span> Category
                     </h1>
                     <div className="flex space-x-2 -mt-1"> 
-                        <button onClick={() => setOpenMenu(!openMenu)} className="p-2 rounded-full bg-gray-600 text-white shadow-md hover:bg-gray-500 transition">
+                        <button onClick={() => setOpenMenu(!openMenu)} className="p-2 rounded-full bg-gray-600 text-white -md hover:bg-gray-500 transition">
                             <FiMoreVertical className="text-xl" />
                         </button>
 
                         {openMenu && (
                             <div className=' '>
-                                <div className='absolute right-[5rem] mt-10  flex gap-5 w-[30rem] bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 z-10'>
-                                    <button  type='button'   className="font-serif flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+                                <div className='absolute right-[5rem] mt-10  flex gap-5 w-[30rem] bg-white dark:bg-gray-800 rounded-lg -lg p-2 z-10'>
+                                    <button  type='button'   className="font-light flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg -md hover:bg-blue-700 transition">
                                         Reports
                                     </button>
-                                    <button  onClick={handleExport} className="font-serif flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+                                    <button  onClick={handleExport} className="font-light flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg -md hover:bg-blue-700 transition">
                                         <FiDownload className="text-lg" />
                                         Export
                                     </button>
-                                    <button  type='button' onClick={() => setOpenImportModal(true)}   className="font-serif flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition">
+                                    <button  type='button' onClick={() => setOpenImportModal(true)}   className="font-light flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg -md hover:bg-indigo-700 transition">
                                         <FiUpload className="text-lg" />
                                         Import
                                     </button>
-                                    <button type='button' onClick={() => handleOpenCreateModal(true)}  className="font-serif flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition">
+                                    <button type='button' onClick={() => handleOpenCreateModal(true)}  className="font-light flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg -md hover:bg-green-700 transition">
                                         <FiPlus className="text-lg" />
                                         Add  
                                     </button>
@@ -319,8 +319,8 @@ const Opol_ECCD = () => {
                 <hr className="-ml-5 -mt-2 my-2 mb-5 border-t border-gray-300 dark:border-gray-600" style={{ width: '104%' }}/>
                 <div className='grid grid-cols-10 mt-6 mb-2 gap-4 '> 
                     <div className='col-span-7'> 
-                        <select   className='h-9 font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                            <option value="" className='font-serif'>All</option> 
+                        <select   className='h-9 font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                            <option value="" className='font-light'>All</option> 
                         </select>
                     </div>
                     <div className="relative col-span-3 flex items-end">
@@ -329,23 +329,23 @@ const Opol_ECCD = () => {
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                         </div>
-                        <input type="search" value={searchQuery}  onChange={(e) => setSearchQuery(e.target.value)} className="font-serif block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search name" />
+                        <input type="search" value={searchQuery}  onChange={(e) => setSearchQuery(e.target.value)} className="font-light block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search name" />
                     </div>
                 </div>
-                <div className='h-[23rem] mt-5'>  
-                        <div className="max-h-[20rem] overflow-y-auto rounded-lg shadow border border-gray-200 dark:border-gray-700">
+                <div className='h-[40rem] mt-5'>  
+                        <div className="max-h-[37rem] overflow-y-auto rounded-lg  border border-gray-200 dark:border-gray-700">
                             <table className="w-full">
                                 <thead className='text-gray-800 sticky -top-1 bg-gray-50 dark:bg-gray-200 border-b-2 border-gray-200 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-200'>
                                     <tr className=""> 
-                                        <th className="font-serif p-3 text-sm font-semibold tracking-wide text-left">Children Name</th>  
-                                        <th className="font-serif p-3 text-sm font-semibold tracking-wide text-left">Age</th>  
-                                        <th className="font-serif p-3 text-sm font-semibold tracking-wide text-left">Gender</th>  
-                                        <th className="font-serif p-3 text-sm font-semibold tracking-wide text-left">Attending School</th> 
-                                        <th className="font-serif p-3 text-sm font-semibold tracking-wide text-left">Barangay</th> 
-                                        <th className="font-serif p-3 text-sm font-semibold tracking-wide text-left">School Name</th> 
-                                        <th className="font-serif p-3 text-sm font-semibold tracking-wide text-left">School Address</th> 
-                                        <th className="font-serif p-3 text-sm font-semibold tracking-wide text-left">Remarks</th>  
-                                        <th className="font-serif p-3 text-sm font-semibold tracking-wide text-left">Actions</th>  
+                                        <th className="font-light p-3 text-sm font-semibold tracking-wide text-left">Children Name</th>  
+                                        <th className="font-light p-3 text-sm font-semibold tracking-wide text-left">Age</th>  
+                                        <th className="font-light p-3 text-sm font-semibold tracking-wide text-left">Gender</th>  
+                                        <th className="font-light p-3 text-sm font-semibold tracking-wide text-left">Attending School</th> 
+                                        <th className="font-light p-3 text-sm font-semibold tracking-wide text-left">Barangay</th> 
+                                        <th className="font-light p-3 text-sm font-semibold tracking-wide text-left">School Name</th> 
+                                        <th className="font-light p-3 text-sm font-semibold tracking-wide text-left">School Address</th> 
+                                        <th className="font-light p-3 text-sm font-semibold tracking-wide text-left">Remarks</th>  
+                                        <th className="font-light p-3 text-sm font-semibold tracking-wide text-left">Actions</th>  
                                     </tr>
                                 </thead>
                                 <tbody className='divide-y divide-gray-100 dark:divide-gray-700 dark:bg-gray-800'>
@@ -357,21 +357,21 @@ const Opol_ECCD = () => {
                                         </tr>
                                         ) : paginatedData.length === 0 ? (
                                             <tr>
-                                                <td colSpan="9" className="font-serif text-center text-gray-500 dark:text-gray-400 py-4">
+                                                <td colSpan="9" className="font-light text-center text-gray-500 dark:text-gray-400 py-4">
                                                     No data found
                                                 </td>
                                             </tr>
                                         ) : ( 
                                         paginatedData.map((eccd) => (
                                         <tr key={eccd.id} className="bg-white dark:bg-gray-800"> 
-                                            <td className="font-serif p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.children_name}</td> 
-                                            <td className="font-serif p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.age}</td> 
-                                            <td className="font-serif p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.sex}</td> 
-                                            <td className="font-serif p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.yes === '/' || !eccd.no ? 'Yes' : eccd.no === '/' || !eccd.yes ? 'No' : ''}</td> 
-                                            <td className="font-serif p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.school_name}</td> 
-                                            <td className="font-serif p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.school_address}</td> 
-                                            <td className="font-serif p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.barangay}</td> 
-                                            <td className="font-serif p-3 text-sm text-gray-700   dark:text-gray-200"> {eccd.remarks ? eccd.remarks.slice(0, 3) : ""}</td> 
+                                            <td className="font-light p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.children_name}</td> 
+                                            <td className="font-light p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.age}</td> 
+                                            <td className="font-light p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.sex}</td> 
+                                            <td className="font-light p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.yes === '/' || !eccd.no ? 'Yes' : eccd.no === '/' || !eccd.yes ? 'No' : ''}</td> 
+                                            <td className="font-light p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.school_name}</td> 
+                                            <td className="font-light p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.school_address}</td> 
+                                            <td className="font-light p-3 text-sm text-gray-700   dark:text-gray-200">{eccd.barangay}</td> 
+                                            <td className="font-light p-3 text-sm text-gray-700   dark:text-gray-200"> {eccd.remarks ? eccd.remarks.slice(0, 3) : ""}</td> 
                                             <td className="p-3 text-sm text-gray-700 whitespace-nowrap flex space-x-2">
                                                 <button onClick={() => handleViewClick(eccd)}  className="bg-white px-3 py-1 border rounded-md text-blue-500 hover:text-blue-700 dark:bg-gray-800 transform scale-100 hover:scale-110 transition-all duration-300"><FaEye /></button>
                                                 <button onClick={() => handleEditClick(eccd)} className="bg-white px-3 py-1 border rounded-md text-green-500 hover:text-green-700 dark:bg-gray-800 transform scale-100 hover:scale-110 transition-all duration-300"><FaRegEdit /></button>
@@ -397,19 +397,19 @@ const Opol_ECCD = () => {
                 </div> 
                 <Modal  show={openImportModal}  size='md' onClose={() => setOpenImportModal(false)}>
                     <Modal.Header>
-                        <h1 className='font-serif'>Import ECCD file</h1>
+                        <h1 className='font-light'>Import ECCD file</h1>
                     </Modal.Header>
                     <Modal.Body>
                        <div className="flex flex-col space-y-4">
                           <input type="file" accept=".xlsx, .csv" onChange={handleFileChange} className="border p-2 rounded dark:border-gray-500" />
                                                 {/* <button 
                                                     onClick={handleImportSubmit} 
-                                                    className="bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition"
+                                                    className="bg-indigo-600 text-white px-4 py-2 rounded-lg -md hover:bg-indigo-700 transition"
                                                 >
                                                     Import File
                                                 </button> */}
                            <div className='flex justify-center'>
-                               <button onClick={handleImportSubmit}  disabled={loading}  className={`font-serif text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4 ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
+                               <button onClick={handleImportSubmit}  disabled={loading}  className={`font-light text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4 ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
                                             
                                   {loading ? (
                                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -429,33 +429,33 @@ const Opol_ECCD = () => {
 
                 <Modal show={openCreateModal}  size='xl' onClose={() => setOpenCreateModal(false)}>
                     <Modal.Header>
-                        <h1 className='font-serif'>Add ECCD</h1>
+                        <h1 className='font-light'>Add ECCD</h1>
                     </Modal.Header>
                     <Modal.Body>
                         <div>
                             <form onSubmit={handleSubmit}>
                                 <div className='grid grid-cols-2 gap-5'> 
                                     <div>
-                                        <label htmlFor="children_name" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Children Name</label>
-                                        <input type="text" name="children_name" value={formData.children_name} onChange={handleInputChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    required/>
+                                        <label htmlFor="children_name" className="font-light mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Children Name</label>
+                                        <input type="text" name="children_name" value={formData.children_name} onChange={handleInputChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    required/>
                                     </div>
                                 </div>
                                 <div className='grid grid-cols-2 gap-5'> 
                                     <div>
-                                        <label htmlFor="age" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Age</label>
-                                        <input type="number" name="age" value={formData.age} onChange={handleInputChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
+                                        <label htmlFor="age" className="font-light mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Age</label>
+                                        <input type="number" name="age" value={formData.age} onChange={handleInputChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
                                     </div>
                                     <div>
-                                        <label htmlFor="sex" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Gender</label>
-                                        <select name="sex" value={formData.sex} onChange={handleInputChange} className='font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                                            <option value="" className='font-serif '>Select Gender</option> 
-                                            <option value="M" className='font-serif '>Male</option> 
-                                            <option value="F" className='font-serif '>Female</option> 
+                                        <label htmlFor="sex" className="font-light mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Gender</label>
+                                        <select name="sex" value={formData.sex} onChange={handleInputChange} className='font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                            <option value="" className='font-light '>Select Gender</option> 
+                                            <option value="M" className='font-light '>Male</option> 
+                                            <option value="F" className='font-light '>Female</option> 
                                         </select>
                                     </div> 
                                 </div>
                                 <div>
-                                    <label className="font-serif mt-2 block -mb-2 text-md font-medium text-gray-900 dark:text-white">
+                                    <label className="font-light mt-2 block -mb-2 text-md font-medium text-gray-900 dark:text-white">
                                         Attending School
                                     </label>
                                     <div className="grid grid-cols-2 md:grid-cols-2 gap-4 mt-4">   
@@ -472,20 +472,20 @@ const Opol_ECCD = () => {
                                 </div> 
                                     <div className='grid grid-cols-1 '> 
                                         <div>
-                                            <label htmlFor="school_name" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">School Name</label>
-                                            <input type="text" name="school_name" value={formData.school_name} onChange={handleInputChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
+                                            <label htmlFor="school_name" className="font-light mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">School Name</label>
+                                            <input type="text" name="school_name" value={formData.school_name} onChange={handleInputChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
                                         </div>
                                         <div>
-                                            <label htmlFor="school_address" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">School Address</label>
-                                            <input type="text" name="school_address" value={formData.school_address} onChange={handleInputChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
+                                            <label htmlFor="school_address" className="font-light mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">School Address</label>
+                                            <input type="text" name="school_address" value={formData.school_address} onChange={handleInputChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
                                         </div>
                                         <div>
-                                            <label htmlFor="school_name" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Barangay</label>
-                                            <input type="text" name="barangay" value={formData.barangay} onChange={handleInputChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
+                                            <label htmlFor="school_name" className="font-light mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Barangay</label>
+                                            <input type="text" name="barangay" value={formData.barangay} onChange={handleInputChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
                                         </div>
                                         <div>
-                                            <label htmlFor="remarks" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Remarks</label>
-                                            <input type="text" name="remarks" value={formData.remarks} onChange={handleInputChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
+                                            <label htmlFor="remarks" className="font-light mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Remarks</label>
+                                            <input type="text" name="remarks" value={formData.remarks} onChange={handleInputChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
                                         </div>
                                     </div>
                                     <Button type='submit' className='mt-2'>Create</Button>
@@ -499,51 +499,51 @@ const Opol_ECCD = () => {
                     </Modal.Header>
                     <Modal.Body>
                     {selectedEccdInfo && (
-                            <div className="bg-gray-100 rounded-lg p-6 shadow-md dark:bg-gray-700 border border-gray-300 dark:border-gray-500">
+                            <div className="bg-gray-100 rounded-lg p-6 -md dark:bg-gray-700 border border-gray-300 dark:border-gray-500">
                                 <div className="flex flex-col gap-4">  
 
                                     <div className="border-b pb-2 dark:border-gray-500">
-                                        <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Children Name</p>
-                                        <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">
+                                        <p className="font-light text-sm text-gray-600 dark:text-gray-200">Children Name</p>
+                                        <p className="font-light font-semibold text-gray-800 dark:text-gray-200">
                                         {selectedEccdInfo.children_name}
                                         </p>
                                     </div>
  
                                     <div className="grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500">
                                         <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Age</p>
-                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedEccdInfo.age}</p>
+                                            <p className="font-light text-sm text-gray-600 dark:text-gray-200">Age</p>
+                                            <p className="font-light font-semibold text-gray-800 dark:text-gray-200">{selectedEccdInfo.age}</p>
                                         </div>
                                         <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Sex</p>
-                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedEccdInfo.sex}</p>
+                                            <p className="font-light text-sm text-gray-600 dark:text-gray-200">Sex</p>
+                                            <p className="font-light font-semibold text-gray-800 dark:text-gray-200">{selectedEccdInfo.sex}</p>
                                         </div>
                                     </div>
  
                                     <div className="grid grid-cols-2 gap-4 border-b pb-2 dark:border-gray-500">
                                         <div>
-                                            <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Attending to School</p>
-                                            <p className="font-serif font-semibold text-gray-800 dark:text-gray-200"> 
+                                            <p className="font-light text-sm text-gray-600 dark:text-gray-200">Attending to School</p>
+                                            <p className="font-light font-semibold text-gray-800 dark:text-gray-200"> 
                                                 {selectedEccdInfo.yes === '/' || !selectedEccdInfo.no ? 'Yes' : selectedEccdInfo.no === '/' || !selectedEccdInfo.yes ? 'No' : ''}
                                             </p>
                                         </div> 
                                     </div>
                                     
                                     <div>
-                                        <p className="font-serif text-sm text-gray-600 dark:text-gray-200">School Name</p>
-                                        <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedEccdInfo.school_name}</p>
+                                        <p className="font-light text-sm text-gray-600 dark:text-gray-200">School Name</p>
+                                        <p className="font-light font-semibold text-gray-800 dark:text-gray-200">{selectedEccdInfo.school_name}</p>
                                     </div>
                                     <div>
-                                        <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Barangay</p>
-                                        <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedEccdInfo.barangay}</p>
+                                        <p className="font-light text-sm text-gray-600 dark:text-gray-200">Barangay</p>
+                                        <p className="font-light font-semibold text-gray-800 dark:text-gray-200">{selectedEccdInfo.barangay}</p>
                                     </div>
                                     <div>
-                                        <p className="font-serif text-sm text-gray-600 dark:text-gray-200">School Address</p>
-                                        <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedEccdInfo.school_address}</p>
+                                        <p className="font-light text-sm text-gray-600 dark:text-gray-200">School Address</p>
+                                        <p className="font-light font-semibold text-gray-800 dark:text-gray-200">{selectedEccdInfo.school_address}</p>
                                     </div>
                                     <div>
-                                        <p className="font-serif text-sm text-gray-600 dark:text-gray-200">Remarks</p>
-                                        <p className="font-serif font-semibold text-gray-800 dark:text-gray-200">{selectedEccdInfo.remarks}</p>
+                                        <p className="font-light text-sm text-gray-600 dark:text-gray-200">Remarks</p>
+                                        <p className="font-light font-semibold text-gray-800 dark:text-gray-200">{selectedEccdInfo.remarks}</p>
                                     </div>
                                 </div>
                             </div>
@@ -552,11 +552,11 @@ const Opol_ECCD = () => {
                     <Modal.Footer className='flex justify-end'>
                         <Button 
                             onClick={() => setOpenViewModal(false)} 
-                            className="font-serif bg-red-600 text-white rounded-md hover:bg-red-700 transition-all dark:bg-red-500"
+                            className="font-light bg-red-600 text-white rounded-md hover:bg-red-700 transition-all dark:bg-red-500"
                         >
                             Close
                         </Button>
-                        <Button onClick={() => handleEditClick(selectedEccdInfo)} className="font-serif text-white rounded-md   transition-all  ">
+                        <Button onClick={() => handleEditClick(selectedEccdInfo)} className="font-light text-white rounded-md   transition-all  ">
                             Edit
                         </Button>
                     </Modal.Footer>                   
@@ -571,27 +571,27 @@ const Opol_ECCD = () => {
                         <form onSubmit={handleUpdate}>
                             <div> 
                                 <div>
-                                    <label className="block font-serif">Client Name</label>
-                                    <input type="text" name="children_name" value={formData.children_name} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                    <label className="block font-light">Client Name</label>
+                                    <input type="text" name="children_name" value={formData.children_name} onChange={handleChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                 </div> 
                             </div>
                             <div className='grid grid-cols-2 gap-5'>
                                 <div>
-                                    <label htmlFor="sex" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Gender</label>
-                                        <select name="sex" value={formData.sex} onChange={handleChange} className='font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                                            <option value="" className='font-serif '>Select Gender</option> 
-                                            <option value="M" className='font-serif '>Male</option> 
-                                            <option value="F" className='font-serif '>Female</option> 
+                                    <label htmlFor="sex" className="font-light mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Gender</label>
+                                        <select name="sex" value={formData.sex} onChange={handleChange} className='font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                            <option value="" className='font-light '>Select Gender</option> 
+                                            <option value="M" className='font-light '>Male</option> 
+                                            <option value="F" className='font-light '>Female</option> 
                                         </select>
                                     </div> 
                                 <div>
-                                    <label className="block font-serif mt-3">Age</label>
-                                    <input type="text" name="age" value={formData.age} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+                                    <label className="block font-light mt-3">Age</label>
+                                    <input type="text" name="age" value={formData.age} onChange={handleChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
                                 </div>
                             </div>
                             <div> 
                                 <div>
-                                    <label className="font-serif mt-2 block -mb-2 text-md font-medium text-gray-900 dark:text-white">
+                                    <label className="font-light mt-2 block -mb-2 text-md font-medium text-gray-900 dark:text-white">
                                         Attending School
                                     </label>
                                     <div className="grid grid-cols-2 md:grid-cols-2 gap-4 mt-4">   
@@ -609,20 +609,20 @@ const Opol_ECCD = () => {
                             </div>
                             <div>
                                 <div>
-                                    <label className="block font-serif">School Name</label>
-                                    <input type="text" name="school_name" value={formData.school_name} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+                                    <label className="block font-light">School Name</label>
+                                    <input type="text" name="school_name" value={formData.school_name} onChange={handleChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
                                 </div>
                                 <div>
-                                    <label className="block font-serif">Barangay</label>
-                                    <input type="text" name="barangay" value={formData.barangay} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+                                    <label className="block font-light">Barangay</label>
+                                    <input type="text" name="barangay" value={formData.barangay} onChange={handleChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
                                 </div>
                                 <div>
-                                    <label className="block font-serif">School Address</label>
-                                    <input type="text" name="school_address" value={formData.school_address} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+                                    <label className="block font-light">School Address</label>
+                                    <input type="text" name="school_address" value={formData.school_address} onChange={handleChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
                                 </div>
                                 <div>
-                                    <label className="block font-serif">Remarks</label>
-                                    <input type="text" name="remarks" value={formData.remarks} onChange={handleChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+                                    <label className="block font-light">Remarks</label>
+                                    <input type="text" name="remarks" value={formData.remarks} onChange={handleChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
                                 </div>
                             </div>
                             <div className='flex justify-end mt-4'>

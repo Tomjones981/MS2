@@ -40,15 +40,15 @@ const Financial_Assistance = () => {
   };
 
   return (
-    <Card className="max-w-lg mx-auto p-4 shadow-lg rounded-xl">
-      <Title level={3} className="text-center font-serif mb-4">
+    <Card className="max-w-lg mx-auto p-4  ">
+      <Title level={3} className="text-center font-light mb-4">
         Financial Assistance Report
       </Title>
       
       <Space direction="vertical" size={16} className="w-full">
         <div className="flex items-center gap-3">
           <RangePicker onChange={handleDateChange} className="flex-1" />
-          <Button type="primary" onClick={fetchTotalAmounts} loading={loading} className="font-serif">
+          <Button type="primary" onClick={fetchTotalAmounts} loading={loading} className="font-light">
             Generate
           </Button>
         </div>
@@ -60,13 +60,13 @@ const Financial_Assistance = () => {
         ) : (
           amounts && (
             <Card className="bg-gray-100 text-center shadow-md p-4 rounded-lg">
-              <Text className="text-lg font-semibold font-serif">Total Amounts:</Text>
+              <Text className="text-lg font-semibold font-light">Total Amounts:</Text>
               
               <div className="mt-3 text-left">
-                <p className="font-serif">📌 <b>Cash Assistance:</b> ₱{formatNumber(Number(amounts.cash_assistance).toFixed(2))}</p>
-                <p className="font-serif">📌 <b>Educational Assistance:</b> ₱{formatNumber(Number(amounts.educational).toFixed(2))}</p>
-                <p className="font-serif">📌 <b>Medical Assistance:</b> ₱{formatNumber(Number(amounts.medical_assistance).toFixed(2))}</p>
-                <p className="font-serif">📌 <b>Burial Assistance:</b> ₱{formatNumber(Number(amounts.burial_assistance).toFixed(2))}</p>
+                <p className="font-light">📌 <b>Cash Assistance:</b> ₱{formatNumber(Number(amounts.cash_assistance).toFixed(2))}</p>
+                <p className="font-light">📌 <b>Educational Assistance:</b> ₱{formatNumber(Number(amounts.educational).toFixed(2))}</p>
+                <p className="font-light">📌 <b>Medical Assistance:</b> ₱{formatNumber(Number(amounts.medical_assistance).toFixed(2))}</p>
+                <p className="font-light">📌 <b>Burial Assistance:</b> ₱{formatNumber(Number(amounts.burial_assistance).toFixed(2))}</p>
               </div>
 
               <Title level={3} className="text-green-600 mt-3">

@@ -23,7 +23,7 @@ const All = () => {
         description: ""
     });
 
-    const [ciclInfo, setCiclInfo] = useState([]);
+    const [allInfo, setAllInfo] = useState([]);
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     
@@ -49,11 +49,11 @@ const All = () => {
     });
  
 
-    const fetchCiclInfo = async (SubCatId) => {
+    const fetchAllInfo = async (SubCatId) => {
         setLoading(true);
         try {
             const response = await axiosClient.get(`/sub-category/personal-info/${SubCatId}`);
-            setCiclInfo(response.data || []);
+            setAllInfo(response.data || []);
         } catch (error) {
             console.error("Error fetching Cdc Info:", error);
             message.error("Failed to fetch Cdc info.");
@@ -152,12 +152,12 @@ const All = () => {
                 interventions: '',
                 children_case_type: '',
             });
-            fetchCiclInfo(SubCatId);
+            fetchAllInfo(SubCatId);
         } catch (error) {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors);
             } else {
-                console.error("Error Creating CICL info", error);
+                console.error("Error Creating Children Case info", error);
                 message.error("Error Creating Info.");
             }
         } finally {
@@ -177,10 +177,10 @@ const All = () => {
                     if (SubCatId) {
                         const debouncedFetch = debounce(() => {
                             fetchsubCatNames(SubCatId);
-                            fetchCiclInfo(SubCatId);
-                            fetchCICLLocations();
-                            fetchCICLSex();
-                            fetchCICLAge();
+                            fetchAllInfo(SubCatId);
+                            fetchAllLocations();
+                            fetchAllSex();
+                            fetchAllAge();
                         }, 300);  
                 
                         debouncedFetch();
@@ -190,7 +190,7 @@ const All = () => {
 
     const [locations, setLocations] = useState([]);
     const [selectedLocation, setSelectedLocation] = useState("");
-    const fetchCICLLocations = async () => {
+    const fetchAllLocations = async () => {
         try {
             const response = await axiosClient.get("/cicl-locations-fetch");
             if (response.data && Array.isArray(response.data)) {
@@ -205,7 +205,7 @@ const All = () => {
 
     const [sex, setSex] = useState([]);
     const [selectedSex, setSelectedSex] = useState("");
-    const fetchCICLSex = async () => {
+    const fetchAllSex = async () => {
         try {
             const response = await axiosClient.get("/cicl-sex-fetch");
             if (response.data && Array.isArray(response.data)) {
@@ -214,13 +214,13 @@ const All = () => {
                 console.error("Unexpected API response:", response.data);
             }
         } catch (error) {
-            console.error("Error fetching CICL Sex:", error);
+            console.error("Error fetching Children Case Sex:", error);
         }
     };
 
     const [age, setAge] = useState([]);
     const [selectedAge, setSelectedAge] = useState (""); 
-    const fetchCICLAge = async () => {
+    const fetchAllAge = async () => {
         try {
             const response = await axiosClient.get("/cicl-age-fetch");
             if (response.data && Array.isArray(response.data)) {
@@ -229,7 +229,7 @@ const All = () => {
                 console.error("Unexpected API response:", response.data);
             }
         } catch (error) {
-            console.error("Error fetching CICL Sex:", error);
+            console.error("Error fetching Children Case Sex:", error);
         }
     };
     
@@ -237,19 +237,19 @@ const All = () => {
     const handleSexChange = (e) => setSelectedSex(e.target.value);
     const handleAgeChange = (e) => setSelectedAge(e.target.value);
     const [searchQuery, setSearchQuery] = useState("");
-    const filteredCiclInfo = ciclInfo.filter(cicl => {
+    const filteredAllInfo = allInfo.filter(all => {
         const query = searchQuery.toLowerCase();
-        const matchesSearch = cicl.code_name.toLowerCase().includes(query);
+        const matchesSearch = all.code_name.toLowerCase().includes(query);
         
-        const matchesLocation = selectedLocation ? cicl.locations === selectedLocation : true;
-        const matchesSex = selectedSex ? cicl.sex === selectedSex : true;
-        const matchesAge = selectedAge ? cicl.age === selectedAge : true;
+        const matchesLocation = selectedLocation ? all.locations === selectedLocation : true;
+        const matchesSex = selectedSex ? all.sex === selectedSex : true;
+        const matchesAge = selectedAge ? all.age === selectedAge : true;
     
         return matchesSearch && matchesLocation && matchesSex && matchesAge;
     });
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-    const paginatedData = filteredCiclInfo.slice(
+    const paginatedData = filteredAllInfo.slice(
         (currentPage - 1) * pageSize,
         currentPage * pageSize
     );
@@ -305,7 +305,7 @@ const All = () => {
     
             message.success("Info updated successfully!");
             setOpenEditModal(false);
-            fetchCiclInfo(SubCatId);  
+            fetchAllInfo(SubCatId);  
         } catch (error) {
             console.error("Error updating personal info:", error.response?.data);
             message.error("Failed to update info!");
@@ -371,7 +371,7 @@ const All = () => {
                 message.success("Import successful!");
                 setOpenImportModal(false);
                 setImportFile(null);
-                fetchCiclInfo(SubCatId); 
+                fetchAllInfo(SubCatId); 
                 
             } catch (error) {
                 console.error("Error importing logbook data:", error.response?.data);
@@ -392,14 +392,8 @@ const All = () => {
                         <div className="flex flex-col items-start mb-5">
                           <div className="flex w-full justify-between items-center">
                             <h1 className="font-bold text-2xl text-white uppercase tracking-wide">Children Cases - All</h1>  
-                            <div className="flex space-x-2 -mt-1"> 
-                                <button onClick={() => setOpenMenu(!openMenu)} className="p-2 rounded-full bg-gray-600 text-white shadow-md hover:bg-gray-500 transition">
-                                    <FiMoreVertical className="text-xl" />
-                                </button>
-
-                                {openMenu && (
-                                    <div className=' '>
-                                        <div className='absolute right-[5rem] mt-10  flex gap-5 w-[30rem] bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 z-10'> 
+                           
+                            <div className='flex space-x-2 -mt-1'> 
                                             <button  type='button'  onClick={() => handleCliCkReportView(true)}  className="font-serif flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
                                                 Reports
                                             </button>
@@ -410,15 +404,8 @@ const All = () => {
                                             <button  type='button' onClick={() => setOpenImportModal(true)} className="font-serif flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition">
                                                 <FiUpload className="text-lg" />
                                                 Import
-                                            </button>
-                                            <button type='button' onClick={() => handleOpenCreateModal(true)}  className="font-serif flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition">
-                                                <FiPlus className="text-lg" />
-                                                Add  
-                                            </button>
+                                            </button> 
                                         </div>
-                                    </div>
-                                )} 
-                            </div>
                           </div>
                           <hr className="my-2 border-t border-gray-300 dark:border-gray-700" style={{ width: '100%' }} />
                         </div>
@@ -513,24 +500,24 @@ const All = () => {
                                                 </td>
                                             </tr>
                                         ) : ( 
-                                        paginatedData.map((cicl) => (
-                                        <tr key={cicl.id} className="bg-white dark:bg-gray-800"> 
-                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.code_name}</td> 
-                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.locations}</td> 
-                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.age}</td> 
-                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.sex}</td>  
-                                            {/* <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.religion}</td>  
-                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.educational_attainment}</td>  
-                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.educational_status}</td>  
-                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.ethnic_affiliation}</td>  
-                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.four_ps_beneficiary}</td>  
-                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.case}</td>  
-                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.case_status}</td>  
-                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.perpetrator}</td>  
-                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{cicl.interventions}</td>    */}
+                                        paginatedData.map((all) => (
+                                        <tr key={all.id} className="bg-white dark:bg-gray-800"> 
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.code_name}</td> 
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.locations}</td> 
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.age}</td> 
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.sex}</td>  
+                                            {/* <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.religion}</td>  
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.educational_attainment}</td>  
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.educational_status}</td>  
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.ethnic_affiliation}</td>  
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.four_ps_beneficiary}</td>  
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.case}</td>  
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.case_status}</td>  
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.perpetrator}</td>  
+                                            <td className=" p-3 text-sm text-gray-700   dark:text-gray-200">{all.interventions}</td>    */}
                                             <td className="p-3 text-sm text-gray-700 whitespace-nowrap flex space-x-2">
-                                                <button  onClick={() => handleViewClick(cicl)}   className="bg-white px-3 py-1 border rounded-md text-blue-500 hover:text-blue-700 dark:bg-gray-800 transform scale-100 hover:scale-110 transition-all duration-300"><FaEye /></button>
-                                                <button  onClick={() => handleEditClick(cicl)}  className="bg-white px-3 py-1 border rounded-md text-green-500 hover:text-green-700 dark:bg-gray-800 transform scale-100 hover:scale-110 transition-all duration-300"><FaRegEdit /></button>
+                                                <button  onClick={() => handleViewClick(all)}   className="bg-white px-3 py-1 border rounded-md text-blue-500 hover:text-blue-700 dark:bg-gray-800 transform scale-100 hover:scale-110 transition-all duration-300"><FaEye /></button>
+                                                <button  onClick={() => handleEditClick(all)}  className="bg-white px-3 py-1 border rounded-md text-green-500 hover:text-green-700 dark:bg-gray-800 transform scale-100 hover:scale-110 transition-all duration-300"><FaRegEdit /></button>
                                             </td>  
                                         </tr>
                                     ))
@@ -543,7 +530,7 @@ const All = () => {
                     <Pagination
                         current={currentPage}
                         pageSize={pageSize}
-                        total={filteredCiclInfo.length}
+                        total={filteredAllInfo.length}
                         onChange={handlePageChange}
                         showSizeChanger
                         onShowSizeChange={handlePageSizeChange}   
@@ -552,7 +539,7 @@ const All = () => {
                 </div> 
                 <Modal show={openCreateModal}  size='5xl' onClose={() => setOpenCreateModal(false)}>
                     <Modal.Header>
-                        <h1 className=''>Add CICL</h1>
+                        <h1 className=''>Add Children Info</h1>
                     </Modal.Header>
                     <Modal.Body>
                         <div>

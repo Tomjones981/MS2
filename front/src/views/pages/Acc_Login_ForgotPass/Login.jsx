@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axiosClient from '../../../axiosClient';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
 import Swal from 'sweetalert2'
+import {  message } from 'antd'; 
 
 const Login = () => {
   const { sendOtp, verifyOtp } = useStateContext();
@@ -12,8 +13,8 @@ const Login = () => {
   const [otp, setOtp] = useState('');
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [otpSent, setOtpSent] = useState(false); // To track if OTP was sent
-  const [passwordVisible, setPasswordVisible] = useState(false); // To toggle password visibility
+  const [otpSent, setOtpSent] = useState(false);  
+  const [passwordVisible, setPasswordVisible] = useState(false);  
   const navigate = useNavigate();
 
   // const handleSendOtp = async (e) => {
@@ -69,8 +70,8 @@ const Login = () => {
           showConfirmButton: true,
           confirmButtonText: "Continue",
           customClass: {
-            popup: "bg-gray-800 dark:bg-gray-200 shadow-xl rounded-lg p-2",
-            title: "text-lg font-bold text-gray-200 dark:text-white",
+            popup: "bg-gray-200 dark:bg-gray-200 shadow-xl rounded-lg p-2",
+            title: "text-lg font-bold text-gray-600 dark:text-white",
             confirmButton:
               "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded",
             icon: "text-green-500",
@@ -88,8 +89,8 @@ const Login = () => {
           showConfirmButton: true,
           confirmButtonText: "Try Again",
           customClass: {
-            popup: "bg-gray-800 dark:bg-gray-200 shadow-xl rounded-lg p-2",
-            title: "text-lg font-bold text-gray-200 dark:text-white",
+            popup: "bg-gray-200 dark:bg-gray-200 shadow-xl rounded-lg p-2",
+            title: "text-lg font-bold text-gray-600 dark:text-white",
             confirmButton:
               "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded",
             icon: "text-red-500",
@@ -118,26 +119,26 @@ const Login = () => {
   
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
-    if (!otp) return alert('Please enter the OTP.');
+    if (!otp) return message.error('Please enter the OTP.');
     setLoading(true);
     try {
       await verifyOtp(email, otp, navigate);  
     } catch (error) {
-      alert('Failed to verify OTP: ' + error.message);
+      message.error('Failed to verify OTP: ' + error.message);
     } finally {
       setLoading(false);
     }
   };
 
   const handleResendOtp = async () => {
-    if (!email) return alert('Please enter your email first.');
+    if (!email) return message.error('Please enter your email first.');
     setLoading(true);
     try {
       await sendOtp(email, password);  
       setOtpSent(true);   
-      alert('OTP resent successfully.');
+      message.success('OTP resent successfully.');
     } catch (error) {
-      alert('Failed to resend OTP: ' + error.message);
+      message.error('Failed to resend OTP: ' + error.message);
     } finally {
       setLoading(false);
     }
@@ -256,7 +257,7 @@ const Login = () => {
       {step === 1 && (
         <div className="text-center mt-4  ">
           <button className="text-gray-200 hover:underline">
-            <a href="/forgot_password">Forgot Password?</a>
+            <a href="/">Forgot Password?</a>
           </button>
         </div>
       )}

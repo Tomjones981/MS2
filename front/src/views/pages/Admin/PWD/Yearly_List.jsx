@@ -69,13 +69,13 @@ const Yearly_List = () => {
 
     return ( 
         <div className="h-[21rem] p-5">
-            <div className="max-h-[50rem] overflow-y-auto mt-1 w-full p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="max-h-[50rem] overflow-y-auto mt-1 w-full p-5 bg-white border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex justify-between items-center p-2 mb-2 -mt-3       dark:bg-gray-800">
-                    <h1 className="text-lg font-semibold text-gray-900 font-serif dark:text-gray-200">
+                    <h1 className="text-lg font-semibold text-gray-900 font-light dark:text-gray-200">
                         Year 
                     </h1>
                     <div className="flex space-x-2 -mt-1"> 
-                        <button type='button' onClick={() => setOpenCreateModal(true)} className="font-serif flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition">
+                        <button type='button' onClick={() => setOpenCreateModal(true)} className="font-light flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg -md hover:bg-green-700 transition">
                             <FiPlus className="text-lg" />
                             Add  
                         </button>
@@ -85,8 +85,8 @@ const Yearly_List = () => {
                 
                 <div className='grid grid-cols-10 mt-6 mb-2 gap-4 '> 
                     <div className='col-span-7'> 
-                        <select name="" className='font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                            <option value="" className='font-serif '>All</option> 
+                        <select name="" className='font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                            <option value="" className='font-light '>All</option> 
                         </select>
                     </div>
                     <div className="relative col-span-3 flex items-end">
@@ -95,7 +95,7 @@ const Yearly_List = () => {
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                         </div>
-                        <input type="search"     className="font-serif block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search year" />
+                        <input type="search"     className="font-light block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search year" />
                     </div>
                 </div>
                 <div className="grid grid-cols-4 gap-6">
@@ -103,7 +103,7 @@ const Yearly_List = () => {
                         <div className="col-span-4 flex justify-center items-center">
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
                             {[...Array(4)].map((_, index) => (
-                            <div key={index} className="w-full max-w-md p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                            <div key={index} className="w-full max-w-md p-4 bg-white rounded-lg -md dark:bg-gray-800">
                                 <div className="flex animate-pulse space-x-4">
                                 <div className="size-12 rounded-full bg-gray-300 dark:bg-gray-600"></div>
                                 <div className="flex-1 space-y-4 py-1">
@@ -133,9 +133,9 @@ const Yearly_List = () => {
                                 <FaEllipsisV />
                             </p>
                             </button>
-                            <p className="font-serif text-gray-800 dark:text-gray-200">{yearData.year_date}</p>
+                            <p className="font-light text-gray-800 dark:text-gray-200">{yearData.year_date}</p>
                             <button
-                            className="font-serif -mb-10 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transform scale-100 hover:scale-110 transition-all duration-300"
+                            className="font-light -mb-10 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transform scale-100 hover:scale-110 transition-all duration-300"
                             onClick={() => handleView(yearData.id)}
                             >
                             <FaFolderOpen />
@@ -150,24 +150,24 @@ const Yearly_List = () => {
 
                 <Modal show={openCreateModal} size='sm' onClose={() => setOpenCreateModal(false)}>
                         <Modal.Header>
-                            <h1 className="font-serif">Create Date</h1>
+                            <h1 className="font-light">Create Date</h1>
                         </Modal.Header>
                         <Modal.Body>
                             <form onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-1 gap-5">
                                     <div>
-                                        <label htmlFor="date" className="font-serif mt-2 block text-md font-medium text-gray-900 dark:text-white">Year</label>
+                                        <label htmlFor="date" className="font-light mt-2 block text-md font-medium text-gray-900 dark:text-white">Year</label>
                                         <DatePicker 
                                             onChange={handleDateChange} 
                                             picker="year" 
-                                            className="font-serif bg-gray-50 h-9 mt-1 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 w-full"
+                                            className="font-light bg-gray-50 h-9 mt-1 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 w-full"
                                             value={year ? moment(year, "YYYY") : null} 
                                         />
                                     </div>
                                 </div>
                                 
                                 <div className='flex justify-center'>
-                                <button type="submit" disabled={loading}  className={`mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition font-serif ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
+                                <button type="submit" disabled={loading}  className={`mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition font-light ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
                             
                                     {loading ? (
                                     <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

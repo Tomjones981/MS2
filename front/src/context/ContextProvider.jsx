@@ -3,6 +3,7 @@ import axiosClient from "../api/axiosClient";
 import Swal from 'sweetalert2'
 const stateContext = createContext({});
 import { useNavigate } from 'react-router-dom';
+import {  message } from 'antd'; 
 
 
 export const ContextProvider = ({ children }) => {
@@ -82,9 +83,9 @@ export const ContextProvider = ({ children }) => {
   const sendOtp = async (email, password) => {
     try {
       const response = await axiosClient.post('/send-otp', { email, password });  
-      alert(response.data.message);   
+      message.success(response.data.message);   
     } catch (error) {
-      alert(error.response?.data?.message || 'Failed to send OTP.');
+      message.error(error.response?.data?.message || 'Failed to send OTP.');
     }
   };
    
@@ -94,10 +95,10 @@ export const ContextProvider = ({ children }) => {
       const response = await axiosClient.post('/verify-otp', { email, otp });
       updateToken(response.data.token);
       await getUser();
-      alert(response.data.message);
+      message.success(response.data.message);
       navigate('/'); // Redirect to dashboard after successful verification
     } catch (error) {
-      alert(error.response?.data?.message || 'Failed to verify OTP.');
+      message.error(error.response?.data?.message || 'Failed to verify OTP.');
     }
   };
 

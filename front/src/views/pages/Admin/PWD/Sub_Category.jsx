@@ -125,17 +125,17 @@ const Sub_Category = () => {
 
   return (
     <div className='p-5'>
-        <div className='mt-1 w-full p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
+        <div className='mt-1 w-full p-5 bg-white border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700'>
             <div className='flex justify-between items-center p-2 mb-2 -mt-3       dark:bg-gray-800'>
                 <button onClick={() => navigate(-1)} className='shadow-xl -ml-[3rem] -mr-[43rem] border border-gray-200 bg-gray-600 flex items-center gap-2 p-2 text-gray-200 rounded-md font-bold text-xl transition-all hover:bg-gray-500 dark:text-gray-200 dark:hover:bg-gray-700'>
                     <ReplyAllIcon className='text-2xl  ' /> 
                 </button>
-                <h1 className="text-lg font-semibold text-gray-900 font-serif dark:text-gray-200">
-                    <span className="text-blue-600 font-serif underline">{sectorName || "Loading..."}'s</span> {" "} 
+                <h1 className="text-lg font-semibold text-gray-900 font-light dark:text-gray-200">
+                    <span className="text-blue-600 font-light underline">{sectorName || "Loading..."}'s</span> {" "} 
                     Sector 
                 </h1>
                 <div className="flex space-x-2 -mt-1"> 
-                    <button  type='button' onClick={() => handleOpenCreateCategory(true)} className="font-serif flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition">
+                    <button  type='button' onClick={() => handleOpenCreateCategory(true)} className="font-light flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg -md hover:bg-green-700 transition">
                         <FiPlus className="text-lg" />
                             Add  
                     </button>
@@ -145,8 +145,8 @@ const Sub_Category = () => {
             
             <div className='grid grid-cols-10 mt-6 mb-2 gap-4 '> 
                 <div className='col-span-7'> 
-                     <select name=""    className='h-9 font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                        <option value="" className='font-serif'>All</option> 
+                     <select name=""    className='h-9 font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                        <option value="" className='font-light'>All</option> 
                     </select>
                 </div>
                 <div className="relative col-span-3 flex items-end">
@@ -155,19 +155,19 @@ const Sub_Category = () => {
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg>
                     </div>
-                    <input type="search"   className="font-serif block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search name" />
+                    <input type="search"   className="font-light block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search name" />
                 </div>
             </div>
             
-            <div className='h-[24rem] mt-5'>
-                <div className='max-h-[22rem] overflow-y-auto rounded-lg shadow border border-gray-200 dark:border-gray-700 '>
+            <div className='h-[40rem] mt-5'>
+                <div className='max-h-[37rem] overflow-y-auto rounded-lg  border border-gray-200 dark:border-gray-700 '>
                     <table className='w-full'>
                         <thead className='text-gray-800 sticky -top-1 bg-gray-50 dark:bg-gray-200 border-b-2 border-gray-200 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-200'>
                             <tr>
-                                <th className='font-serif w-20 p-3 text-sm font-semibold tracking-wide text-left'>Sub Category Name</th>
-                                <th className='font-serif w-20 p-3 text-sm font-semibold tracking-wide text-left'>Age Range</th>
-                                <th className='font-serif w-20 p-3 text-sm font-semibold tracking-wide text-center'> Description</th>
-                                <th className='font-serif w-20 p-3 text-sm font-semibold tracking-wide text-center'> Actions</th> 
+                                <th className='font-light w-20 p-3 text-sm font-semibold whitespace-nowrap tracking-wide text-left'>Sub Category Name</th>
+                                <th className='font-light w-20 p-3 text-sm font-semibold tracking-wide text-left'>Age Range</th>
+                                <th className='font-light w-20 p-3 text-sm font-semibold tracking-wide text-center'> Description</th>
+                                <th className='font-light w-20 p-3 text-sm font-semibold tracking-wide text-center'> Actions</th> 
                             </tr>
                         </thead>
                         <tbody className='divide-y divide-gray-100 dark:divide-gray-700 dark:bg-gray-800'>
@@ -190,9 +190,9 @@ const Sub_Category = () => {
                             ) : subCategories.length > 0 ? (
                                 subCategories.map((subcat) => (
                                         <tr key={subcat.id} className='bg-white dark:bg-gray-800'>
-                                            <td className='font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200'>{subcat.sub_cat_name}</td>
-                                            <td className='font-serif p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200'>{subcat.age_range}</td>
-                                            <td className='font-serif p-3 text-sm text-gray-700 text-center whitespace-nowrap dark:text-gray-200'>{subcat.description}</td>
+                                            <td className='font-light p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200'>{subcat.sub_cat_name}</td>
+                                            <td className='font-light p-3 text-sm text-gray-700 whitespace-nowrap dark:text-gray-200'>{subcat.age_range}</td>
+                                            <td className='font-light p-3 text-sm text-gray-700 text-center whitespace-nowrap dark:text-gray-200'>{subcat.description}</td>
                                             <td className='p-3 text-sm text-gray-700 whitespace-nowrap flex justify-center space-x-2'> 
                                                 <button onClick={() => handleView(subcat.id, subcat.sub_cat_name)}
                                                 // onClick={() => handleView(subcat.id)} 
@@ -205,7 +205,7 @@ const Sub_Category = () => {
                                     ))
                             ) : (
                                <div>
-                                 <p className='font-serif text-center justify-center'>No sub category available for this sector.</p>
+                                 <p className='font-light text-center justify-center'>No sub category available for this sector.</p>
                                </div>
                             )}
                         </tbody>
@@ -215,22 +215,22 @@ const Sub_Category = () => {
             
             <Modal show={openCreateModal} size='xl' onClose={() => setOpenCreateModal(false)}>
                 <Modal.Header>
-                    <h1 className='font-serif'>Add Category</h1>
+                    <h1 className='font-light'>Add Category</h1>
                 </Modal.Header>
                 <Modal.Body>
                     <div>
                         <form onSubmit={handleCreateCategory}> 
                             <div>
-                                <label htmlFor="sub_cat_name" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Category Name</label>
-                                <input type="text" name="sub_cat_name" value={formData.sub_cat_name} onChange={handleInputChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
+                                <label htmlFor="sub_cat_name" className="font-light mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Category Name</label>
+                                <input type="text" name="sub_cat_name" value={formData.sub_cat_name} onChange={handleInputChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
                             </div>
                             <div>
-                                <label htmlFor="age_range" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Age Range</label>
-                                <input type="text" name="age_range" value={formData.age_range}  onChange={handleInputChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
+                                <label htmlFor="age_range" className="font-light mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Age Range</label>
+                                <input type="text" name="age_range" value={formData.age_range}  onChange={handleInputChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
                             </div>
                             <div>
-                                <label htmlFor="description" className="font-serif mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Description</label>
-                                <input type="text" name="description" value={formData.description}  onChange={handleInputChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
+                                <label htmlFor="description" className="font-light mt-2 block mb-1  text-md font-medium text-gray-900 dark:text-white">Description</label>
+                                <input type="text" name="description" value={formData.description}  onChange={handleInputChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
                             </div>
                             <div className=' mt-5 flex justify-end'>
                                 <Button type="submit" className=''>Create</Button>

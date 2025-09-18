@@ -100,18 +100,18 @@ const Brgy_Sectors = () => {
 
     return ( 
         <div className="p-5">
-            <div className="mt-1 w-full p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="mt-1 w-full p-5 bg-white border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex justify-between items-center p-2 mb-2 -mt-3 dark:bg-gray-800">
-                    <button onClick={() => navigate(-1)} className='shadow-xl -ml-[3rem] -mr-[43rem] border border-gray-200 bg-gray-600 flex items-center gap-2 p-2 text-gray-200 rounded-md font-bold text-xl transition-all hover:bg-gray-500 dark:text-gray-200 dark:hover:bg-gray-700'>
+                    <button onClick={() => navigate(-1)} className='-xl -ml-[3rem] -mr-[43rem] border border-gray-200 bg-gray-600 flex items-center gap-2 p-2 text-gray-200 rounded-md font-bold text-xl transition-all hover:bg-gray-500 dark:text-gray-200 dark:hover:bg-gray-700'>
                         <ReplyAllIcon className='text-2xl  ' /> 
                     </button>
-                    <h1 className="text-lg font-semibold text-gray-900 font-serif dark:text-gray-200">
+                    <h1 className="text-lg font-semibold text-gray-900 font-light dark:text-gray-200">
                          Sectors List in{" "}
-                        <span className="text-blue-600 font-serif underline">{yearDate || "Loading..."}</span>
+                        <span className="text-blue-600 font-light underline">{yearDate || "Loading..."}</span>
                     </h1>
 
                     <div className="flex space-x-2 -mt-1"> 
-                        <button onClick={() => setOpenCreateModal(true)} type='button' className="font-serif flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition">
+                        <button onClick={() => setOpenCreateModal(true)} type='button' className="font-light flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg -md hover:bg-green-700 transition">
                             <FiPlus className="text-lg" />
                             Add  
                         </button>
@@ -139,7 +139,7 @@ const Brgy_Sectors = () => {
                         ) : sectors.length > 0 ? (
                             <ul className="mt-4 grid grid-cols-2 gap-4">
                                 {sectors.map((sector) => (
-                                    <li key={sector.id} className="font-serif flex justify-between p-3 bg-gray-200 rounded-md">
+                                    <li key={sector.id} className="font-light flex justify-between p-3 bg-gray-200 rounded-md">
                                         {sector.sector_name}
                                         <button
                                             onClick={() => handleView(sector.id)}
@@ -159,20 +159,20 @@ const Brgy_Sectors = () => {
 
                 <Modal show={openCreateModal} size='sm' onClose={() => setOpenCreateModal(false)} >
                     <Modal.Header>
-                        <h1 className="font-serif">Create Sector</h1>
+                        <h1 className="font-light">Create Sector</h1>
                     </Modal.Header>
                     
                     <Modal.Body>
                             <form  onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-1 gap-5">
                                     <div>
-                                        <label htmlFor="sector_name" className="font-serif mt-2 block text-md font-medium text-gray-900 dark:text-white">Sector Name</label>
-                                        <input type="text" name="sector_name" value={formData.sector_name} onChange={handleInputChange} className="font-serif bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
+                                        <label htmlFor="sector_name" className="font-light mt-2 block text-md font-medium text-gray-900 dark:text-white">Sector Name</label>
+                                        <input type="text" name="sector_name" value={formData.sector_name} onChange={handleInputChange} className="font-light bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" ......"    />
                                     </div>
                                 </div>
                                 
                                 <div className='flex justify-center'>
-                                <button type="submit" disabled={loading}  className={`mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition font-serif ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
+                                <button type="submit" disabled={loading}  className={`mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition font-light ${loading ? 'cursor-not-allowed opacity-50' : ''}`}>
                             
                                     {loading ? (
                                     <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

@@ -29,6 +29,11 @@ import CICL_Graph from "./views/pages/Admin/Reports/CHILDREN_CASE/CICL/CICL_Grap
 import Index from "./views/pages/Admin/Reports/CHILDREN_CASE/Index"; 
 import All from "./views/pages/Admin/YEAR/SECTOR/SECTOR_CATEGORY/CHILDREN_CASES/All";
 import MergedGraph from './views/pages/Admin/Reports/CHILDREN_CASE/CICL/MergedGraph'
+import CAR_Info from "./views/pages/Admin/YEAR/SECTOR/SECTOR_CATEGORY/CHILDREN_CASES/CAR_Info";
+import RC_Info from "./views/pages/Admin/YEAR/SECTOR/SECTOR_CATEGORY/CHILDREN_CASES/RC_Info";
+import AC_Info from "./views/pages/Admin/YEAR/SECTOR/SECTOR_CATEGORY/CHILDREN_CASES/AC_Info";
+import Case_Graph from "./views/pages/Admin/Reports/CHILDREN_CASE/CICL/Case_Graph";
+import Notes_Info from "./views/pages/Admin/Notes/Notes_Info";
 function App() {
   const { user, token } = useStateContext();
 
@@ -54,9 +59,11 @@ function App() {
             {user.user_type === 'admin' && (
               <> 
                 <Route path='/admin/profile' element={<Profile_Info />}/>   
+                <Route path='/admin/notes' element={<Notes_Info />}/>   
                 <Route path='/admin/dashboard' element={<AdminDashboard />}/>    
                 <Route path='/admin/records' element={<Record_List />}/>       
-                <Route path='/admin/cicl/report' element={<Index />}/>        
+                <Route path='/admin/cicl/report' element={<MergedGraph />}/>       
+                <Route path='/admin/cicl/casegraph' element={<Case_Graph />}/>       
                 <Route path='/admin/hospital_bill_info' element={<Hospital_Bill_Info />}/>  
                 <Route path='/admin/yearlist' element={<Year_CDC />}/>     
                 <Route path='/admin/report/pwd' element={<PWD_Total_List />}/>     
@@ -68,7 +75,10 @@ function App() {
                 <Route path='/brgy-sectors/sub-category/opol-eccd/:SubCatId' element={<Opol_ECCD />}/> 
                 {/* <Route path='/brgy-sectors/sub-category/cicl/:SubCatId' element={<CICL_Info />}/>     */}
                 <Route path='/brgy-sectors/sub-category/all/:SubCatId' element={<All />}/>    
-                <Route path='/brgy-sectors/sub-category/cicl/:SubCatId' element={<CICL_Info />}/>    
+                <Route path='/brgy-sectors/sub-category/cicl/:SubCatId' element={<CICL_Info />}/>   
+                <Route path='/brgy-sectors/sub-category/car/:SubCatId' element={<CAR_Info />}/>  
+                <Route path='/brgy-sectors/sub-category/rc/:SubCatId' element={<RC_Info />}/>  
+                <Route path='/brgy-sectors/sub-category/ac/:SubCatId' element={<AC_Info />}/>  
 
 
 
